@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
 import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
+import { AppLayoutComponent } from './app-layout/app-layout.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-reg
     LoginComponent,
     RegisterComponent,
     CompanyRegisterComponent,
-    JobSeekerRegisterComponent
+    JobSeekerRegisterComponent,
+    AppLayoutComponent
   ],
   imports: [
     BrowserModule,

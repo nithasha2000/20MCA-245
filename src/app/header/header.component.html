@@ -1,46 +1,38 @@
 <head>
-<link rel="stylesheet" href="/assets/styles/main.css">
-<link rel="stylesheet" href="/assets/styles/bootstrap.css">
-<link rel="stylesheet" href="/assets/styles/bootstrap.min.css.map">
+  <link rel="stylesheet" href="/assets/styles/main.css">
+  <link rel="stylesheet" href="/assets/styles/bootstrap.css">
+  <link rel="stylesheet" href="/assets/styles/bootstrap.min.css.map">
 </head>
 <header class="tf-header" data-parallax="scroll" style="background-image: url('assets/images/1-hero-image.jpg');">
-      <nav class="navbar py-5 navbar-dark">
-        <div class="container">
-          <h1><a class="navbar-brand" href="/">Profi$kill</a></h1>
-          <div id="navbar">
-            <ul class="nav navbar-nav mx-auto">
-              <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/login" (click)="handleLoginClick()">Login</a></li>
-              <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle-no-jump" href="#" id="registerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-hasexpanded="false">
-              Register </a>
-              <div class="dropdown-menu" aria-labelledby="registerDropdown">
-              <a class="dropdown-item" routerLink="/company-register"> Register For Company </a>
-              <a class="dropdown-item" routerLink="/job-seeker-register"> Register For job Seeker </a>
-              </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7 col-sm-12">
-            <h2>Startup Landing Page <br> for your Product &<br> Services</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-7 col-sm-12">
-            <p class="mt-4">Perfect landing page to showcase your product or service. Built with Bootstrap.</p>
-            <p class="mt-5"><strong class="text-uppercase">Try for Free</strong><span> - Just leave your e-mail below and we will get in touch</span></p>
-          </div>
-        </div>
-        <div class="row no-gutters">
-          <div class="col-md-4 col-sm-12 tf-hh-col">
-            <input class="mt-1 form-control" type="email" placeholder="*Your Email Address">
-          </div>
-          <div class="col-md-3 col-sm-12"><a class="tf-header-heading-btn a btn btn-primary btn-block mt-1" href="#">Request Free Trial</a></div>
-        </div>
+  <nav class="navbar py-5 navbar-dark">
+    <div class="container">
+      <h1><a class="navbar-brand" href="/">Profi$kill</a></h1>
+      <div id="navbar">
+        <ul class="nav navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/','login']" (click)="handleLoginClick()">Login</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/','login']" (click)="handleLoginClick()">Register</a>
+          </li>
+        </ul>
       </div>
-    </header>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-12">
+        <h2>Startup Landing Page <br> for your Product &<br> Services</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 col-sm-12">
+        <p class="mt-4">Perfect landing page to showcase your product or service. Built with Bootstrap.</p>
+        <p class="mt-5"><strong class="text-uppercase">Try for Free</strong></p>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-md-3 col-sm-12"><a class="tf-header-heading-btn a btn btn-primary btn-block mt-1" href="#">Register NOW!!</a></div>
+    </div>
+  </div>
+</header>
+<app-work></app-work>
