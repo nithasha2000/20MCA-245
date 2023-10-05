@@ -14,6 +14,14 @@ handleLoginClick()
 {
   this.router.navigate(['/login']);
 }
+handleCompanyRegisterClick()
+{
+  this.router.navigate(['/register-company']);
+}
+handleJobSeekerRegisterClick()
+{
+  this.router.navigate(['/register-job-seeker']);
+}
 
 
 }

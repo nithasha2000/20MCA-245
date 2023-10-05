@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,10 +9,10 @@ import { WorkComponent } from './work/work.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CompanyRegisterComponent } from './company-register/company-register.component';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
-
+import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-seeker.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +21,14 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    CompanyRegisterComponent,
-    JobSeekerRegisterComponent,
+    RegisterCompanyComponent,
+    RegisterJobSeekerComponent,
     AppLayoutComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
