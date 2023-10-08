@@ -6,24 +6,44 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-company.component.css']
 })
 export class RegisterCompanyComponent {
-companyName: string = '';
+page = 1; // Current page
+  formData: any = {}; // Data object to store form values
+
+  nextPage() {
+    this.page++;
+  }
+
+  previousPage() {
+    this.page--;
+  }
+
+  submitForm() {
+    // Handle form submission here
+  }
+  companyName: string = '';
   companyType: string = '';
-  address: string = '';
-  phone: string = '';
-  email: string = '';
-  profile: string = '';
-  website: string = '';
-  licenseNo: string = '';
-  businessLicense: string = '';
-  companyUsername: string = '';
-  companyPassword: string = '';
+  streetAddressLine1!: string;
+  streetAddressLine2!: string;
+  city!: string;
+  state!: string;
+  phone!: string;
+  email!: string;
+  profile!: string;
+  website!: string;
+  licenseNo!: string;
+  businessLicense!: File; // This should be of type File if you plan to upload a file
+  companyUsername!: string;
+  companyPassword!: string;
 
   onSubmit() {
     // Implement company registration logic here
     console.log('Company Form submitted');
     console.log('Company Name:', this.companyName);
     console.log('Company Type:', this.companyType);
-    console.log('Address:', this.address);
+    console.log('Street Address Line 1:', this.streetAddressLine1);
+    console.log('Street Address Line 2:', this.streetAddressLine2);
+    console.log('City:', this.city);
+    console.log('State:', this.state);
     console.log('Phone Number:', this.phone);
     console.log('Email:', this.email);
     console.log('Company Profile:', this.profile);

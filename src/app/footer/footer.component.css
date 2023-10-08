@@ -1,0 +1,39 @@
+/* CSS to style the main layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  /* Add any other styles you need for your content area */
+}
+
+/* Style the footer component */
+app-footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+ 
+.tf-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40; /* Adjust the background color as needed */
+  color: #fff; /* Adjust the text color as needed */
+  padding: 15px 0;
+}
+/* In your main component's CSS */
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Adjust margins or padding of your main content area as needed */
+.main-content {
+  padding-bottom: 60px; /* Adjust based on your footer's height */
+}

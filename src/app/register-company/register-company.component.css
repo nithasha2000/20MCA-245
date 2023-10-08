@@ -1,12 +1,40 @@
+/* CSS to style the multi-page form */
+
+/* Center the form vertically on the page */
 .registration-container {
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 20px;
   background-color: #f7f7f7;
   border: 1px solid #e1e1e1;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the form header */
+.registration-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the section titles */
+.registration-container h3 {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+/* Style form groups and labels */
+.form-group {
+  margin-bottom: 15px;
 }
 
 label {
@@ -15,10 +43,12 @@ label {
   display: block;
 }
 
+/* Style form inputs */
 input[type="text"],
 input[type="email"],
 input[type="password"],
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -27,7 +57,9 @@ textarea {
   font-size: 16px;
 }
 
-button[type="submit"] {
+/* Style buttons */
+button[type="submit"],
+button {
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
@@ -37,8 +69,52 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+/* Style the previous button to be on the left */
+.previous-button {
+  float: left;
 }
 
+/* Style the next button to be on the right */
+.next-button {
+  float: right;
+}
 
+button[type="submit"]:hover,
+button:hover {
+  background-color: #0056b3;
+}
+/* Add this CSS to your component's CSS file or a global stylesheet */
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+}
+
+/* Styles for the spinner itself */
+.lds-spinner {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-spinner div {
+  transform-origin: 32px 32px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+
+@keyframes lds-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

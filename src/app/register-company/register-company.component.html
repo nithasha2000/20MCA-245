@@ -1,59 +1,118 @@
 <head>
-<style>
-  .registration-container {
-    max-width: 800px; /* You can adjust the value to your desired width */
-    margin: 0 auto; /* Center the container horizontally */
+  <style>
+    .registration-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  /* Add this style to change the submit button color to green */
+  .btn-primary[type="submit"] {
+    background-color: green;
+    color: white; 
+    float: right;
   }
-</style>
+
+  </style>
 </head>
 <div class="registration-container">
   <h2>Recruiting Company Registration</h2>
   <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="companyName">Company Name:</label>
-      <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+    <!-- Page 1: Basic Information -->
+    <div class="form-section" *ngIf="page === 1">
+      <!-- Basic Information form fields -->
+      <h3> Basic Information </h3>
+      <div class="form-group">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+      </div>
+      <div class="form-group">
+        <label for="companyType">Company Type:</label>
+        <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
+          <option value="Type 1">Type 1</option>
+          <option value="Type 2">Type 2</option>
+          <option value="Type 3">Type 3</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
     </div>
-    <div class="form-group">
-      <label for="companyType">Company Type:</label>
-      <input type="text" id="companyType" name="companyType" [(ngModel)]="companyType" required>
+
+    <!-- Page 2: Contact Information -->
+    <div class="form-section" *ngIf="page === 2">
+      <!-- Contact Information form fields -->
+      <h3> Contact Information </h3>
+      <div class="form-group">
+        <label for="streetAddressLine1">Street Address Line 1:</label>
+        <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1" required>
+      </div>
+      <div class="form-group">
+        <label for="streetAddressLine2">Street Address Line 2:</label>
+        <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" [(ngModel)]="city" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" [(ngModel)]="state" required>
+      </div>
+      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
     </div>
-    <div class="form-group">
-      <label for="address">Address:</label>
-      <input type="text" id="address" name="address" [(ngModel)]="address" required>
+
+    <!-- Page 3: Additional Information -->
+    <div class="form-section" *ngIf="page === 3">
+     <h3> Contact Information </h3>
+       <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
     </div>
-    <div class="form-group">
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+
+    <!-- Page 4: Summary and Submission -->
+    <div class="form-section" *ngIf="page === 4">
+      <h3> Additional Information </h3>
+       <div class="form-group">
+        <label for="profile">Profile:</label>
+        <textarea id="profile" name="profile" [(ngModel)]="profile" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="website">Website URL:</label>
+        <input type="text" id="website" name="website" [(ngModel)]="website" required>
+      </div>
+      <div class="form-group">
+        <label for="website">License No:</label>
+        <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
+      </div>
+      <div class="form-group">
+        <label for="businessLicense">Business License:</label>
+        <input type="file" id="businessLicense" name="businessLicense" [(ngModel)]="businessLicense" required>
+      </div>
+      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
     </div>
-    <div class="form-group">
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="email" required>
+    <div class="form-section" *ngIf="page === 5">
+      <h3> Additional Information </h3>
+       <div class="form-group">
+        <label for="companyUsername">Username:</label>
+        <input type="text" id="companyUsername" name="companyUsername" [(ngModel)]="companyUsername" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Password:</label>
+        <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
+      </div>
+      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+      <button type="submit" class="btn btn-primary button">Register</button>
     </div>
-    <div class="form-group">
-      <label for="profile">Company Profile:</label>
-      <textarea id="profile" name="profile" [(ngModel)]="profile" required></textarea>
-    </div>
-    <div class="form-group">
-      <label for="website">Company Website:</label>
-      <input type="url" id="website" name="website" [(ngModel)]="website" required>
-    </div>
-    <div class="form-group">
-      <label for="licenseNo">License Number:</label>
-      <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
-    </div>
-    <div class="form-group">
-      <label for="businessLicense">Business License:</label>
-      <input type="text" id="businessLicense" name="businessLicense" [(ngModel)]="businessLicense" required>
-    </div>
-    <div class="form-group">
-      <label for="companyUsername">Username:</label>
-      <input type="text" id="companyUsername" name="companyUsername" [(ngModel)]="companyUsername" required>
-    </div>
-    <div class="form-group">
-      <label for="companyPassword">Password:</label>
-      <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
   </form>
+  <div class="btn-container">
+    <!-- You can add a progress indicator here if needed -->
+  </div>
 </div>
 
