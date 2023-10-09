@@ -24,13 +24,57 @@
         <label for="companyName">Company Name:</label>
         <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
       </div>
+
+      <!--<script>
+        function validateCompanyName(input) {
+        const companyName = input.value.trim();
+        const minLength = 3;
+        const maxLength = 50; // Adjust as needed
+        const allowedCharacters = /^[a-zA-Z0-9\s\-]+$/; // Allow letters, numbers, spaces, and hyphens
+
+        const errorElement = document.getElementById('companyNameError');
+        errorElement.textContent = ''; // Clear previous error messages
+
+        if (companyName.length < minLength) {
+          errorElement.textContent = `Company name must be at least ${minLength} characters.`;
+        } else if (companyName.length > maxLength) {
+          errorElement.textContent = `Company name must not exceed ${maxLength} characters.`;
+        } else if (!allowedCharacters.test(companyName)) {
+          errorElement.textContent = 'Invalid characters in the company name.';
+        } else if (/\s{2,}/.test(companyName)) {
+          errorElement.textContent = 'Consecutive spaces are not allowed.';
+        }
+     }
+    </script> -->
+
       <div class="form-group">
         <label for="companyType">Company Type:</label>
         <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
-          <option value="Type 1">Type 1</option>
-          <option value="Type 2">Type 2</option>
-          <option value="Type 3">Type 3</option>
-          <!-- Add more options as needed -->
+          <option value="" disabled selected>Select an option</option>
+          <option value="Public Limited Company ">Public Limited Company</option>
+          <option value="Private Limited Company">Private Limited Company</option>
+          <option value="Limited Liability Company">Limited Liability Company</option>
+          <option value="Sole Proprietorship">Sole Proprietorship</option>
+          <option value="Partnership">Partnership</option>
+          <option value="Corporation">Corporation</option>
+          <option value="Nonprofit Organization">Nonprofit Organization</option>
+          <option value="Cooperative">Cooperative</option>
+          <option value="Joint Venture">Joint Venture</option>
+          <option value="Startup">Startup</option>
+          <option value="Franchise">Franchise</option>
+          <option value="Holding Company">Holding Company</option>
+          <option value="Subsidiary">Subsidiary</option>
+          <option value="Government-Owned Enterprise">Government-Owned Enterprise</option>
+          <option value="Social Enterprise">Social Enterprise</option>
+          <option value="Family-Owned Business">Family-Owned Business</option>
+          <option value="Professional Corporation">Professional Corporation</option>
+          <option value="Manufacturing Company">Manufacturing Company</option>
+          <option value="Retail Company">Retail Company</option>
+          <option value="Technology Company">Technology Company</option>
+          <option value="Financial Institution">Financial Institution</option>
+          <option value="Real Estate Company">Real Estate Company</option>
+          <option value="Consulting Firm">Consulting Firm</option>
+          <option value="Educational Institution">Educational Institution</option>
         </select>
       </div>
       <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
@@ -112,7 +156,6 @@
     </div>
   </form>
   <div class="btn-container">
-    <!-- You can add a progress indicator here if needed -->
   </div>
 </div>
 
