@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-company',
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css']
 })
-export class RegisterCompanyComponent {
+export class RegisterCompanyComponent implements OnInit {
+
+  constructor(private http:HttpClient)
+  {
+    obj:String;
+  }
+    ngOnInit(): void
+    {
+     
+    }
+  
 page = 1; // Current page
   formData: any = {}; // Data object to store form values
 

@@ -13,12 +13,13 @@ import { RegisterCompanyComponent } from './register-company/register-company.co
 import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-seeker.component';
+import { HttpClientModule } from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    WorkComponent,
     FooterComponent,
+    WorkComponent,
     LoginComponent,
     RegisterComponent,
     RegisterCompanyComponent,
@@ -28,7 +29,8 @@ import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-s
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

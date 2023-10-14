@@ -4,27 +4,31 @@
     <img src="assets/images/login-image.jpg" alt="Login Image">
   </div>
   <div class="right-half">
-    <!-- Right Half with Login Form -->
-    <div class="login-form">
-      <h2>Welcome back!</h2>
-      <p>Login to continue</p>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Username">
+    <form>
+      <!-- Right Half with Login Form -->
+      <div class="login-form">
+        <h2>Welcome back!</h2>
+        <p>Login to continue</p>
+        <div class="form-group">
+          <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control"
+            placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control"
+            placeholder="Password">
+        </div>
+        <button (click)="login()" class="btn btn-primary btn-block">Login</button>
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
+        <div class="social-login">
+          <p>Sign in with:</p>
+          <a href="#" class="google-button">Google</a>
+        </div>
+        <div class="register-link">
+          <p>New here? <a href="#">Click here to register</a></p>
+        </div>
       </div>
-      <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password">
-      </div>
-      <button class="btn btn-primary btn-block">Login</button>
-      <div class="forgot-password">
-        <a href="#">Forgot Password?</a>
-      </div>
-      <div class="social-login">
-        <p>Sign in with:</p>
-        <a href="#" class="google-button">Google</a>
-      </div>
-      <div class="register-link">
-        <p>New here? <a href="#">Click here to register</a></p>
-      </div>
-    </div>
+    </form>
   </div>
 </div>

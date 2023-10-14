@@ -4,158 +4,161 @@
       max-width: 800px;
       margin: 0 auto;
     }
-  /* Add this style to change the submit button color to green */
-  .btn-primary[type="submit"] {
-    background-color: green;
-    color: white; 
-    float: right;
-  }
 
+    /* Add this style to change the submit button color to green */
+    .btn-primary[type="submit"] {
+      background-color: green;
+      color: white;
+      float: right;
+    }
   </style>
 </head>
-<div class="registration-container">
-  <h2>Recruiting Company Registration</h2>
-  <form (ngSubmit)="onSubmit()">
-    <!-- Page 1: Basic Information -->
-    <div class="form-section" *ngIf="page === 1">
-      <!-- Basic Information form fields -->
-      <h3> Basic Information </h3>
-      <div class="form-group">
-        <label for="companyName">Company Name:</label>
-        <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+<div class="container">
+  <div class="my-5 registration-container">
+    <h2>Recruiting Company Registration</h2>
+    <form (ngSubmit)="onSubmit()">
+      <!-- Page 1: Basic Information -->
+      <div class="form-section" *ngIf="page === 1">
+        <!-- Basic Information form fields -->
+        <h3> Basic Information </h3>
+        <div class="form-group">
+          <label for="companyName">Company Name:</label>
+          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+        </div>
+
+        <!--<script>
+          function validateCompanyName(input) {
+          const companyName = input.value.trim();
+          const minLength = 3;
+          const maxLength = 50; // Adjust as needed
+          const allowedCharacters = /^[a-zA-Z0-9\s\-]+$/; // Allow letters, numbers, spaces, and hyphens
+  
+          const errorElement = document.getElementById('companyNameError');
+          errorElement.textContent = ''; // Clear previous error messages
+  
+          if (companyName.length < minLength) {
+            errorElement.textContent = `Company name must be at least ${minLength} characters.`;
+          } else if (companyName.length > maxLength) {
+            errorElement.textContent = `Company name must not exceed ${maxLength} characters.`;
+          } else if (!allowedCharacters.test(companyName)) {
+            errorElement.textContent = 'Invalid characters in the company name.';
+          } else if (/\s{2,}/.test(companyName)) {
+            errorElement.textContent = 'Consecutive spaces are not allowed.';
+          }
+       }
+      </script> -->
+
+        <div class="form-group">
+          <label for="companyType">Company Type:</label>
+          <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="Public Limited Company ">Public Limited Company</option>
+            <option value="Private Limited Company">Private Limited Company</option>
+            <option value="Limited Liability Company">Limited Liability Company</option>
+            <option value="Sole Proprietorship">Sole Proprietorship</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Corporation">Corporation</option>
+            <option value="Nonprofit Organization">Nonprofit Organization</option>
+            <option value="Cooperative">Cooperative</option>
+            <option value="Joint Venture">Joint Venture</option>
+            <option value="Startup">Startup</option>
+            <option value="Franchise">Franchise</option>
+            <option value="Holding Company">Holding Company</option>
+            <option value="Subsidiary">Subsidiary</option>
+            <option value="Government-Owned Enterprise">Government-Owned Enterprise</option>
+            <option value="Social Enterprise">Social Enterprise</option>
+            <option value="Family-Owned Business">Family-Owned Business</option>
+            <option value="Professional Corporation">Professional Corporation</option>
+            <option value="Manufacturing Company">Manufacturing Company</option>
+            <option value="Retail Company">Retail Company</option>
+            <option value="Technology Company">Technology Company</option>
+            <option value="Financial Institution">Financial Institution</option>
+            <option value="Real Estate Company">Real Estate Company</option>
+            <option value="Consulting Firm">Consulting Firm</option>
+            <option value="Educational Institution">Educational Institution</option>
+          </select>
+        </div>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
 
-      <!--<script>
-        function validateCompanyName(input) {
-        const companyName = input.value.trim();
-        const minLength = 3;
-        const maxLength = 50; // Adjust as needed
-        const allowedCharacters = /^[a-zA-Z0-9\s\-]+$/; // Allow letters, numbers, spaces, and hyphens
+      <!-- Page 2: Contact Information -->
+      <!--<div class="form-section" *ngIf="page === 2">
+         Contact Information form fields 
+        <h3> Contact Information </h3>
+        <div class="form-group">
+          <label for="streetAddressLine1">Street Address Line 1:</label>
+          <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="streetAddressLine2">Street Address Line 2:</label>
+          <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
+        </div>
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" [(ngModel)]="city" required>
+        </div>
+        <div class="form-group">
+          <label for="state">State:</label>
+          <input type="text" id="state" name="state" [(ngModel)]="state" required>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>-->
 
-        const errorElement = document.getElementById('companyNameError');
-        errorElement.textContent = ''; // Clear previous error messages
-
-        if (companyName.length < minLength) {
-          errorElement.textContent = `Company name must be at least ${minLength} characters.`;
-        } else if (companyName.length > maxLength) {
-          errorElement.textContent = `Company name must not exceed ${maxLength} characters.`;
-        } else if (!allowedCharacters.test(companyName)) {
-          errorElement.textContent = 'Invalid characters in the company name.';
-        } else if (/\s{2,}/.test(companyName)) {
-          errorElement.textContent = 'Consecutive spaces are not allowed.';
-        }
-     }
-    </script> -->
-
-      <div class="form-group">
-        <label for="companyType">Company Type:</label>
-        <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="Public Limited Company ">Public Limited Company</option>
-          <option value="Private Limited Company">Private Limited Company</option>
-          <option value="Limited Liability Company">Limited Liability Company</option>
-          <option value="Sole Proprietorship">Sole Proprietorship</option>
-          <option value="Partnership">Partnership</option>
-          <option value="Corporation">Corporation</option>
-          <option value="Nonprofit Organization">Nonprofit Organization</option>
-          <option value="Cooperative">Cooperative</option>
-          <option value="Joint Venture">Joint Venture</option>
-          <option value="Startup">Startup</option>
-          <option value="Franchise">Franchise</option>
-          <option value="Holding Company">Holding Company</option>
-          <option value="Subsidiary">Subsidiary</option>
-          <option value="Government-Owned Enterprise">Government-Owned Enterprise</option>
-          <option value="Social Enterprise">Social Enterprise</option>
-          <option value="Family-Owned Business">Family-Owned Business</option>
-          <option value="Professional Corporation">Professional Corporation</option>
-          <option value="Manufacturing Company">Manufacturing Company</option>
-          <option value="Retail Company">Retail Company</option>
-          <option value="Technology Company">Technology Company</option>
-          <option value="Financial Institution">Financial Institution</option>
-          <option value="Real Estate Company">Real Estate Company</option>
-          <option value="Consulting Firm">Consulting Firm</option>
-          <option value="Educational Institution">Educational Institution</option>
-        </select>
+      <!-- Page 3: Additional Information -->
+      <div class="form-section" *ngIf="page === 2">
+        <h3> Contact Information </h3>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
-      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+
+      <!-- Page 4: Summary and Submission -->
+      <div class="form-section" *ngIf="page === 3">
+        <h3> Additional Information </h3>
+        <div class="form-group">
+          <label for="profile">Profile:</label>
+          <textarea id="profile" name="profile" [(ngModel)]="profile" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="website">Website URL:</label>
+          <input type="text" id="website" name="website" [(ngModel)]="website" required>
+        </div>
+        <div class="form-group">
+          <label for="website">License No:</label>
+          <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
+        </div>
+        <!--<div class="form-group">
+          <label for="businessLicense">Business License:</label>
+          <input type="file" id="businessLicense" name="businessLicense" [(ngModel)]="businessLicense" required>
+        </div>-->
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>
+      <div class="form-section" *ngIf="page === 4">
+        <h3> Additional Information </h3>
+        <div class="form-group">
+          <label for="companyUsername">Username:</label>
+          <input type="text" id="companyUsername" name="companyUsername" [(ngModel)]="companyUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Password:</label>
+          <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button type="submit" class="btn btn-primary button">Register</button>
+      </div>
+    </form>
+    <div class="btn-container">
     </div>
-
-    <!-- Page 2: Contact Information -->
-    <div class="form-section" *ngIf="page === 2">
-      <!-- Contact Information form fields -->
-      <h3> Contact Information </h3>
-      <div class="form-group">
-        <label for="streetAddressLine1">Street Address Line 1:</label>
-        <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1" required>
-      </div>
-      <div class="form-group">
-        <label for="streetAddressLine2">Street Address Line 2:</label>
-        <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
-      </div>
-      <div class="form-group">
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" [(ngModel)]="city" required>
-      </div>
-      <div class="form-group">
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" [(ngModel)]="state" required>
-      </div>
-      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-    </div>
-
-    <!-- Page 3: Additional Information -->
-    <div class="form-section" *ngIf="page === 3">
-     <h3> Contact Information </h3>
-       <div class="form-group">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="email" required>
-      </div>
-      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-    </div>
-
-    <!-- Page 4: Summary and Submission -->
-    <div class="form-section" *ngIf="page === 4">
-      <h3> Additional Information </h3>
-       <div class="form-group">
-        <label for="profile">Profile:</label>
-        <textarea id="profile" name="profile" [(ngModel)]="profile" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="website">Website URL:</label>
-        <input type="text" id="website" name="website" [(ngModel)]="website" required>
-      </div>
-      <div class="form-group">
-        <label for="website">License No:</label>
-        <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
-      </div>
-      <div class="form-group">
-        <label for="businessLicense">Business License:</label>
-        <input type="file" id="businessLicense" name="businessLicense" [(ngModel)]="businessLicense" required>
-      </div>
-      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-      <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-    </div>
-    <div class="form-section" *ngIf="page === 5">
-      <h3> Additional Information </h3>
-       <div class="form-group">
-        <label for="companyUsername">Username:</label>
-        <input type="text" id="companyUsername" name="companyUsername" [(ngModel)]="companyUsername" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Password:</label>
-        <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
-      </div>
-      <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-      <button type="submit" class="btn btn-primary button">Register</button>
-    </div>
-  </form>
-  <div class="btn-container">
   </div>
-</div>
 
+</div>

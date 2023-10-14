@@ -9,15 +9,21 @@
       <h1><a class="navbar-brand" href="/">Profi$kill</a></h1>
       <div id="navbar">
         <ul class="nav navbar-nav mx-auto">
-          <li class="nav-item"><a class="nav-link" [routerLink]="['/','login']" (click)="handleLoginClick()">Login</a></li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle-no-jump" href="#" id="registerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-hasexpanded="false">
-            Register</a>
-          <div class="dropdown-menu" aria-labelledby="registerDropdown">
-            <a class="dropdown-item" [routerLink]="['/','register-company']" (click)="handleCompanyRegisterClick()">Register for Recruiting Company</a>
-    <a class="dropdown-item" [routerLink]="['/','register-job-seeker']" (click)="handleJobSeekerRegisterClick()">Register for Job Seeker</a>
-          </div>
-        </li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/','login']" (click)="handleLoginClick()">Login</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/','register-company']" (click)="handleCompanyRegisterClick()">Register</a>
+          </li>
+          <!--<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle-no-jump" href="#" id="registerDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-hasexpanded="false">
+              Register</a>
+            <div class="dropdown-menu" aria-labelledby="registerDropdown">
+              <a class="dropdown-item" [routerLink]="['/','register-company']"
+                (click)="handleCompanyRegisterClick()">Register for Recruiting Company</a>
+              <a class="dropdown-item" [routerLink]="['/','register-job-seeker']"
+                (click)="handleJobSeekerRegisterClick()">Register for Job Seeker</a>
+            </div>
+          </li>-->
         </ul>
       </div>
     </div>
@@ -25,7 +31,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7 col-sm-12">
-        <h2>Startup Landing Page <br> for your Product &<br> Services</h2>
+        <h2>Unlocking Possibilities <br> One click at a time</h2>
       </div>
     </div>
     <div class="row">
@@ -35,7 +41,8 @@
       </div>
     </div>
     <div class="row no-gutters">
-      <div class="col-md-3 col-sm-12"><a class="tf-header-heading-btn a btn btn-primary btn-block mt-1" href="#">Register NOW!!</a></div>
+      <div class="col-md-3 col-sm-12"><a class="tf-header-heading-btn a btn btn-primary btn-block mt-1"
+          [routerLink]="['/','register-company']" (click)="handleCompanyRegisterClick()">Register NOW!!</a></div>
     </div>
   </div>
 </header>
