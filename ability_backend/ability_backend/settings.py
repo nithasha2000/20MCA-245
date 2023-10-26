@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'base'
+    'base.apps.BaseConfig'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'ability_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+import dj_database_url
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -84,7 +84,7 @@ DATABASES = {
     }
 }
 
-
+DATABASES['default'] = dj_database_url.parse('mysql://root@localhost/ability')
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
