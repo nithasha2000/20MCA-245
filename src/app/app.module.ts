@@ -10,8 +10,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
-import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
-import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-seeker.component';
 import { HttpClientModule } from '@angular/common/http'
 @NgModule({
@@ -23,8 +21,7 @@ import { HttpClientModule } from '@angular/common/http'
     LoginComponent,
     RegisterComponent,
     RegisterCompanyComponent,
-    RegisterJobSeekerComponent,
-    AppLayoutComponent
+    RegisterJobSeekerComponent
   ],
   imports: [
     BrowserModule,
