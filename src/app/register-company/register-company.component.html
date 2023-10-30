@@ -146,12 +146,12 @@
       <div class="form-section" *ngIf="page === 4">
         <h3> Additional Information </h3>
         <div class="form-group">
-          <label for="companyUsername">Username:</label>
-          <input type="text" id="companyUsername" name="companyUsername" [(ngModel)]="companyUsername" required>
+          <label for="password">Password:</label>
+          <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
         </div>
         <div class="form-group">
-          <label for="email">Password:</label>
-          <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
+          <label for="password">Confirm Password:</label>
+          <input type="password" id="confirm_companyPassword" name="confirm_companyPassword" [(ngModel)]="confirm_companyPassword" required>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button type="submit" class="btn btn-primary button">Register</button>

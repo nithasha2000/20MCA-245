@@ -44,7 +44,7 @@ page = 1; // Current page
   website!: string;
   licenseNo!: string;
   businessLicense!: File; // This should be of type File if you plan to upload a file
-  companyUsername!: string;
+  confirm_companyPassword!: string;
   companyPassword!: string;
 
   onSubmit() {
@@ -62,7 +62,7 @@ page = 1; // Current page
     console.log('Company Website:', this.website);
     console.log('License Number:', this.licenseNo);
     console.log('Business License:', this.businessLicense);
-    console.log('Username:', this.companyUsername);
+    console.log('Username:', this.confirm_companyPassword);
     console.log('Password:', this.companyPassword);
   }
 
