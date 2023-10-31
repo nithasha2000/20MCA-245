@@ -27,7 +27,6 @@
         <input type="radio" id="female" name="gender" value="female" [(ngModel)]="gender" required>
         </div>
         </div>
-
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
 
@@ -92,6 +91,10 @@
 
 <div class="form-section" *ngIf="page === 4">
   <h3>Work Experience</h3>
+   <div class="form-group">
+    <label for="resume">Resume:</label>
+    <input type="file" id="resume" name="resume" [(ngModel)]="resume" required>
+  </div>
   <div class="form-group">
     <label for="jobTitle">Job Title:</label>
     <input type="text" id="jobTitle" name="jobTitle" [(ngModel)]="jobTitle" required>
@@ -101,13 +104,32 @@
     <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
   </div>
   <div class="form-group">
+    <div class="form-group-half">
     <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required>
   </div>
   <div class="form-group">
+    <div class="form-group-half">
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required>
   </div>
+  </div>
   <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-  <button (click)="onSubmit()" class="btn btn-primary next-button">Register</button>
+  <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
 </div>
+
+    <div class="form-section" *ngIf="page === 5">
+        <h3> Additional Information </h3>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="jobPassword" name="jobPassword" [(ngModel)]="jobPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm Password:</label>
+          <input type="password" id="confirm_jobPassword" name="confirm_jobPassword" [(ngModel)]="confirm_jobPassword" required>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="onSubmit()" class="btn btn-primary button">Register</button>
+    <div class="btn-container">
+    </div>
+  </div>

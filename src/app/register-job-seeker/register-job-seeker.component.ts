@@ -21,10 +21,13 @@ export class RegisterJobSeekerComponent {
   institution!: string;
   cgpa!: number;
   experienceType!: string;
+  resume!: File;
   jobTitle!: string;
   companyName!: string;
   startDate!: Date;
   endDate!: Date;
+  jobPassword!: string;
+  confirm_jobPassword!: string;
   
 
   // Define a property to keep track of the current form page
