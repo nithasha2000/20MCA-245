@@ -1,8 +1,14 @@
-/* Container for the registration form */
+/* CSS to style the multi-page form */
+
+/* Center the form vertically on the page */
 .registration-container {
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 800px; 
+    margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 20px;
   background-color: #f7f7f7;
   border: 1px solid #e1e1e1;
@@ -10,18 +16,55 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Form labels */
+/* Add this CSS to style the City and State fields on the same line */
+.form-group-half {
+  width: calc(50% - 10px); /* Adjust width based on your design */
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Style the form header */
+.registration-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the section titles */
+.registration-container h3 {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+/* Style form groups and labels */
+.form-group {
+  margin-bottom: 15px;
+}
+
 label {
   font-weight: bold;
   margin-bottom: 5px;
   display: block;
 }
 
-/* Form input fields */
+.radio-group {
+  display: flex;
+  align-items: center;
+}
+
+.radio-option {
+  margin-right: 20px;
+}
+
+/* Style form inputs */
 input[type="text"],
 input[type="email"],
 input[type="password"],
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -30,8 +73,9 @@ textarea {
   font-size: 16px;
 }
 
-/* Submit button */
-button[type="submit"] {
+/* Style buttons */
+button[type="submit"],
+button {
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
@@ -41,22 +85,18 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+/* Style the previous button to be on the left */
+.previous-button {
+  float: left;
+}
+
+/* Style the next button to be on the right */
+.next-button {
+  float: right;
+}
+
+/* Hover styles for buttons */
+button[type="submit"]:hover,
+button:hover {
   background-color: #0056b3;
-}
-
-/* Link to switch between company and job seeker registration */
-.registration-switch {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.registration-switch a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-}
-
-.registration-switch a:hover {
-  text-decoration: underline;
 }

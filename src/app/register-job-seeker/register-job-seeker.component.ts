@@ -6,24 +6,42 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-job-seeker.component.css']
 })
 export class RegisterJobSeekerComponent {
-  fullName: string = '';
-  email: string = '';
-  password: string = '';
-  education: string = '';
-  workExperience: string = '';
+  // Define properties for form fields
+  firstName!: string;
+  lastName!: string;
+  dob!: Date;
+  gender!: string;
+  phone!: string;
+  email!: string;
+  streetAddressLine1!: string;
+  streetAddressLine2!: string;
+  city!: string;
+  state!: string;
+  highestQualification!: string;
+  institution!: string;
+  cgpa!: number;
+  experienceType!: string;
+  jobTitle!: string;
+  companyName!: string;
+  startDate!: Date;
+  endDate!: Date;
+  
 
-  onFileSelected(event: any) {
-    // Handle file selection (if needed)
+  // Define a property to keep track of the current form page
+  page: number = 1;
+
+  // Define methods to navigate between form pages
+  nextPage() {
+    this.page++;
+  }
+
+  previousPage() {
+    this.page--;
   }
 
   onSubmit() {
-    // Implement job seeker registration logic here
-    console.log('Job Seeker Form submitted');
-    console.log('Full Name:', this.fullName);
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Education Background:', this.education);
-    console.log('Work Experience:', this.workExperience);
+    // Handle form submission, e.g., send data to the server
+    // You can access all the form fields' values from this component
+    console.log('Form submitted', this);
   }
 }
-

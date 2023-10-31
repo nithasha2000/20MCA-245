@@ -1,30 +1,113 @@
-<div class="registration-container">
-  <h2>Job Seeker Registration</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="fullName">Full Name:</label>
-      <input type="text" id="fullName" name="fullName" [(ngModel)]="fullName" required>
+<div class="container">
+  <div class="my-5 registration-container">
+    <h2>Job Seeker Registration</h2>
+    <form>
+      <!-- Page 1: Basic Information -->
+      <div class="form-section" *ngIf="page === 1">
+        <h3>Basic Information</h3>
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" [(ngModel)]="dob" min="1970-01-01" max="2004-12-31" required>
+        </div>
+        <div class="form-group">
+        <label>Gender:</label>
+        <div class="radio-group">
+        <label for="male">Male</label>
+        <input type="radio" id="male" name="gender" value="male" [(ngModel)]="gender" required>
+        &nbsp; &nbsp;
+        <label for="female">Female</label>
+        <input type="radio" id="female" name="gender" value="female" [(ngModel)]="gender" required>
+        </div>
+        </div>
+
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>
+
+      <!-- Page 2: Contact Information -->
+      <div class="form-section" *ngIf="page === 2">
+        <h3>Contact Information</h3>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+        </div>
+        <div class="form-group">
+          <div class="form-group-half">
+          <label for="streetAddressLine1">Street Address Line 1:</label>
+          <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1" required>
+        </div>
+        <div class="form-group-half">
+          <label for="streetAddressLine2">Street Address Line 2:</label>
+          <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
+        </div>
+      </div>
+        <div class="form-group">
+          <div class="form-group-half">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" [(ngModel)]="city" required>
+          </div>
+          <div class="form-group-half">
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" [(ngModel)]="state" required>
+          </div>
     </div>
-    <div class="form-group">
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="password" required>
-    </div>
-    <div class="form-group">
-      <label for="resume">Resume/CV:</label>
-      <input type="file" id="resume" name="resume" (change)="onFileSelected($event)">
-    </div>
-    <div class="form-group">
-      <label for="education">Education Background:</label>
-      <textarea id="education" name="education" [(ngModel)]="education" required></textarea>
-    </div>
-    <div class="form-group">
-      <label for="workExperience">Work Experience:</label>
-      <textarea id="workExperience" name="workExperience" [(ngModel)]="workExperience" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
+
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>
+
+      <!-- ... (previous form sections) ... -->
+
+<!-- Page 4: Educational Background -->
+<div class="form-section" *ngIf="page === 3">
+  <h3>Educational Background</h3>
+  <div class="form-group">
+    <label for="highestQualification">Highest Qualification:</label>
+    <input type="text" id="highestQualification" name="highestQualification" [(ngModel)]="highestQualification" required>
+  </div>
+  <div class="form-group">
+    <label for="institution">Institution:</label>
+    <input type="text" id="institution" name="institution" [(ngModel)]="institution" required>
+  </div>
+  <div class="form-group">
+    <label for="cgpa">CGPA:</label>
+    <input type="number" step="0.01" id="cgpa" name="cgpa" [(ngModel)]="cgpa" required>
+  </div>
+  <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+  <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+</div>
+
+<!-- ... (previous form sections) ... -->
+
+<div class="form-section" *ngIf="page === 4">
+  <h3>Work Experience</h3>
+  <div class="form-group">
+    <label for="jobTitle">Job Title:</label>
+    <input type="text" id="jobTitle" name="jobTitle" [(ngModel)]="jobTitle" required>
+  </div>
+  <div class="form-group">
+    <label for="companyName">Company Name:</label>
+    <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+  </div>
+  <div class="form-group">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required>
+  </div>
+  <div class="form-group">
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required>
+  </div>
+  <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+  <button (click)="onSubmit()" class="btn btn-primary next-button">Register</button>
 </div>
