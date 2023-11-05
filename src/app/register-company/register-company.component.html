@@ -20,11 +20,11 @@
         <h3> Basic Information </h3>
         <div class="form-group">
           <label for="companyName">Company Name:</label>
-          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required pattern="^[a-zA-Z0-9\s\-]+$">
-            <div class="error-message" *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">
+          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required ><!--pattern="^[a-zA-Z0-9\s\-]+$"-->
+            <!--<div class="error-message" *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">
               <span *ngIf="companyName.errors?.required">Company name is required.</span>
               <span *ngIf="companyName.errors?.minlength">Company name must be at least 3 characters.</span>
-              <span *ngIf="companyName.errors?.maxlength">Company name must not exceed 50 characters.</span>-->
+              <span *ngIf="companyName.errors?.maxlength">Company name must not exceed 50 characters.</span>
               <span *ngIf="companyName.errors?.pattern">Invalid characters in the company name.</span>
             </div>
         </div>
@@ -48,8 +48,8 @@
           errorElement.textContent = 'Consecutive spaces are not allowed.';
         }
       }
-    </script>
-
+    </script>-->
+        </div>
         <div class="form-group">
           <label for="companyType">Company Type:</label>
           <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
@@ -145,6 +145,7 @@
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
+
       <div class="form-section" *ngIf="page === 4">
         <h3> Additional Information </h3>
         <div class="form-group">
@@ -160,6 +161,3 @@
       </div>
     <div class="btn-container">
     </div>
-  </div>
-
-</div>

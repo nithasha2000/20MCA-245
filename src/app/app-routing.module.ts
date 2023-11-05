@@ -4,12 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-seeker.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
 { path: 'login', component: LoginComponent },
 { path: 'register-job-seeker', component: RegisterJobSeekerComponent },
 { path: 'register-company', component: RegisterCompanyComponent },
+{ path: 'dashboard', component: DashboardComponent}
 ];
 
 @NgModule({

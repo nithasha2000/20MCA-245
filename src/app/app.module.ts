@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import { GoogleSigninButtonModule, SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
@@ -19,8 +20,10 @@ import { RegisterCompanyComponent } from './register-company/register-company.co
 import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
 import { RegisterJobSeekerComponent} from './register-job-seeker/register-job-seeker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderDashboardComponent } from './header-dashboard/header-dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { UserInfoComponent } from './user-info/user-info.component';
+import { MainContentComponent } from './main-content/main-content.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +35,16 @@ import { UserInfoComponent } from './user-info/user-info.component';
     JobSeekerRegisterComponent,
     RegisterCompanyComponent,
     RegisterJobSeekerComponent,
+    HeaderDashboardComponent,
     SidebarComponent,
-    UserInfoComponent
+    MainContentComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
+    ReactiveFormsModule, 
     HttpClientModule,
     BrowserAnimationsModule,
     SocialLoginModule,

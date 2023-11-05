@@ -11,7 +11,7 @@ import { NgModel } from '@angular/forms';
 })
 export class RegisterCompanyComponent implements OnInit {
 
-  companyNameInput: NgModel | undefined;
+  //companyNameInput: NgModel | undefined;
   constructor(private http:HttpClient, private toastr: ToastrService, private router: Router)
   {
     obj:String;
@@ -21,7 +21,7 @@ export class RegisterCompanyComponent implements OnInit {
      
     }
   
-page = 1; // Current page
+page: number = 1; // Current page
   formData: any = {}; // Data object to store form values
 
   nextPage() {

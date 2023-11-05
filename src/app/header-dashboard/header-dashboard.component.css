@@ -1,0 +1,63 @@
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.top-header {
+    background-color: #fff;
+    color: #333;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+.notification-icon {
+    margin-right: 20px; 
+    font-size: 24px;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.user-name {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #f4f4f4;
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #f4f4f4;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
