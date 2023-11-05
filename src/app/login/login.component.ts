@@ -13,7 +13,6 @@ export class LoginComponent {
 
   username: string = '';
   password: string = '';
-  private accessToken = '';
 
   constructor(private http: HttpClient, private toastr: ToastrService, private authService: SocialAuthService) {
     this.authService.authState.subscribe((user: any) => {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-seeker.component';
@@ -9,7 +8,6 @@ import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-s
 const routes: Routes = [
 { path: '', component: HeaderComponent },
 { path: 'login', component: LoginComponent },
-{ path: 'register', component: RegisterComponent},
 { path: 'register-job-seeker', component: RegisterJobSeekerComponent },
 { path: 'register-company', component: RegisterCompanyComponent },
 ];

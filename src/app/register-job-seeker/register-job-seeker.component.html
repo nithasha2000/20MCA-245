@@ -107,6 +107,7 @@
     <div class="form-group-half">
     <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required>
+    </div>
   </div>
   <div class="form-group">
     <div class="form-group-half">
@@ -116,7 +117,7 @@
   </div>
   <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
   <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-</div>
+  </div>
 
     <div class="form-section" *ngIf="page === 5">
         <h3> Additional Information </h3>

@@ -15,11 +15,12 @@ import { HeaderComponent } from './header/header.component';
 import { WorkComponent } from './work/work.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { JobSeekerRegisterComponent } from './job-seeker-register/job-seeker-register.component';
-import {RegisterJobSeekerComponent} from './register-job-seeker/register-job-seeker.component';
+import { RegisterJobSeekerComponent} from './register-job-seeker/register-job-seeker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     WorkComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent,
     JobSeekerRegisterComponent,
     RegisterCompanyComponent,
-    RegisterJobSeekerComponent
+    RegisterJobSeekerComponent,
+    SidebarComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

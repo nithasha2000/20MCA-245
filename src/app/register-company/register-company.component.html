@@ -5,7 +5,6 @@
       margin: 0 auto;
     }
 
-    /* Add this style to change the submit button color to green */
     .btn-primary[type="submit"] {
       background-color: green;
       color: white;
@@ -16,37 +15,40 @@
 <div class="container">
   <div class="my-5 registration-container">
     <h2>Recruiting Company Registration</h2>
-    <form (ngSubmit)="onSubmit()">
-      <!-- Page 1: Basic Information -->
+    <form>
       <div class="form-section" *ngIf="page === 1">
-        <!-- Basic Information form fields -->
         <h3> Basic Information </h3>
         <div class="form-group">
           <label for="companyName">Company Name:</label>
-          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required pattern="^[a-zA-Z0-9\s\-]+$">
+            <div class="error-message" *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">
+              <span *ngIf="companyName.errors?.required">Company name is required.</span>
+              <span *ngIf="companyName.errors?.minlength">Company name must be at least 3 characters.</span>
+              <span *ngIf="companyName.errors?.maxlength">Company name must not exceed 50 characters.</span>-->
+              <span *ngIf="companyName.errors?.pattern">Invalid characters in the company name.</span>
+            </div>
         </div>
+      <script>
+        function validateCompanyName(input) {
+        const companyName = input.value.trim();
+        const minLength = 3;
+        const maxLength = 50;
+        const allowedCharacters = /^[a-zA-Z0-9\s\-]+$/;
 
-        <!--<script>
-          function validateCompanyName(input) {
-          const companyName = input.value.trim();
-          const minLength = 3;
-          const maxLength = 50; // Adjust as needed
-          const allowedCharacters = /^[a-zA-Z0-9\s\-]+$/; // Allow letters, numbers, spaces, and hyphens
-  
-          const errorElement = document.getElementById('companyNameError');
-          errorElement.textContent = ''; // Clear previous error messages
-  
-          if (companyName.length < minLength) {
-            errorElement.textContent = `Company name must be at least ${minLength} characters.`;
-          } else if (companyName.length > maxLength) {
-            errorElement.textContent = `Company name must not exceed ${maxLength} characters.`;
-          } else if (!allowedCharacters.test(companyName)) {
-            errorElement.textContent = 'Invalid characters in the company name.';
-          } else if (/\s{2,}/.test(companyName)) {
-            errorElement.textContent = 'Consecutive spaces are not allowed.';
-          }
-       }
-      </script> -->
+        const errorElement = document.getElementById('companyNameError');
+        errorElement.textContent = '';
+
+        if (companyName.length < minLength) {
+          errorElement.textContent = `Company name must be at least ${minLength} characters.`;
+        } else if (companyName.length > maxLength) {
+          errorElement.textContent = `Company name must not exceed ${maxLength} characters.`;
+        } else if (!allowedCharacters.test(companyName)) {
+          errorElement.textContent = 'Invalid characters in the company name.';
+        } else if (/\s{2,}/.test(companyName)) {
+          errorElement.textContent = 'Consecutive spaces are not allowed.';
+        }
+      }
+    </script>
 
         <div class="form-group">
           <label for="companyType">Company Type:</label>
@@ -136,10 +138,10 @@
           <label for="website">License No:</label>
           <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
         </div>
-        <!--<div class="form-group">
+        <div class="form-group">
           <label for="businessLicense">Business License:</label>
-          <input type="file" id="businessLicense" name="businessLicense" [(ngModel)]="businessLicense" required>
-        </div>-->
+           <input type="file" id="businessLicense" name="businessLicense" (change)="onFileSelected($event)" required>
+        </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
@@ -154,9 +156,8 @@
           <input type="password" id="confirm_companyPassword" name="confirm_companyPassword" [(ngModel)]="confirm_companyPassword" required>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-        <button type="submit" class="btn btn-primary button">Register</button>
+        <button type="submit" class="btn btn-primary button" (click)="onSubmit()">Register</button>
       </div>
-    </form>
     <div class="btn-container">
     </div>
   </div>
