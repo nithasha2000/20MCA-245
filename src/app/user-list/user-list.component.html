@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>User List</h2>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>View</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr> <!-- *ngFor="let user of users" -->
+                <td>Nithasha <!-- {{ user.name }} --></td>
+                <td>nithashab2000@gmail.com <!-- {{ user.email }} --></td>
+                <td>Job seeker <!-- {{ user.email }} --></td>
+                <td>
+                    <!-- (click)="viewUser(user)" -->
+                    <button class="btn-view">View</button>
+                </td>
+                <td>
+                    <!-- (click)="deactivateUser(user)" -->
+                    <button class="btn-deactivate">Deactivate</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

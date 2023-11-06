@@ -26,6 +26,8 @@ import { MainContentComponent } from './main-content/main-content.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDataComponent } from './user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     DashboardComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
+    UserListComponent,
+    UserDataComponent,
   ],
   imports: [
     BrowserModule,

@@ -128,13 +128,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_HEADERS = True
-
-
-# Set the session engine to use the default database-backed session engine
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-
-# Set the session cookie name
-SESSION_COOKIE_NAME = 'ability'
-
-# Set the session cookie age (in seconds)
-SESSION_COOKIE_AGE = 28800  # 8 hrs

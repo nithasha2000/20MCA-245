@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Login, CompanyRegister, JobSeekerRegister
+from base.models import Login, CompanyRegister
 
 class loginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,10 +9,5 @@ class loginSerializer(serializers.ModelSerializer):
 class CompanyRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyRegister
-        fields = '__all__'
-        
-class JobSeekerRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JobSeekerRegister
         fields = '__all__'
         

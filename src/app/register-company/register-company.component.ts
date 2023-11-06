@@ -81,17 +81,11 @@ page: number = 1; // Current page
           });
           this.router.navigate(['/login']);
         } else {
-          if (Array.isArray(response.data)) {
-            response.data.forEach((item: any) => {
-              this.toastr.error(item, 'Registration Failed', {
-                positionClass: 'toast-top-center',
-              });
-            });
-          } else {
-            this.toastr.error(response.data, 'Registration Failed', {
+          response.data.forEach((item: any) => {
+            this.toastr.error(item, 'Registration Failed', {
               positionClass: 'toast-top-center',
             });
-          }
+          });
         }
       } catch (error) {
         this.toastr.error('Registration Failed', 'Try Again',{

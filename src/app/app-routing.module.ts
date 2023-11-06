@@ -7,6 +7,8 @@ import { RegisterJobSeekerComponent } from './register-job-seeker/register-job-s
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -15,7 +17,8 @@ const routes: Routes = [
 { path: 'register-company', component: RegisterCompanyComponent },
 { path: 'dashboard', component: DashboardComponent},
 { path: 'change-password', component: ChangePasswordComponent},
-{ path: 'forgot-password', component: ForgotPasswordComponent}
+{ path: 'forgot-password', component: ForgotPasswordComponent},
+{ path: 'view-users', component: UserListComponent}
 ];
 
 const dashboardRoutes: Routes = [
@@ -28,6 +31,15 @@ const dashboardRoutes: Routes = [
     ]
   }]
 
+const sidebarRoutes: Routes = [
+  {
+    path: 'sidebar',
+    component: SidebarComponent,
+    children: [
+      { path: 'view-users', component: UserListComponent},
+      
+    ]
+  }]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

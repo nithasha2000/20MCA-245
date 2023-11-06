@@ -1,0 +1,46 @@
+/* user-list.component.css */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Center the content horizontally */
+}
+
+.user-table {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e0e0e0; /* Add border to the table */
+    margin: 20px 0;
+}
+
+.user-table th, .user-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.user-table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-view, .btn-deactivate {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-view:hover, .btn-deactivate:hover {
+    background-color: #0056b3;
+}
+
+.container table {
+    margin: 0 auto; /* Center the table horizontally within the container */
+}

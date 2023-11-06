@@ -29,13 +29,13 @@ def login_api(request):
             "normal": LoginHandler.normal_login,
             "google": LoginHandler.google_login
         }
-        response_json = handlers.get(request_data["type"])(request, request_data, response_json)
+        response_json = handlers.get(request_data["type"])(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception Occcured in login api: {e}")
     return Response(response_json, status=401)
-    
+
 @api_view(['POST'])
 def register_api(request):
     response_json = {"message": "failed to fetch register user", "data": ""}
@@ -47,23 +47,12 @@ def register_api(request):
         if request_data['type'] == 'company_register':
             if not all(key in request_data for key in [
                 'company_name', 'company_type', 'phone', 'email', 'profile',
-                'website', 'license_no', 'confirm_companyPassword', 'company_password', 'business_license'
+                'website', 'license_no','business_license', 'confirm_companyPassword', 'company_password'
                 ]):
                 response_json["data"] = "Unprocessible entity"
                 return Response(response_json, status=422)
-        if request_data['type'] == "job_seeker_reg":
-            if not all(key in request_data for key in [
-                'type', 'firstName', 'lastName', 'dob', 
-                'gender', 'phone', 'email', 'streetAddressLine1', 
-                'streetAddressLine2', 'city', 'state', 'highestQualification', 
-                'institution', 'cgpa', 'jobTitle', 'companyName', 
-                'startDate', 'endDate', 'jobPassword',  'confirm_jobPassword', 
-                'resume']):
-                response_json["data"] = "Unprocessible entity"
-                return Response(response_json, status=422)
         handlers = {
-            "company_register": RegisterHandler.company_register,
-            "job_seeker_reg": RegisterHandler.job_seeker_register
+            "company_register": RegisterHandler.company_register
         }
         response_json = handlers.get(request_data["type"])(request_data, response_json)
         if response_json:
