@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9o!+z10r6eyig8_&u3^nrw9i9x3ykt++b!u%m0_)afe&3pch2-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -128,3 +128,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_HEADERS = True
+
+
+# Set the session engine to use the default database-backed session engine
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set the session cookie name
+SESSION_COOKIE_NAME = 'ability'
+
+# Set the session cookie age (in seconds)
+SESSION_COOKIE_AGE = 28800  # 2 weeks
+
+# Other session settings...
+SESSION_COOKIE_SECURE = False

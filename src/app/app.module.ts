@@ -30,6 +30,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { CapitalizePipe } from './pipe.component';
 import { JobPostComponent } from './job-post/job-post.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { JobPostComponent } from './job-post/job-post.component';
     UserListComponent,
     UserDataComponent,
     CapitalizePipe,
-    JobPostComponent,
+    JobPostComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +83,8 @@ import { JobPostComponent } from './job-post/job-post.component';
           console.error(err);
         }
       } as SocialAuthServiceConfig,
-    }
+    },
+    CookieService,
   ],
   bootstrap: [AppComponent]
 })

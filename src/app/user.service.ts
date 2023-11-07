@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserService {
-  private userData: any;
+  private storageKey = 'userData'; 
 
   setUserData(data: any) {
-    this.userData = data;
+    localStorage.setItem(this.storageKey, JSON.stringify(data));
   }
 
   getUserData() {
-    return this.userData;
+    const storedData = localStorage.getItem(this.storageKey);
+    return storedData ? JSON.parse(storedData) : null;
+  }
+
+  removeUserData() {
+    localStorage.removeItem(this.storageKey);
   }
 }

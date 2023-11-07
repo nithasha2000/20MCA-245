@@ -4,6 +4,7 @@ import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-socia
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header-dashboard',
@@ -16,7 +17,7 @@ export class HeaderDashboardComponent {
   isLoggingOut: boolean = false;
   constructor(private http: HttpClient, private toastr: ToastrService, 
     private authService: SocialAuthService, private userService: UserService, 
-    private router: Router) {
+    private router: Router, private cookieService: CookieService) {
     this.userData = this.userService.getUserData();
     if (!this.userData){
       this.toastr.error('You are not authorized to view this page', 'Please Sign in', {
@@ -39,7 +40,8 @@ export class HeaderDashboardComponent {
               this.toastr.success('Logged Out', '', {
                 positionClass: 'toast-top-center',
               });
-              this.userService.setUserData({});
+              this.cookieService.delete('ability');
+              this.userService.removeUserData();
               this.router.navigate(['/login']);
             }).catch((error) => {
               this.toastr.error('Failed to logout', '', {
@@ -71,7 +73,8 @@ export class HeaderDashboardComponent {
             this.toastr.success('Logged Out', 'Logout Successful', {
               positionClass: 'toast-top-center',
             });
-            this.userService.setUserData({});
+            this.cookieService.delete('ability');
+            this.userService.removeUserData();
             this.router.navigate(['/login']);
           } else {
             this.toastr.error(response.data, 'Logout Failed', {

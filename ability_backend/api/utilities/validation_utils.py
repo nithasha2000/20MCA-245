@@ -47,3 +47,57 @@ class ValidateUtil:
             print(f"Exception occured in company validation: {e}")
             valid =False
         return valid, errors
+    
+    def job_seeker_reg_validate(request):
+        errors = []
+        valid = True
+        try:
+            if 'first_name' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["first_name"]):
+                    errors.append("For First Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'last_name' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["last_name"]):
+                    errors.append("For Last Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'gender' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["gender"]):
+                    errors.append("For Gender only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'email' in request:
+                if not re.match(validation_dict.get("email", r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'), request["email"]):
+                    errors.append("Valid email id is required")
+                    valid = False
+            if 'jobPassword' in request:
+                if not re.match(validation_dict.get("password", ''), request["jobPassword"]):
+                    errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
+                    valid = False
+            if 'confirm_jobPassword' in request:
+                if not re.match(validation_dict.get("password", ''), request["confirm_jobPassword"]):
+                    errors.append("Confirm Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
+                    valid = False
+            if 'jobPassword' in request and 'confirm_jobPassword' in request:
+                if request.get("jobPassword") != request.get("confirm_jobPassword"):
+                    errors.append("Password mismatch ! Both password and confirm password should be same")
+                    valid = False
+        except Exception as e:
+            print(f"Exception occured in job seeker register validation: {e}")
+            valid =False
+        return valid, errors
+    
+    def change_password_valid(request):
+        errors = []
+        valid = True
+        try:
+            if 'newPassword' in request:
+                if not re.match(validation_dict.get("password", ''), request["newPassword"]):
+                    errors.append("New Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
+                    valid = False
+            if 'newPassword' in request and 'confirmPassword' in request:
+                if request.get("newPassword") != request.get("confirmPassword"):
+                    errors.append("Password mismatch ! Both password and confirm password should be same")
+                    valid = False
+        except Exception as e:
+            print(f"Exception occured in change password validation: {e}")
+            valid =False
+        return valid, errors

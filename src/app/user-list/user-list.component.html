@@ -11,19 +11,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr> <!-- *ngFor="let user of users" -->
-                <td>Nithasha <!-- {{ user.name }} --></td>
-                <td>nithashab2000@gmail.com <!-- {{ user.email }} --></td>
-                <td>Job seeker <!-- {{ user.email }} --></td>
-                <td>
-                    <!-- (click)="viewUser(user)" -->
-                    <button class="btn-view">View</button>
-                </td>
-                <td>
-                    <!-- (click)="deactivateUser(user)" -->
-                    <button class="btn-deactivate">Deactivate</button>
-                </td>
-            </tr>
+            <ng-container *ngIf="users.length > 0; else noContents">
+                <tr *ngFor="let user of users">
+                    <td>{{ user.first_name ? user.first_name : user.company_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <button class="btn-view" (click)="viewUser(user)">View</button>
+                    </td>
+                    <td>
+                        <button class="btn-deactivate" (click)="deactivateUser(user)">Deactivate</button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noContents>
+                <tr>
+                    <td colspan="5">No contents to show</td>
+                </tr>
+            </ng-template>
         </tbody>
+
+
     </table>
 </div>
