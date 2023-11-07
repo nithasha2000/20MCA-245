@@ -1,16 +1,16 @@
 <header class="top-header">
-	<div class="notification-icon">
-                <i class="fas fa-bell"></i>
-            </div>
-        <div class="user-profile">
-            <span class="user-name">User name</span>
-            <div class="dropdown">
-                <button class="dropbtn">User Menu</button>
-                <div class="dropdown-content">
-                    <a href="#">Profile</a>
-                    <a routerLink='/change-password'>Change Password</a>
-                    <a href="#">Logout</a>
-                </div>
+    <div class="notification-icon">
+        <i class="fas fa-bell"></i>
+    </div>
+    <div class="user-profile" *ngIf="userData">
+        <span class="user-name">{{ userData?.username | capitalize }}</span>
+        <div class="dropdown">
+            <button class="dropbtn">User Menu</button>
+            <div class="dropdown-content">
+                <a href="#">Profile</a>
+                <a routerLink='/change-password'>Change Password</a>
+                <a href="javascript:void(0);" (click)="logout()">Logout</a>
             </div>
         </div>
-    </header>
+    </div>
+</header>

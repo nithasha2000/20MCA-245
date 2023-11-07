@@ -28,6 +28,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDataComponent } from './user-data/user-data.component';
+import { CapitalizePipe } from './pipe.component';
+import { JobPostComponent } from './job-post/job-post.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { UserDataComponent } from './user-data/user-data.component';
     ForgotPasswordComponent,
     UserListComponent,
     UserDataComponent,
+    CapitalizePipe,
+    JobPostComponent,
   ],
   imports: [
     BrowserModule,

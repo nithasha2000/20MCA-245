@@ -1,0 +1,43 @@
+<body>
+    <h1>Job Post Form</h1>
+    <form method="post">
+        <label for="company_id">Company ID:</label>
+        <input type="text" id="company_id" name="company_id" required>
+
+        <label for="job_title">Job Title:</label>
+        <input type="text" id="job_title" name="job_title" required>
+
+        <label for="job_description">Job Description:</label>
+        <textarea id="job_description" name="job_description" rows="4" cols="50" required></textarea>
+
+        <label for="location">Location:</label>
+        <select id="location" name="location" required>
+            <option value="" disabled selected>Select a state</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <!-- Add the rest of the states here -->
+        </select>
+
+        <label for="salary_range">Salary Range:</label>
+        <select id="salary_range" name="salary_range" required>
+            <option value="" disabled selected>Select a salary range</option>
+            <option value="Less than 30k">Less than ₹30k</option>
+            <option value="30k - 60k">₹30k - ₹60k</option>
+            <option value="60k - 90k">₹60k - ₹90k</option>
+            <option value="90k - 120k">₹90k - ₹120k</option>
+            <option value="120k - 150k">₹120k - ₹150k</option>
+            <option value="150k - 180k">₹150k - ₹180k</option>
+            <option value="180k - 300k">₹180k - ₹300k</option>
+            <option value="300k - 600k">₹300k - ₹600k</option>
+            <option value="600k - 900k">₹600k - ₹900k</option>
+            <option value="900k - 1200k">₹900k - ₹1200k</option>
+            <option value="1200k - 1500k">₹1200k - ₹1500k</option>
+            <option value="1500k - 1800k">₹1500k - ₹1800k</option>
+            <option value="More than 1800k">More than ₹1800k</option>
+        </select>
+
+        <label for="application_deadline">Application Deadline:</label>
+        <input type="date" id="application_deadline" name="application_deadline" required [min]="currentDate">
+
+        <input type="submit" value="Submit">
+    </form>
+</body>

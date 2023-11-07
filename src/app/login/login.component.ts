@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +15,18 @@ export class LoginComponent {
 
   username: string = '';
   password: string = '';
+  isLoggingIn: boolean = false;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private authService: SocialAuthService) {
+  constructor(private http: HttpClient, private toastr: ToastrService, 
+    private authService: SocialAuthService, private userService: UserService, 
+    private router: Router) {
     this.authService.authState.subscribe((user: any) => {
       try{
           if (user) {
+            if (this.isLoggingIn) {
+              return;
+            }
+            this.isLoggingIn = true;
             let payload = {
                 "type": "google",
                 "access_token": user.idToken
@@ -28,12 +37,16 @@ export class LoginComponent {
                 this.toastr.success('Logged In', 'Login Successful', {
                   positionClass: 'toast-top-center',
                 });
+                this.userService.setUserData(response.data);
+                this.router.navigate(['/dashboard']);
               } else {
+                this.isLoggingIn = false;
                 this.toastr.error(response.data, 'Login Failed', {
                   positionClass: 'toast-top-center',
                 });
               }
-            } catch (error) {
+            } catch (error) {     
+              this.isLoggingIn = false;
               this.toastr.error('Login Failed', 'Try Again',{
                 positionClass: 'toast-top-center',
               });
@@ -43,6 +56,7 @@ export class LoginComponent {
           }
       }
       catch{
+        this.isLoggingIn = false;
         this.toastr.error('Failed to Signin', '',{
           positionClass: 'toast-top-center',
         });
@@ -51,6 +65,10 @@ export class LoginComponent {
   }
 
   login() {
+    if (this.isLoggingIn) {
+      return;
+    }
+    this.isLoggingIn = true;
     let payload = {
       type: 'normal',
       username: this.username,
@@ -63,35 +81,20 @@ export class LoginComponent {
           this.toastr.success('Logged In', 'Login Successful', {
             positionClass: 'toast-top-center',
           });
+          this.userService.setUserData(response.data);
+          this.router.navigate(['/dashboard']);
         } else {
+          this.isLoggingIn = false;
           this.toastr.error(response.data, 'Login Failed', {
             positionClass: 'toast-top-center',
           });
         }
       } catch (error) {
+        this.isLoggingIn = false;
         this.toastr.error('Login Failed', 'Try Again',{
           positionClass: 'toast-top-center',
         });
       }
     });
-  }
-
-  logout() {
-    if (this.authService.authState) {
-      this.authService.signOut().then(() => {
-        this.toastr.success('Logged Out', '', {
-          positionClass: 'toast-top-center',
-        });
-      }).catch((error) => {
-        this.toastr.error('Failed to logout', '', {
-          positionClass: 'toast-top-center',
-        });
-        console.error('Error during sign-out:', error);
-      });
-    } else {
-      this.toastr.info('User is not logged in', '', {
-        positionClass: 'toast-top-center',
-      });
-    }
   }
 }

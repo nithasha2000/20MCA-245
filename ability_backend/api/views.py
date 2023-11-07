@@ -29,11 +29,23 @@ def login_api(request):
             "normal": LoginHandler.normal_login,
             "google": LoginHandler.google_login
         }
-        response_json = handlers.get(request_data["type"])(request_data, response_json)
+        response_json = handlers.get(request_data["type"])(request, request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception Occcured in login api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def logout_api(request):
+    response_json = {"message": "failed to fetch logout", "data": ""}
+    try:
+        request_data = JSONParser().parse(request)
+        response_json = LoginHandler.logout(request, request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception Occcured in logout api: {e}")
     return Response(response_json, status=401)
 
 @api_view(['POST'])

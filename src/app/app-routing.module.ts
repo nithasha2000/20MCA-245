@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { JobPostComponent } from './job-post/job-post.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
 { path: 'dashboard', component: DashboardComponent},
 { path: 'change-password', component: ChangePasswordComponent},
 { path: 'forgot-password', component: ForgotPasswordComponent},
-{ path: 'view-users', component: UserListComponent}
+{ path: 'view-users', component: UserListComponent},
+{ path: 'job-post', component: JobPostComponent}
 ];
 
 const dashboardRoutes: Routes = [
