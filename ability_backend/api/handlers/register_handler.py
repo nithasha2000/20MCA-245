@@ -1,10 +1,12 @@
 import datetime
+import smtplib
 from base.models import Login
 from base.serializers import loginSerializer, CompanyRegisterSerializer, JobSeekerRegisterSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from api.utilities.validation_utils import ValidateUtil
 from api.utilities.common_utils import write_file
 from api.utilities import email_utils
+
 
 
 class RegisterHandler:
@@ -43,8 +45,12 @@ class RegisterHandler:
                     login_serializer=loginSerializer(data=login_data)
                     if login_serializer.is_valid():
                         email_body = f"Welcome {register_data['company_name']} to Ability portal"
+                        sub=f"User registration mail"
                         email_html_path = r"D:\20MCA-245\ability-project\20MCA-245\ability_backend\api\utilities\link_email.html"
-                        if email_utils.welcome_sender(login_data["username"], email_body, email_html_path):
+                        confirmation_message = f"New user has registered to Ability Portal!!<br> User Name : {register_data['company_name']}.<br> Login to view details."
+                        subject = f"User registration confirmation mail"
+                        if email_utils.welcome_sender(login_data["username"],sub,email_body, email_html_path):
+                           email_utils.welcome_sender("abilityportal@gmail.com",subject,confirmation_message,email_html_path)
                            company_register_serializer.save()
                            login_serializer.save()
                            response_json["message"] = "success"
@@ -80,7 +86,7 @@ class RegisterHandler:
                     'state': request.get("state", ''),
                     'highest_qualification': request.get("highestQualification", ''),
                     'institution': request.get("institution", ''),
-                    'cgpa': int(request.get("cgpa", 0)),
+                    'cgpa': float(request.get("cgpa", 0)),
                     'resume': request.get("resume", ''),
                     'experience_type': request.get("experienceType", ''),
                     'job_title': request.get("jobTitle", ''), 
@@ -109,12 +115,16 @@ class RegisterHandler:
                     login_serializer=loginSerializer(data=login_data)
                     if login_serializer.is_valid():
                         email_body = f"Welcome {register_data['first_name']} to Ability portal"
+                        sub=f"User registration mail"
                         email_html_path = r"D:\20MCA-245\ability-project\20MCA-245\ability_backend\api\utilities\link_email.html"
-                        if email_utils.welcome_sender(login_data["username"], email_body, email_html_path):
-                            job_seeker_reg__serializer.save()
-                            login_serializer.save()
-                            response_json["message"] = "success"
-                            response_json["data"] = job_seeker_reg__serializer.data
+                        confirmation_message = f"New user has registered to Ability Portal!! <br>User Name : {register_data['first_name']}. <br>Login to view details."
+                        subject = f"User registration confirmation mail"
+                        if email_utils.welcome_sender(login_data["username"],sub, email_body, email_html_path):
+                           email_utils.welcome_sender("abilityportal@gmail.com",subject,confirmation_message,email_html_path)
+                           job_seeker_reg__serializer.save()
+                           login_serializer.save()
+                           response_json["message"] = "success"
+                           response_json["data"] = job_seeker_reg__serializer.data
                     else:
                         response_json["data"] = "Not able to add new user"
                 else:
@@ -153,3 +163,4 @@ class RegisterHandler:
         except Exception as e:
             print(f'Exception occured in change password: {e}')
         return response_json
+    

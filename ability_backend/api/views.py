@@ -69,8 +69,7 @@ def register_api(request):
                 'type', 'firstName', 'lastName', 'dob', 
                 'gender', 'phone', 'email', 'streetAddressLine1', 
                 'streetAddressLine2', 'city', 'state', 'highestQualification', 
-                'institution', 'cgpa', 'experienceType', 'jobPassword',  'confirm_jobPassword', 
-                'resume']):
+                'institution', 'cgpa', 'experienceType', 'jobPassword',  'confirm_jobPassword']):
                 response_json["data"] = "Unprocessible entity"
                 return Response(response_json, status=422)
         handlers = {

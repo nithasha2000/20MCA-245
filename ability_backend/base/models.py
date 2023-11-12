@@ -38,7 +38,7 @@ class JobSeekerRegister(models.Model):  # Model class names are typically capita
     state = models.CharField(max_length=255) 
     highest_qualification = models.CharField(max_length=255) 
     institution = models.CharField(max_length=255) 
-    cgpa = models.PositiveBigIntegerField(default=0)
+    cgpa = models.FloatField(default=0.0)
     resume = models.CharField(max_length=255) 
     experience_type = models.CharField(max_length=255) 
     job_title = models.CharField(max_length=255) 
