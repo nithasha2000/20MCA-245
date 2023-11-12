@@ -13,6 +13,7 @@
 .notification-icon {
     margin-right: 20px; 
     font-size: 24px;
+    position: relative;
 }
 .user-profile {
     display: flex;
@@ -60,4 +61,15 @@
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.notification-bubble {
+    background-color: red; 
+    color: white; 
+    border-radius: 50%; 
+    padding: 4px 8px; 
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%,-50%);
+    font-size: 12px; 
 }

@@ -12,6 +12,13 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./header-dashboard.component.css']
 })
 export class HeaderDashboardComponent {
+  // In your component class
+  notificationCount: number = 5; // Replace with the actual number of notifications
+  // In your component class
+  // Call this method when there are new notifications
+  updateNotificationCount(newCount: number) {
+    this.notificationCount = newCount;
+  }
 
   userData: any;
   isLoggingOut: boolean = false;

@@ -1,6 +1,7 @@
 <header class="top-header">
     <div class="notification-icon">
         <i class="fas fa-bell"></i>
+            <div class="notification-bubble" *ngIf="notificationCount > 0">{{ notificationCount }}</div>
     </div>
     <div class="user-profile" *ngIf="userData">
         <span class="user-name">{{ userData?.username | capitalize }}</span>
