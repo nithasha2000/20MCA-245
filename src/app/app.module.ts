@@ -31,6 +31,10 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { CapitalizePipe } from './pipe.component';
 import { JobPostComponent } from './job-post/job-post.component';
 import { CookieService } from 'ngx-cookie-service';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { CompanyHeaderDashboardComponent } from './company-header-dashboard/company-header-dashboard.component';
+import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
+import { CompanyMaincontentComponent } from './company-maincontent/company-maincontent.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,11 @@ import { CookieService } from 'ngx-cookie-service';
     UserListComponent,
     UserDataComponent,
     CapitalizePipe,
-    JobPostComponent
+    JobPostComponent,
+    CompanyDashboardComponent,
+    CompanyHeaderDashboardComponent,
+    CompanySidebarComponent,
+    CompanyMaincontentComponent
   ],
   imports: [
     BrowserModule,

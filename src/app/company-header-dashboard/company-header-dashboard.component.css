@@ -4,7 +4,7 @@
 }
 .top-header {
     background-color: #fff;
-    color: #333;
+    color: #000099;
     display: flex;
     justify-content: flex-end;
     padding: 10px;
@@ -32,7 +32,7 @@
 
 .dropbtn {
     background-color: #f4f4f4;
-    color: #333;
+    color: #000099;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -52,7 +52,7 @@
     display: block;
     padding: 10px 20px;
     text-decoration: none;
-    color: #333;
+    color: #000099;
 }
 
 .dropdown-content a:hover {

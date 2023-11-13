@@ -14,8 +14,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderDashboardComponent {
   // In your component class
   notificationCount: number = 5; // Replace with the actual number of notifications
-  // In your component class
-  // Call this method when there are new notifications
+  notifications: string[] = [];
+  showNotificationBox: boolean = false;
+
+  toggleNotificationBox() {
+    this.showNotificationBox = !this.showNotificationBox;
+  }
   updateNotificationCount(newCount: number) {
     this.notificationCount = newCount;
   }

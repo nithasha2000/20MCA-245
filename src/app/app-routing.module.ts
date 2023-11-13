@@ -10,6 +10,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { UserListComponent } from './user-list/user-list.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { JobPostComponent } from './job-post/job-post.component';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
 { path: 'change-password', component: ChangePasswordComponent},
 { path: 'forgot-password', component: ForgotPasswordComponent},
 { path: 'view-users', component: UserListComponent},
-{ path: 'job-post', component: JobPostComponent}
+{ path: 'job-post', component: JobPostComponent},
+{ path: 'company-dashboard',component: CompanyDashboardComponent}
+
 ];
 
 const dashboardRoutes: Routes = [
@@ -38,10 +42,17 @@ const sidebarRoutes: Routes = [
     path: 'sidebar',
     component: SidebarComponent,
     children: [
-      { path: 'view-users', component: UserListComponent},
-      
+      { path: 'view-users', component: UserListComponent}  
     ]
   }]
+
+const companysidebarRoutes: Routes = [
+  {
+    path: 'company-sidebar',
+    component: CompanySidebarComponent,
+    children: [
+      { path: 'job-post', component: JobPostComponent}]
+}]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
