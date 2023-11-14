@@ -14,7 +14,7 @@
             <button class="dropbtn">User Menu</button>
             <div class="dropdown-content">
                 <a href="#">Profile</a>
-                <a routerLink='/change-password'>Change Password</a>
+                <a (click)="onSelect('change_password')">Change Password</a>
                 <a href="javascript:void(0);" (click)="logout()">Logout</a>
             </div>
         </div>

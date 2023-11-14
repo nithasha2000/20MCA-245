@@ -1,7 +1,7 @@
 from django.db import models
 
 class Login(models.Model):  # Model class names are typically capitalized.
-    id = models.AutoField(primary_key=True)  # Use AutoField for primary keys.
+    user_id = models.CharField(primary_key=True, max_length=255)  # Use AutoField for primary keys.
     username = models.CharField(max_length=255)  # Use CharField for text fields.
     password = models.CharField(max_length=255)  # Use CharField for text fields.
     role = models.CharField(max_length=255)
@@ -15,7 +15,7 @@ class CompanyRegister(models.Model):  # Model class names are typically capitali
     company_name = models.CharField(max_length=255)  # Use CharField for text fields.
     company_type = models.CharField(max_length=255)  # Use CharField for text fields.
     phone = models.PositiveBigIntegerField(default=0)
-    email = models.CharField(max_length=255)  # Use IntegerField for integers.
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
     profile = models.CharField(max_length=255)
     website = models.CharField(max_length=255)
     license_no = models.PositiveBigIntegerField(default=0)
@@ -31,7 +31,7 @@ class JobSeekerRegister(models.Model):  # Model class names are typically capita
     dob = models.DateField() 
     gender = models.CharField(max_length=255) 
     phone = models.PositiveBigIntegerField(default=0)
-    email = models.CharField(max_length=255) 
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
     street_address_line1 = models.CharField(max_length=255) 
     street_address_line2 = models.CharField(max_length=255) 
     city = models.CharField(max_length=255) 
@@ -40,11 +40,20 @@ class JobSeekerRegister(models.Model):  # Model class names are typically capita
     institution = models.CharField(max_length=255) 
     cgpa = models.FloatField(default=0.0)
     resume = models.CharField(max_length=255) 
-    experience_type = models.CharField(max_length=255) 
-    job_title = models.CharField(max_length=255) 
-    company_name = models.CharField(max_length=255) 
-    start_date= models.DateField(null=True) 
-    end_date = models.DateField(null=True) 
+    experience_type = models.CharField(max_length=255, default="fresher")
+    job_title = models.CharField(max_length=255, null=True) 
+    company_name = models.CharField(max_length=255, null=True) 
+    start_date = models.DateField(default=None, null=True)
+    end_date = models.DateField(default=None, null=True)
 
+    class Meta:
+        app_label = 'base'
+
+class UserNotifications(models.Model):
+    notification_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    notification = models.CharField(max_length=255)
+    viewed = models.IntegerField(default=0)
+    
     class Meta:
         app_label = 'base'

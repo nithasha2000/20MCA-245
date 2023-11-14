@@ -2,6 +2,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import ssl
+import threading
 
 def welcome_sender(email, subject, email_body, file_loc):
         try:
@@ -28,3 +29,9 @@ def welcome_sender(email, subject, email_body, file_loc):
         except Exception as e:
             print(f'Services Failed with error from email sender {e}')
             return False
+
+def send_welcome_email_in_background(email, subject, email_body, file_loc):
+    # Create a thread and start it
+    email_thread = threading.Thread(target=welcome_sender, args=(email, subject, email_body, file_loc))
+    email_thread.start()
+    

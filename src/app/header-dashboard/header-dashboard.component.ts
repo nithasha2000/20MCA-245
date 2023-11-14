@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../user.service';
 import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
@@ -16,6 +16,11 @@ export class HeaderDashboardComponent {
   notificationCount: number = 5; // Replace with the actual number of notifications
   notifications: string[] = [];
   showNotificationBox: boolean = false;
+
+  @Output() featureSelected = new EventEmitter<String>();
+  onSelect(feature: string){
+    this.featureSelected.emit(feature);
+  }
 
   toggleNotificationBox() {
     this.showNotificationBox = !this.showNotificationBox;
@@ -55,20 +60,23 @@ export class HeaderDashboardComponent {
               this.userService.removeUserData();
               this.router.navigate(['/login']);
             }).catch((error) => {
-              this.toastr.error('Failed to logout', '', {
+              this.toastr.success('Logged Out', '', {
                 positionClass: 'toast-top-center',
               });
+              this.router.navigate(['/login']);
               console.error('Error during sign-out:', error);
             });
           } else {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
+            this.router.navigate(['/login']);
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
+          this.router.navigate(['/login']);
         }
       });
       } else {
@@ -91,11 +99,13 @@ export class HeaderDashboardComponent {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
+            this.router.navigate(['/login']);
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
+          this.router.navigate(['/login']);
         }
       });
     }

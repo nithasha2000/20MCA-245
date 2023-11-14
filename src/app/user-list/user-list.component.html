@@ -20,7 +20,11 @@
                         <button class="btn-view" (click)="viewUser(user)">View</button>
                     </td>
                     <td>
-                        <button class="btn-deactivate" (click)="deactivateUser(user)">Deactivate</button>
+                        <button
+                            [ngClass]="{'btn-deactivate': user.is_deleted === 1, 'btn-activate': user.is_deleted === 0}"
+                            (click)="toggleUserActivation(user)">
+                            {{ user.is_deleted === 0 ? 'Activate' : 'Deactivate' }}
+                        </button>
                     </td>
                 </tr>
             </ng-container>

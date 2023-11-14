@@ -4,9 +4,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
-<app-header-dashboard></app-header-dashboard>
-<app-sidebar></app-sidebar>
-<app-main-content></app-main-content>
-<!--<router-outlet></router-outlet>-->
+    <app-header-dashboard (featureSelected)="onNavigate($event)"></app-header-dashboard>
+    <app-sidebar (featureSelected)="onNavigate($event)"></app-sidebar>
+    <app-main-content *ngIf="selectedFeature === 'dashboard'"></app-main-content>
+    <app-user-list *ngIf="selectedFeature === 'view_user'"></app-user-list>
+    <app-change-password *ngIf="selectedFeature === 'change_password'"></app-change-password>
 </body>
 </html>

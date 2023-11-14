@@ -27,7 +27,7 @@
     color: #fff;
 }
 
-.btn-view, .btn-deactivate {
+.btn-view {
     background-color: #007bff;
     color: #fff;
     padding: 8px 16px;
@@ -37,7 +37,31 @@
     transition: background-color 0.3s;
 }
 
-.btn-view:hover, .btn-deactivate:hover {
+.btn-deactivate {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-deactivate:hover{
+    background-color: #fa4343;
+}
+.btn-activate {
+    background-color: #04ff00;
+    color: #fff;
+    padding: 8px 23px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-activate:hover{
+    background-color: #48f045;
+}
+.btn-view:hover {
     background-color: #0056b3;
 }
 

@@ -12,5 +12,9 @@ constructor(private router: Router) {}
   navigateToPasswordChange(event: Event) {
     event.preventDefault(); 
     this.router.navigate(['dashboard', 'change-password']);
-}
+  }
+  selectedFeature = 'dashboard';
+  onNavigate(feature: any){
+    this.selectedFeature = feature;
+  }
 }

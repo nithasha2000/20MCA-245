@@ -11,6 +11,12 @@
     align-items: center;
 }
 
+
+a:hover{
+    cursor: pointer;
+}
+
+
 .sidebar .logo {
     margin-bottom: 30px;
 }

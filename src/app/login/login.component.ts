@@ -38,9 +38,6 @@ export class LoginComponent implements OnInit {
             this.http.post('http://127.0.0.1:8000/login/', payload).subscribe((response: any) => {
             try {
               if (response.message === 'success') {
-                this.toastr.success('Logged In', 'Login Successful', {
-                  positionClass: 'toast-top-center',
-                });
                 this.cookieService.set('ability', response.data);
                 this.userService.setUserData(response.data);
                 this.router.navigate(['/dashboard']);
@@ -83,9 +80,6 @@ export class LoginComponent implements OnInit {
     this.http.post('http://127.0.0.1:8000/login/', payload).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Logged In', 'Login Successful', {
-            positionClass: 'toast-top-center',
-          });
           this.cookieService.set('ability', response.data);
           this.userService.setUserData(response.data);
           this.router.navigate(['/dashboard']);

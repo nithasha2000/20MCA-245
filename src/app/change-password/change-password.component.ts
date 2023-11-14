@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ChangePasswordComponent {
   userData: any;
+  forgotData: any;
   oldPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
@@ -20,20 +21,34 @@ export class ChangePasswordComponent {
     private userService: UserService, 
     private router: Router, private cookieService: CookieService) {
       this.userData = this.userService.getUserData();
-      if (this.userData.type == 'google'){
-        this.toastr.error('Feature Not available', 'Google Login', {
-            positionClass: 'toast-top-center',
-          });
-        this.router.navigate(['/dashboard']);
+      this.forgotData = this.userService.getForgotPassword();
+      if(this.userData){
+        if (this.userData.type == 'google'){
+            this.router.navigate(['/dashboard']);
+        }
     }
   }
   change_password(){
+    console.log(this.forgotData)
     let payload = {
-      "username": this.userData.username,
-      "role": this.userData.role,
-      "oldPassword": this.oldPassword,
-      "newPassword": this.newPassword,
-      "confirmPassword": this.confirmPassword
+    }
+    if(this.forgotData){
+      payload = {
+        "username": this.forgotData.username,
+        "role": this.forgotData.role,
+        "oldPassword": this.oldPassword,
+        "newPassword": this.newPassword,
+        "confirmPassword": this.confirmPassword
+      }
+    }
+    else{
+      payload = {
+        "username": this.userData.username,
+        "role": this.userData.role,
+        "oldPassword": this.oldPassword,
+        "newPassword": this.newPassword,
+        "confirmPassword": this.confirmPassword
+      }
     }
     this.http.post('http://127.0.0.1:8000/change_password/', payload).subscribe((response: any) => {
       try {
@@ -43,6 +58,7 @@ export class ChangePasswordComponent {
           });
           this.cookieService.delete('ability');
           this.userService.removeUserData();
+          this.userService.removeForgotPassword();
           this.router.navigate(['/login']);
         } else {
           this.toastr.error(response.data, 'Change Password Failed', {

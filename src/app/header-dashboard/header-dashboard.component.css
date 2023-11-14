@@ -2,6 +2,11 @@
     font-size: 28px;
     margin-bottom: 20px;
 }
+
+a:hover{
+    cursor: pointer;
+}
+
 .top-header {
     background-color: #fff;
     color: #333;

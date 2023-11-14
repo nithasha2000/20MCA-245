@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-
+    @Output() featureSelected = new EventEmitter<String>();
+    onSelect(feature: string){
+      this.featureSelected.emit(feature);
+    }
 }
