@@ -21,9 +21,9 @@
                     </td>
                     <td>
                         <button
-                            [ngClass]="{'btn-deactivate': user.is_deleted === 1, 'btn-activate': user.is_deleted === 0}"
+                            [ngClass]="{'btn-activate': user.is_deleted === 1, 'btn-deactivate': user.is_deleted === 0}"
                             (click)="toggleUserActivation(user)">
-                            {{ user.is_deleted === 0 ? 'Activate' : 'Deactivate' }}
+                            {{ user.is_deleted === 0 ? 'Deactivate' : 'Activate' }}
                         </button>
                     </td>
                 </tr>

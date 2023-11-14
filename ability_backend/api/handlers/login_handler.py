@@ -9,7 +9,10 @@ class LoginHandler:
         try:
             request_username = request_data["username"]
             request_password = request_data["password"]
-            login_db_data = Login.objects.get(username=request_username, is_deleted=0)
+            login_db_data = Login.objects.get(username=request_username)
+            if login_db_data.is_deleted:
+                response_json["data"] = "Your is account deactivated contact admin"
+                return response_json
             login_serializer = loginSerializer(login_db_data)
             if login_serializer.data:
                 user_data = login_serializer.data

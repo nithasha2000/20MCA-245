@@ -81,7 +81,6 @@ def register_api(request):
         response_json = handlers.get(request_data["type"])(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
     except Exception as e:
         print(f"Exception occured in registration api: {e}")
     return Response(response_json, status=401)
@@ -99,9 +98,8 @@ def change_password_api(request):
         response_json = RegisterHandler.change_password(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Password changed Successfully", status=200)
     except Exception as e:
-        print(f"Exception occured in registration api: {e}")
+        print(f"Exception occured in change password api: {e}")
     return Response(response_json, status=401)
 
 @api_view(['POST'])
@@ -117,7 +115,6 @@ def view_users(request):
         response_json = DashBoardHandler.view_users(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
     except Exception as e:
         print(f"Exception occured in view users api: {e}")
     return Response(response_json, status=401)
@@ -135,7 +132,23 @@ def account_activation(request):
         response_json = DashBoardHandler.account_activation_handler(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
+    except Exception as e:
+        print(f"Exception occured in activation of accounts api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def dashboard_sidebar(request):
+    response_json = {"message": "failed to load side bar", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+                'email', 'role'
+                ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.dashboard_sidebar_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception occured in activation of accounts api: {e}")
     return Response(response_json, status=401)
@@ -153,7 +166,6 @@ def forgot_password(request):
         response_json = DashBoardHandler.forgot_password_handler(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
     except Exception as e:
         print(f"Exception occured in forgot password api: {e}")
     return Response(response_json, status=401)
@@ -171,7 +183,6 @@ def verify_otp(request):
         response_json = DashBoardHandler.verify_otp_handler(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
     except Exception as e:
         print(f"Exception occured in verify otp api: {e}")
     return Response(response_json, status=401)
@@ -189,7 +200,6 @@ def view_notifications(request):
         response_json = DashBoardHandler.view_notifications(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
-        return Response("Registered Successfully", status=200)
     except Exception as e:
         print(f"Exception occured in view notifications api: {e}")
     return Response(response_json, status=401)

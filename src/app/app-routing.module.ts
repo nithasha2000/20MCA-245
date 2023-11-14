@@ -12,6 +12,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { JobPostComponent } from './job-post/job-post.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
+import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -23,8 +24,8 @@ const routes: Routes = [
 { path: 'forgot-password', component: ForgotPasswordComponent},
 { path: 'view-users', component: UserListComponent},
 { path: 'job-post', component: JobPostComponent},
-{ path: 'company-dashboard',component: CompanyDashboardComponent}
-
+{ path: 'company-dashboard',component: CompanyDashboardComponent},
+{ path: 'job-post-widget',component:JobPostWidgetComponent}
 ];
 
 const dashboardRoutes: Routes = [

@@ -1,5 +1,5 @@
 import random
-from api.utilities import email_utils
+from api.utilities import email_utils, response_utils
 from base.models import Login, CompanyRegister, JobSeekerRegister
 from base.serializers import loginSerializer, CompanyRegisterSerializer, JobSeekerRegisterSerializer, UserNotificationSerializer
 from django.core.exceptions import ObjectDoesNotExist
@@ -76,6 +76,22 @@ class DashBoardHandler:
         except Exception as e:
             print(f'Exception occured in activating users account: {e}')
         return response_json
+
+    def dashboard_sidebar_handler(request, response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('email', ''))
+                if login_db_data.role == request.get("role", ''):
+                    method_obj = getattr(response_utils, f"{request.get('role', '')}_sidebar")
+                    response_json["message"] = "success"
+                    response_json["data"] = method_obj()
+                else:
+                    response_json["data"] = "Account verification failed"
+            except ObjectDoesNotExist:
+                response_json["data"] = "Account doesnot exist"
+        except Exception as e:
+            print(f'Exception occured in fetching sidebar: {e}')
+        return response_json
     
     def forgot_password_handler(request, response_json):
         try:
@@ -84,7 +100,7 @@ class DashBoardHandler:
                 if login_db_data:
                     otp = ''.join(random.choice('0123456789') for _ in range(6))
                     users.update({request.get('email', ''): {'otp': otp}})
-                    sub=f"Account Activation"
+                    sub=f"Password Reset"
                     email_body = f"Hai {request.get('email', '')} <br> This is your otp to reset your account {otp}"
                     email_html_path = r"D:\20MCA-245\ability-project\20MCA-245\ability_backend\api\utilities\link_email.html"
                     email_utils.send_welcome_email_in_background(request.get('email', ''), sub, email_body, email_html_path)

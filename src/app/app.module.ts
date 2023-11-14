@@ -35,6 +35,7 @@ import { CompanyDashboardComponent } from './company-dashboard/company-dashboard
 import { CompanyHeaderDashboardComponent } from './company-header-dashboard/company-header-dashboard.component';
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { CompanyMaincontentComponent } from './company-maincontent/company-maincontent.component';
+import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CompanyMaincontentComponent } from './company-maincontent/company-mainc
     CompanyDashboardComponent,
     CompanyHeaderDashboardComponent,
     CompanySidebarComponent,
-    CompanyMaincontentComponent
+    CompanyMaincontentComponent,
+    JobPostWidgetComponent
   ],
   imports: [
     BrowserModule,

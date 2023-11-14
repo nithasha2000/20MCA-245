@@ -11,5 +11,6 @@ urlpatterns = [
     path('notifications/', views.view_notifications),
     path('account_activation/', views.account_activation),
     path('forgot-password/', views.forgot_password),
-    path('verify-otp/', views.verify_otp)
+    path('verify-otp/', views.verify_otp),
+    path('dashboard-sidebar/', views.dashboard_sidebar)
 ]
