@@ -1,0 +1,15 @@
+.top-right-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #3734db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.top-right-button:hover {
+  background-color: #2980b9;
+}

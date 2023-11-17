@@ -36,6 +36,7 @@ import { CompanyHeaderDashboardComponent } from './company-header-dashboard/comp
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { CompanyMaincontentComponent } from './company-maincontent/company-maincontent.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
+import { AddButtonComponent } from './add-button/add-button.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.compon
     CompanyHeaderDashboardComponent,
     CompanySidebarComponent,
     CompanyMaincontentComponent,
-    JobPostWidgetComponent
+    JobPostWidgetComponent,
+    AddButtonComponent
   ],
   imports: [
     BrowserModule,

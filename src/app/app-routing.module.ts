@@ -13,6 +13,7 @@ import { JobPostComponent } from './job-post/job-post.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
+import { AddButtonComponent } from './add-button/add-button.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
 { path: 'view-users', component: UserListComponent},
 { path: 'job-post', component: JobPostComponent},
 { path: 'company-dashboard',component: CompanyDashboardComponent},
-{ path: 'job-post-widget',component:JobPostWidgetComponent}
+{ path: 'job-post-widget',component:JobPostWidgetComponent},
+{ path: 'add-button',component:AddButtonComponent}
 ];
 
 const dashboardRoutes: Routes = [
@@ -52,7 +54,10 @@ const companysidebarRoutes: Routes = [
     path: 'company-sidebar',
     component: CompanySidebarComponent,
     children: [
-      { path: 'job-post', component: JobPostComponent}]
+      { path: 'job-post', component: JobPostComponent},
+      { path: 'job-post-widget', component:JobPostWidgetComponent},
+      { path: 'add-button', component:AddButtonComponent}
+ ]
 }]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -5,18 +5,18 @@ def admin_sidebar():
             "value": "View Users", 
             "icon": "fa fa-eye"
         },
-        {
-            "key": "view_user", 
-            "value": "View Users", 
-            "icon": "fa fa-eye"
-        }
     ]
     return response
 def company_sidebar():
     response = [
         {
-            "key": "add_job", 
-            "value": "Add Job Post", 
+            "key": "job-post-widget", 
+            "value": "View My Posts", 
+            "icon": "fa fa-eye"
+        },
+        {
+            "key": "job-post", 
+            "value": "Add My Posts", 
             "icon": "fa fa-plus"
         }
     ]

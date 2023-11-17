@@ -8,6 +8,9 @@
     <app-sidebar (featureSelected)="onNavigate($event)"></app-sidebar>
     <app-main-content *ngIf="selectedFeature === 'dashboard'"></app-main-content>
     <app-user-list *ngIf="selectedFeature === 'view_user'"></app-user-list>
+    <app-user-list *ngIf="selectedFeature === 'view_user'"></app-user-list>
+    <app-job-post-widget *ngIf="selectedFeature === 'job-post-widget'"></app-job-post-widget>
     <app-change-password *ngIf="selectedFeature === 'change_password'"></app-change-password>
+    <app-job-post *ngIf="selectedFeature === 'job-post'"></app-job-post>
 </body>
 </html>
