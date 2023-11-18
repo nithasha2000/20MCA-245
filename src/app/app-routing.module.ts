@@ -55,8 +55,7 @@ const companysidebarRoutes: Routes = [
     component: CompanySidebarComponent,
     children: [
       { path: 'job-post', component: JobPostComponent},
-      { path: 'job-post-widget', component:JobPostWidgetComponent},
-      { path: 'add-button', component:AddButtonComponent}
+      { path: 'job-post-widget', component:JobPostWidgetComponent}
  ]
 }]
 @NgModule({
