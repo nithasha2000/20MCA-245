@@ -9,6 +9,10 @@
     justify-content: flex-end;
     padding: 10px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
 }
 .notification-icon {
     margin-right: 20px; 
@@ -91,4 +95,8 @@ notification-box.show {
 }
 .notification-item:last-child {
     border-bottom: none;
+}
+body {
+    margin: 0;
+    padding-top: 60px; /* Adjust this value based on your header height */
 }

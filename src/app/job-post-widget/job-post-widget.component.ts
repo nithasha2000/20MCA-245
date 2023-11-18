@@ -1,9 +1,9 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-job-post-widget',
   templateUrl: './job-post-widget.component.html',
-  styleUrls: ['./job-post-widget.component.css']
+  styleUrls: ['./job-post-widget.component.css'],
 })
 export class JobPostWidgetComponent {
   @Input() jobTitle: string = '';
@@ -14,4 +14,15 @@ export class JobPostWidgetComponent {
   @Input() jobDescription: string = '';
   @Input() applicationDeadline: string = '';
 
+  areButtonsVisible = false;
+
+  showButtons() {
+    if (this.areButtonsVisible) {
+      this.areButtonsVisible = false;
+    }
+  }
+
+  toggleButtons() {
+    this.areButtonsVisible = !this.areButtonsVisible;
+  }
 }

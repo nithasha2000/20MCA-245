@@ -1,5 +1,3 @@
-/* Add this to your stylesheet or in the component's styles array */
-
 .job-widget {
   border: 2px solid #3498db;
   background-color: #ecf0f1;
@@ -9,6 +7,13 @@
   height: 225px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.job-widget:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  opacity: 1;
 }
 
 .header {
@@ -54,4 +59,50 @@
 .deadline {
   color: #888;
   font-size: 14px;
+}
+
+.edit-button,
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.edit-button {
+  color: #3498db;
+}
+
+.delete-button {
+  color: #e74c3c;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #f2f2f2;
+}
+
+.buttons {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out, color 0.3s ease-in-out;
+  text-align: center;
+  margin-top: 20px;
+}
+.button:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+.button-container {
+  /* Adjust the margin as needed */
 }

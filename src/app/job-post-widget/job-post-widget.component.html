@@ -1,4 +1,4 @@
-<div class="job-widget">
+<div class="job-widget" (mouseenter)="showButtons()" (dblclick)="toggleButtons()">
   <div class="header">
     <div class="job-title">Software Engineer</div>
     <div class="company">Tata Consultancy Service</div>
@@ -7,15 +7,20 @@
         <i class="icon fas fa-briefcase"></i> 0-1 years
       </div>
       <div class="salary">
-        <i class="icon fas fa-money-bill"></i> 1-5 Lacs PA
+        <i class="icon fas fa-money-bill"></i>1-5 Lakhs PA
       </div>
       <div class="location">
         <i class="icon fas fa-map-marker-alt"></i> Kochi
       </div>
     </div>
   </div>
-  <div class="description">Technical skills</div>
+  <div class="description">Technical Skills</div>
   <div class="deadline">
     <i class="icon fas fa-calendar"></i> Application Deadline: 20 Nov 2023
   </div>
-</div>
+  </div>
+  <div class="buttons" *ngIf="areButtonsVisible">
+    <button class="edit-button">Edit</button>
+    <button class="delete-button">Delete</button>
+  </div>
+
