@@ -18,6 +18,7 @@ class LoginHandler:
                 user_data = login_serializer.data
                 password = user_data['password']
                 if password == request_password:
+                    login_serializer.data.pop('password', None)
                     response_json["message"] = "success"
                     response_json["data"] = login_serializer.data
                     response_json["data"].update({"type": "normal"})
@@ -40,10 +41,14 @@ class LoginHandler:
                 response_json["data"] = "Google authentication failed"
             else:
                 email = idinfo.get("email", '')
-                login_db_data = Login.objects.get(username=email, is_deleted=0)
+                login_db_data = Login.objects.get(username=email)
+                if login_db_data.is_deleted:
+                    response_json["data"] = "Your is account deactivated contact admin"
+                    return response_json
                 login_serializer = loginSerializer(login_db_data)
                 if login_serializer.data:
                     user_data = login_serializer.data
+                    login_serializer.data.pop('password', None)
                     request.session['username'] = user_data['username']
                     request.session['role'] = user_data['role']
                     response_json["message"] = "success"

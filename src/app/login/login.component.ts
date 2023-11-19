@@ -18,12 +18,18 @@ export class LoginComponent implements OnInit {
   password: string = '';
   isLoggingIn: boolean = false;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, 
-    private authService: SocialAuthService, private userService: UserService, 
-    private router: Router, private cookieService: CookieService) {
-    
-  }
+  constructor(
+    private http: HttpClient, 
+    private toastr: ToastrService, 
+    private authService: SocialAuthService, 
+    private userService: UserService, 
+    private router: Router, 
+    private cookieService: CookieService,) {}
+
   ngOnInit(){
+    if(this.userService.isLoggedIn()){
+      this.router.navigate(['/dashboard']);
+    }
     this.authService.authState.subscribe((user: any) => {
       try{
           if (user) {

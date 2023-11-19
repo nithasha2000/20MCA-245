@@ -29,14 +29,14 @@ export class ChangePasswordComponent {
     }
   }
   change_password(){
-    console.log(this.forgotData)
     let payload = {
+
     }
     if(this.forgotData){
       payload = {
         "username": this.forgotData.username,
         "role": this.forgotData.role,
-        "oldPassword": this.oldPassword,
+        "type": "change-password",
         "newPassword": this.newPassword,
         "confirmPassword": this.confirmPassword
       }
@@ -45,6 +45,7 @@ export class ChangePasswordComponent {
       payload = {
         "username": this.userData.username,
         "role": this.userData.role,
+        "type": "forgot-password",
         "oldPassword": this.oldPassword,
         "newPassword": this.newPassword,
         "confirmPassword": this.confirmPassword
@@ -60,10 +61,19 @@ export class ChangePasswordComponent {
           this.userService.removeUserData();
           this.userService.removeForgotPassword();
           this.router.navigate(['/login']);
-        } else {
-          this.toastr.error(response.data, 'Change Password Failed', {
-            positionClass: 'toast-top-center',
-          });
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Change Password Failed', {
+                positionClass: 'toast-top-center',
+              });
+            });
+          } else {
+            this.toastr.error(response.data, 'Change Password Failed', {
+              positionClass: 'toast-top-center',
+            });
+          }
         }
       } catch (error) {
         this.toastr.error('Change Password Failed', 'Try Again',{

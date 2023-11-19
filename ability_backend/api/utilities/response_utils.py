@@ -13,11 +13,15 @@ def company_sidebar():
             "key": "job-post-widget", 
             "value": "View My Posts", 
             "icon": "fa fa-eye"
-        },
+        }
+    ]
+    return response
+def job_seeker_sidebar():
+    response = [
         {
-            "key": "job-post", 
-            "value": "Add My Posts", 
-            "icon": "fa fa-plus"
+            "key": "job-post-widget", 
+            "value": "View Job Posts", 
+            "icon": "fa fa-eye"
         }
     ]
     return response

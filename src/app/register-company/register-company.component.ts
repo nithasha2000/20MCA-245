@@ -76,7 +76,7 @@ page: number = 1; // Current page
     this.http.post('http://127.0.0.1:8000/register/', formData).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Registered', 'Registration Successful', {
+          this.toastr.success('Account Registered', 'Registration Successful', {
             positionClass: 'toast-top-center',
           });
           this.router.navigate(['/login']);

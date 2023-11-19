@@ -13,26 +13,26 @@ import { JobPostComponent } from './job-post/job-post.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
-import { AddButtonComponent } from './add-button/add-button.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
 { path: 'login', component: LoginComponent },
 { path: 'register-job-seeker', component: RegisterJobSeekerComponent },
 { path: 'register-company', component: RegisterCompanyComponent },
-{ path: 'dashboard', component: DashboardComponent},
+{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
 { path: 'change-password', component: ChangePasswordComponent},
 { path: 'forgot-password', component: ForgotPasswordComponent},
 { path: 'view-users', component: UserListComponent},
 { path: 'job-post', component: JobPostComponent},
 { path: 'company-dashboard',component: CompanyDashboardComponent},
-{ path: 'job-post-widget',component:JobPostWidgetComponent},
-{ path: 'add-button',component:AddButtonComponent}
+{ path: 'job-post-widget',component:JobPostWidgetComponent}
 ];
 
 const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     component: DashboardComponent,
     children: [
       { path: 'change-password', component: ChangePasswordComponent },

@@ -1,26 +1,39 @@
-<div class="job-widget" (mouseenter)="showButtons()" (dblclick)="toggleButtons()">
-  <div class="header">
-    <div class="job-title">Software Engineer</div>
-    <div class="company">Tata Consultancy Service</div>
-    <div class="details">
-      <div class="experience">
-        <i class="icon fas fa-briefcase"></i> 0-1 years
+<div class="widget-container">
+  <button class="top-right-button" (click)="onSelect('job-post')"><span class="fa-plus"></span> Add New Post</button>
+  <div class="job-widget-container">
+    <ng-container *ngIf="job_list && job_list.length; else noContents"></ng-container>
+    <div class="job-widget" *ngFor="let job of job_list" (dblclick)="toggleButtons(job)">
+      <div class="header">
+        <div class="job-title">{{ job.job_title }}</div>
+        <div class="company">{{ job.company_name }}</div>
+        <div class="details">
+          <div class="experience">
+            <i class="icon fas fa-briefcase"></i> {{ job.experience ? job.experience : "0 - 1" }} years
+          </div>
+          <div class="salary">
+            <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} Lacs PA
+          </div>
+          <div class="location">
+            <i class="icon fas fa-map-marker-alt"></i> {{ job.location }}
+          </div>
+        </div>
       </div>
-      <div class="salary">
-        <i class="icon fas fa-money-bill"></i>1-5 Lakhs PA
+      <div class="description">Technical skills</div>
+      <div class="deadline">
+        <i class="icon fas fa-calendar"></i> Application Deadline: {{ job.application_deadline | date: 'dd-MM-yyyy' }}
       </div>
-      <div class="location">
-        <i class="icon fas fa-map-marker-alt"></i> Kochi
+      <div class="toggle-buttons" (click)="toggleButtons(job)">
+        <i class="fas fa-ellipsis-v"></i>
+        <div class="popup-buttons" [ngClass]="{'show': areButtonsVisible[job.job_post_id]}">
+          <button class="edit-button" (click)="onSelect('job-post', job)">Edit</button>
+          <button class="delete-button" (click)="ondelete(job)">Delete</button>
+        </div>
       </div>
     </div>
+    <ng-template #noContents>
+      <tr>
+        <td colspan="5">No jobs to show</td>
+      </tr>
+    </ng-template>
   </div>
-  <div class="description">Technical Skills</div>
-  <div class="deadline">
-    <i class="icon fas fa-calendar"></i> Application Deadline: 20 Nov 2023
-  </div>
-  </div>
-  <div class="buttons" *ngIf="areButtonsVisible">
-    <button class="edit-button">Edit</button>
-    <button class="delete-button">Delete</button>
-  </div>
-
+</div>

@@ -90,67 +90,23 @@ def change_password_api(request):
     response_json = {"message": "failed to fetch change password", "data": ""}
     try:
         request_data = request.data
-        if not all(key in request_data for key in [
-                'username', 'role', 'oldPassword', 'newPassword', 'confirmPassword'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
+        if "type" in request_data and request_data.get("type") == "change-password":
+            if not all(key in request_data for key in [
+                    'username', 'role', 'newPassword', 'confirmPassword'
+                    ]):
+                response_json["data"] = "Unprocessible entity"
+                return Response(response_json, status=422)
+        else:
+            if not all(key in request_data for key in [
+                    'username', 'role', 'oldPassword', 'newPassword', 'confirmPassword'
+                    ]):
+                response_json["data"] = "Unprocessible entity"
+                return Response(response_json, status=422)
         response_json = RegisterHandler.change_password(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception occured in change password api: {e}")
-    return Response(response_json, status=401)
-
-@api_view(['POST'])
-def view_users(request):
-    response_json = {"message": "failed to fetch users", "data": ""}
-    try:
-        request_data = request.data
-        if not all(key in request_data for key in [
-                'username', 'role'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
-        response_json = DashBoardHandler.view_users(request_data, response_json)
-        if response_json:
-            return Response(response_json, status=200)
-    except Exception as e:
-        print(f"Exception occured in view users api: {e}")
-    return Response(response_json, status=401)
-
-@api_view(['POST'])
-def account_activation(request):
-    response_json = {"message": "failed to change activation state", "data": ""}
-    try:
-        request_data = request.data
-        if not all(key in request_data for key in [
-                'username', 'role', 'change_username'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
-        response_json = DashBoardHandler.account_activation_handler(request_data, response_json)
-        if response_json:
-            return Response(response_json, status=200)
-    except Exception as e:
-        print(f"Exception occured in activation of accounts api: {e}")
-    return Response(response_json, status=401)
-
-@api_view(['POST'])
-def dashboard_sidebar(request):
-    response_json = {"message": "failed to load side bar", "data": ""}
-    try:
-        request_data = request.data
-        if not all(key in request_data for key in [
-                'email', 'role'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
-        response_json = DashBoardHandler.dashboard_sidebar_handler(request_data, response_json)
-        if response_json:
-            return Response(response_json, status=200)
-    except Exception as e:
-        print(f"Exception occured in activation of accounts api: {e}")
     return Response(response_json, status=401)
 
 @api_view(['POST'])
@@ -168,38 +124,4 @@ def forgot_password(request):
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception occured in forgot password api: {e}")
-    return Response(response_json, status=401)
-
-@api_view(['POST'])
-def verify_otp(request):
-    response_json = {"message": "failed", "data": ""}
-    try:
-        request_data = request.data
-        if not all(key in request_data for key in [
-                'email', 'otp'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
-        response_json = DashBoardHandler.verify_otp_handler(request_data, response_json)
-        if response_json:
-            return Response(response_json, status=200)
-    except Exception as e:
-        print(f"Exception occured in verify otp api: {e}")
-    return Response(response_json, status=401)
-
-@api_view(['POST'])
-def view_notifications(request):
-    response_json = {"message": "failed to fetch notifications", "data": ""}
-    try:
-        request_data = request.data
-        if not all(key in request_data for key in [
-                'username', 'role'
-                ]):
-            response_json["data"] = "Unprocessible entity"
-            return Response(response_json, status=422)
-        response_json = DashBoardHandler.view_notifications(request_data, response_json)
-        if response_json:
-            return Response(response_json, status=200)
-    except Exception as e:
-        print(f"Exception occured in view notifications api: {e}")
     return Response(response_json, status=401)

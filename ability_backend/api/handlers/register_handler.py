@@ -160,21 +160,35 @@ class RegisterHandler:
                 if login_serializer.data:
                     user_data = login_serializer.data
                     password = user_data['password']
-                    if password == request.get("oldPassword", ''):
-                        valid, validate_resp = ValidateUtil.change_password_valid(request)
-                        if not valid:
-                            response_json["data"] = validate_resp
-                            return response_json
-                        if request.get("oldPassword", '') != request.get("newPassword"):
+                    if request.get("type") == "forgot-password":
+                        if password == request.get("oldPassword", ''):
+                            valid, validate_resp = ValidateUtil.change_password_valid(request)
+                            if not valid:
+                                response_json["data"] = validate_resp
+                                return response_json
+                            if request.get("oldPassword", '') != request.get("newPassword"):
+                                login_db_data.password = request.get("newPassword")
+                                login_db_data.save()
+                                login_serializer = loginSerializer(login_db_data)
+                                response_json["message"] = "success"
+                                response_json["data"] = "Password changed"
+                            else:
+                                response_json["data"] = "New Password cannot be the same as current account password"
+                        else:
+                            response_json["data"] = "Enter your current account password"
+                    else:
+                        if password != request.get("newPassword", ''):
+                            valid, validate_resp = ValidateUtil.change_password_valid(request)
+                            if not valid:
+                                response_json["data"] = validate_resp
+                                return response_json
                             login_db_data.password = request.get("newPassword")
                             login_db_data.save()
                             login_serializer = loginSerializer(login_db_data)
                             response_json["message"] = "success"
                             response_json["data"] = "Password changed"
                         else:
-                            response_json["data"] = "New Password cannot be the same as current password"
-                    else:
-                        response_json["data"] = "Enter your current account password"
+                            response_json["data"] = "New Password cannot be the same as current account password"
                 else:
                     response_json["data"] = "Account doesnot exist"
             except ObjectDoesNotExist:

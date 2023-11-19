@@ -36,7 +36,7 @@ import { CompanyHeaderDashboardComponent } from './company-header-dashboard/comp
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { CompanyMaincontentComponent } from './company-maincontent/company-maincontent.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
-import { AddButtonComponent } from './add-button/add-button.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,6 @@ import { AddButtonComponent } from './add-button/add-button.component';
     CompanySidebarComponent,
     CompanyMaincontentComponent,
     JobPostWidgetComponent,
-    AddButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +95,7 @@ import { AddButtonComponent } from './add-button/add-button.component';
         }
       } as SocialAuthServiceConfig,
     },
+    AuthGuard,
     CookieService,
   ],
   bootstrap: [AppComponent]

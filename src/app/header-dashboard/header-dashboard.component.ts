@@ -12,28 +12,35 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./header-dashboard.component.css']
 })
 export class HeaderDashboardComponent {
-  // In your component class
-  notificationCount: number = 5; // Replace with the actual number of notifications
+
   notifications: string[] = [];
   showNotificationBox: boolean = false;
+  toggleNotificationBox() {
+    this.showNotificationBox = !this.showNotificationBox;
+  }
 
   @Output() featureSelected = new EventEmitter<String>();
   onSelect(feature: string){
     this.featureSelected.emit(feature);
   }
 
-  toggleNotificationBox() {
-    this.showNotificationBox = !this.showNotificationBox;
-  }
+  // In your component class
+  notificationCount: number = 5; // Replace with the actual number of notifications
+  // In your component class
+  // Call this method when there are new notifications
   updateNotificationCount(newCount: number) {
     this.notificationCount = newCount;
   }
 
   userData: any;
   isLoggingOut: boolean = false;
-  constructor(private http: HttpClient, private toastr: ToastrService, 
-    private authService: SocialAuthService, private userService: UserService, 
-    private router: Router, private cookieService: CookieService) {
+  constructor(
+    private http: HttpClient, 
+    private toastr: ToastrService, 
+    private authService: SocialAuthService, 
+    private userService: UserService, 
+    private router: Router, 
+    private cookieService: CookieService) {
     this.userData = this.userService.getUserData();
     if (!this.userData){
       this.toastr.error('You are not authorized to view this page', 'Please Sign in', {
@@ -63,6 +70,7 @@ export class HeaderDashboardComponent {
               this.toastr.success('Logged Out', '', {
                 positionClass: 'toast-top-center',
               });
+              this.userService.removeUserData();
               this.router.navigate(['/login']);
               console.error('Error during sign-out:', error);
             });
@@ -99,13 +107,11 @@ export class HeaderDashboardComponent {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
-            this.router.navigate(['/login']);
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
-          this.router.navigate(['/login']);
         }
       });
     }

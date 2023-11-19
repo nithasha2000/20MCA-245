@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class UserListComponent implements OnInit {
   userData: any;
   users: any[] = [];
+  @Output() featureSelected = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient,
@@ -25,8 +26,8 @@ export class UserListComponent implements OnInit {
 
     if (this.userData) {
       const payload = {
-        username: this.userData.username,
-        role: this.userData.role
+        "username": this.userData.username,
+        "role": this.userData.role
       };
 
       this.http.post('http://127.0.0.1:8000/view-users/', payload).subscribe((response: any) => {
@@ -53,7 +54,7 @@ export class UserListComponent implements OnInit {
   }
 
   viewUser(user: any) {
-    console.log(user);
+    console.log(user)
   }
 
   toggleUserActivation(user: any) {
@@ -65,7 +66,8 @@ export class UserListComponent implements OnInit {
     this.http.post('http://127.0.0.1:8000/account_activation/', payload).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          window.location.reload();
+          this.userService.setLastEmittedData("view_user");
+          location.reload();
         } else {
           this.toastr.error(response.data, 'Failed to fetch users', {
             positionClass: 'toast-top-center',

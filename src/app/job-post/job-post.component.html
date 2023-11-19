@@ -1,19 +1,22 @@
 <body>
     <h1>Job Post Form</h1>
     <form method="post">
-        <label for="company_id">Company ID:</label>
-        <input type="text" id="company_id" name="company_id" required>
 
         <label for="job_title">Job Title:</label>
-        <input type="text" id="job_title" name="job_title" required>
+        <input type="text" id="job_title" [(ngModel)]="job_title" [ngModelOptions]="{standalone: true}" required>
 
         <label for="job_description">Job Description:</label>
-        <textarea id="job_description" name="job_description" rows="4" cols="50" required></textarea>
+        <textarea id="job_description" [(ngModel)]="job_description" [ngModelOptions]="{standalone: true}" rows="4"
+            cols="50" required></textarea>
+
+        <label for="experience">Experience:</label>
+        <input type="text" id="experience" [(ngModel)]="experience" [ngModelOptions]="{standalone: true}" required>
 
         <label for="location">Location:</label>
-        <select id="location" name="location" required>
+        <select id="location" [(ngModel)]="location" [ngModelOptions]="{standalone: true}" required>
             <option value="" disabled selected>Select a state</option>
             <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <!-- Add the rest of the states here -->
             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
             <option value="Assam">Assam</option>
             <option value="Bihar">Bihar</option>
@@ -42,8 +45,9 @@
             <option value="Uttarakhand">Uttarakhand</option>
             <option value="West Bengal">West Bengal</option>
         </select>
+
         <label for="salary_range">Salary Range:</label>
-        <select id="salary_range" name="salary_range" required>
+        <select id="salary_range" [(ngModel)]="salary_range" [ngModelOptions]="{standalone: true}" required>
             <option value="" disabled selected>Select a salary range</option>
             <option value="Less than 30k">Less than ₹30k</option>
             <option value="30k - 60k">₹30k - ₹60k</option>
@@ -61,8 +65,9 @@
         </select>
 
         <label for="application_deadline">Application Deadline:</label>
-        <input type="date" id="application_deadline" name="application_deadline" required [min]="currentDate">
+        <input type="date" id="application_deadline" [(ngModel)]="application_deadline"
+            [ngModelOptions]="{standalone: true}" required [min]="currentDate">
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" (click)="job_post()">
     </form>
 </body>

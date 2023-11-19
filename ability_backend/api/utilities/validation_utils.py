@@ -101,3 +101,32 @@ class ValidateUtil:
             print(f"Exception occured in change password validation: {e}")
             valid =False
         return valid, errors
+    
+    def job_post_validate(request):
+        errors = []
+        valid = True
+        try:
+            if 'company_id' in request:
+                if not re.match(validation_dict.get("phone", r'^\d{10}$'), request["company_id"]):
+                    errors.append("10 digit company id is required")
+                    valid = False
+            if 'job_title' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["job_title"]):
+                    errors.append("For Job title only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'job_description' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["job_description"]):
+                    errors.append("For Job description only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'location' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["location"]):
+                    errors.append("For location only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'salary_range' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["salary_range"]):
+                    errors.append("For salary_range only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+        except Exception as e:
+            print(f"Exception occured in job post validation: {e}")
+            valid =False
+        return valid, errors
