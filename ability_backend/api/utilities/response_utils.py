@@ -2,8 +2,8 @@ def admin_sidebar():
     response = [
         {
             "key": "view_user", 
-            "value": "View Users", 
-            "icon": "fa fa-eye"
+            "value": "Manage Users", 
+            "icon": "fa fa-users"
         },
     ]
     return response

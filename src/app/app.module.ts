@@ -27,7 +27,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { UserDataComponent } from './user-data/user-data.component';
 import { CapitalizePipe } from './pipe.component';
 import { JobPostComponent } from './job-post/job-post.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,6 +36,8 @@ import { CompanySidebarComponent } from './company-sidebar/company-sidebar.compo
 import { CompanyMaincontentComponent } from './company-maincontent/company-maincontent.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
 import { AuthGuard } from './auth.guard';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,6 @@ import { AuthGuard } from './auth.guard';
     ChangePasswordComponent,
     ForgotPasswordComponent,
     UserListComponent,
-    UserDataComponent,
     CapitalizePipe,
     JobPostComponent,
     CompanyDashboardComponent,
@@ -63,6 +63,8 @@ import { AuthGuard } from './auth.guard';
     CompanySidebarComponent,
     CompanyMaincontentComponent,
     JobPostWidgetComponent,
+    UserDetailsComponent,
+    ApplyJobListComponent,
   ],
   imports: [
     BrowserModule,
