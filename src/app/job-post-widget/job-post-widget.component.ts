@@ -112,6 +112,14 @@ private isButtonOrChild(element: any): boolean {
     }
   }
 
+  onApply(job: any)
+  {
+
+  }
+  onSave(job: any)
+  {
+
+  }
   ondelete(job: any){
     const payload = {
       "type": "delete",

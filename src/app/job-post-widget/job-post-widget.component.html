@@ -11,7 +11,7 @@
             <i class="icon fas fa-briefcase"></i> {{ job.experience ? job.experience : "0 - 1" }} years
           </div>
           <div class="salary">
-            <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} Lacs PA
+            <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} 
           </div>
           <div class="location">
             <i class="icon fas fa-map-marker-alt"></i> {{ job.location }}
@@ -27,6 +27,8 @@
         <div class="popup-buttons" [ngClass]="{'show': areButtonsVisible[job.job_post_id]}">
           <button class="edit-button" (click)="onSelect('job-post', job)">Edit</button>
           <button class="delete-button" (click)="ondelete(job)">Delete</button>
+          <button class="apply-button" (click)="onApply(job)">Apply</button>
+          <button class="save-button" (click)="onSave(job)">Save</button>
         </div>
       </div>
     </div>
