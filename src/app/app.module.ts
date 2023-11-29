@@ -38,6 +38,9 @@ import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.compon
 import { AuthGuard } from './auth.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component';
+import { SaveJobListComponent } from './save-job-list/save-job-list.component';
+import { ApplicantsListComponent } from './applicants-list/applicants-list.component';
+import { ReloadService } from './reload.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,8 @@ import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component
     JobPostWidgetComponent,
     UserDetailsComponent,
     ApplyJobListComponent,
+    SaveJobListComponent,
+    ApplicantsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +104,7 @@ import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component
     },
     AuthGuard,
     CookieService,
+    ReloadService,
   ],
   bootstrap: [AppComponent]
 })

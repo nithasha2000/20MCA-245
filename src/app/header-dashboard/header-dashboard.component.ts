@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../user.service';
-import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ReloadService } from '../reload.service';
 
 @Component({
   selector: 'app-header-dashboard',
@@ -21,6 +22,7 @@ export class HeaderDashboardComponent {
 
   @Output() featureSelected = new EventEmitter<String>();
   onSelect(feature: string){
+    this.reloadService.triggerReload();
     this.featureSelected.emit(feature);
   }
 
@@ -40,7 +42,8 @@ export class HeaderDashboardComponent {
     private authService: SocialAuthService, 
     private userService: UserService, 
     private router: Router, 
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private reloadService: ReloadService) {
     this.userData = this.userService.getUserData();
     if (!this.userData){
       this.toastr.error('You are not authorized to view this page', 'Please Sign in', {
@@ -78,12 +81,14 @@ export class HeaderDashboardComponent {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
+            this.userService.removeUserData();
             this.router.navigate(['/login']);
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
+          this.userService.removeUserData();
           this.router.navigate(['/login']);
         }
       });
@@ -91,6 +96,8 @@ export class HeaderDashboardComponent {
         this.toastr.info('User is not logged in', '', {
           positionClass: 'toast-top-center',
         });
+            this.cookieService.delete('ability');
+            this.userService.removeUserData();
       }
     }
     else{  
@@ -107,11 +114,15 @@ export class HeaderDashboardComponent {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
+            this.cookieService.delete('ability');
+            this.userService.removeUserData();
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
+          this.cookieService.delete('ability');
+          this.userService.removeUserData();
         }
       });
     }

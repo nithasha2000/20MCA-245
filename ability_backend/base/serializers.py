@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from base.models import (
+    JobApplications,
     Login, 
     CompanyRegister, 
-    JobSeekerRegister, 
+    JobSeekerRegister,
+    SaveJobPosts, 
     UserNotifications,
     JobPost
 )
@@ -26,6 +28,17 @@ class JobPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobPost
         fields = '__all__'
+        
+class JobApplicationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobApplications
+        fields = '__all__'
+        
+class SaveJobPostsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SaveJobPosts
+        fields = '__all__'
+
 
 class UserNotificationSerializer(serializers.ModelSerializer):
     class Meta:

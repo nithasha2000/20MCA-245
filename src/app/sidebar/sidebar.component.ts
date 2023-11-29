@@ -1,23 +1,35 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
-import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ReloadService } from '../reload.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent implements OnInit, OnDestroy{
   userData: any;
   navItems: any[] = [];
+  selectedNavItem: string | null = null;
+  private reloadSubscription: Subscription;
+
   constructor(private http: HttpClient, 
     private toastr: ToastrService, 
-    private userService: UserService, 
-    private router: Router) {
+    private userService: UserService,
+    private reloadService: ReloadService) {
+      this.reloadSubscription = this.reloadService.getReloadObservable().subscribe(() => {
+        this.onSelect("")
+      });
       this.userData = this.userService.getUserData();
   }
+
+  ngOnDestroy() {
+    this.reloadSubscription.unsubscribe();
+  }
+
   ngOnInit(){
     let payload = {
       "email": this.userData.username,
@@ -42,6 +54,7 @@ export class SidebarComponent implements OnInit{
   @Output() featureSelected = new EventEmitter<String>();
   onSelect(feature: string){
     this.featureSelected.emit(feature);
+    this.selectedNavItem = feature;
   }
 }
 

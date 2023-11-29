@@ -1,5 +1,6 @@
 <div class="widget-container">
-  <button class="top-right-button" (click)="onSelect('job-post')"><span class="fa-plus"></span> Add New Post</button>
+  <button class="top-right-button" *ngIf="userData.role === 'company'" (click)="onSelect('job-post')"><span
+      class="fa-plus"></span> Add New Post</button>
   <div class="job-widget-container">
     <ng-container *ngIf="job_list && job_list.length; else noContents"></ng-container>
     <div class="job-widget" *ngFor="let job of job_list" (dblclick)="toggleButtons(job)">
@@ -11,24 +12,38 @@
             <i class="icon fas fa-briefcase"></i> {{ job.experience ? job.experience : "0 - 1" }} years
           </div>
           <div class="salary">
-            <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} 
+            <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} Lacs PA
           </div>
           <div class="location">
             <i class="icon fas fa-map-marker-alt"></i> {{ job.location }}
           </div>
         </div>
       </div>
-      <div class="description">Technical skills</div>
-      <div class="deadline">
-        <i class="icon fas fa-calendar"></i> Application Deadline: {{ job.application_deadline | date: 'dd-MM-yyyy' }}
+      <div class="description">{{ job.job_description }}</div>
+      <div class="deadline-container">
+        <div class="deadline">
+          <i class="icon fas fa-calendar"></i> Application Deadline: {{ job.application_deadline | date: 'dd-MM-yyyy' }}
+        </div>
+        <span class="post-status" *ngIf="job.post_status">
+          <span class="post-label">Post Status: </span>
+          <span [ngClass]="{'opened': job.post_status === 'opened', 'closed': job.post_status === 'closed'}">{{
+            job.post_status | titlecase }}</span>
+        </span>
       </div>
       <div class="toggle-buttons" (click)="toggleButtons(job)">
         <i class="fas fa-ellipsis-v"></i>
         <div class="popup-buttons" [ngClass]="{'show': areButtonsVisible[job.job_post_id]}">
-          <button class="edit-button" (click)="onSelect('job-post', job)">Edit</button>
-          <button class="delete-button" (click)="ondelete(job)">Delete</button>
-          <button class="apply-button" (click)="onApply(job)">Apply</button>
-          <button class="save-button" (click)="onSave(job)">Save</button>
+          <button class="edit-button" *ngIf="userData.role === 'company'"
+            (click)="onSelect('job-post', job)">Edit</button>
+          <button class="close-button" *ngIf="userData.role === 'company' && job.post_status === 'opened'"
+            (click)="onstatus(job)">Close</button>
+          <button class="open-button" *ngIf="userData.role === 'company' && job.post_status === 'closed'"
+            (click)="onstatus(job)">Open</button>
+          <button class="applications-button" *ngIf="userData.role === 'company'"
+            (click)="onSelect('applicants-list', job)">Applications</button>
+          <button class="delete-button" *ngIf="userData.role === 'company'" (click)="ondelete(job)">Delete</button>
+          <button class="apply-button" *ngIf="userData.role === 'job_seeker'" (click)="onApply(job)">Apply</button>
+          <button class="save-button" *ngIf="userData.role === 'job_seeker'" (click)="onSave(job)">Save</button>
         </div>
       </div>
     </div>

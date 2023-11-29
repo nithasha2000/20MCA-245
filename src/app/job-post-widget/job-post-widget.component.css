@@ -82,7 +82,9 @@
 }
 
 .edit-button,
-.delete-button {
+.delete-button,
+.apply-button,
+.save-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -93,11 +95,30 @@
 .edit-button {
   color: #3498db;
 }
+
+.apply-button{
+ color: #3498db;
+}
+
+.save-button, .open-button{
+  color: #55db34;
+ }
+
 .delete-button {
   color: #e74c3c;
 }
+
+.close-button{
+  color: #c5df00;
+}
+
 .edit-button:hover,
-.delete-button:hover {
+.delete-button:hover,
+.apply-button:hover,
+.save-button:hover,
+.close-button:hover,
+.open-button:hover,
+.applications-button:hover {
   background-color: #f2f2f2;
 }
 
@@ -111,6 +132,10 @@
 .toggle-buttons i {
   font-size: 20px; /* Adjust the font size as needed */
   color: #333; /* Adjust the color as needed */
+}
+
+.applications-button{
+  color: #00abdf;
 }
 
 .popup-buttons {
@@ -143,4 +168,22 @@
 /* Show popup buttons when areButtonsVisible is true */
 .popup-buttons.show {
   display: block;
+}
+
+.deadline-container {
+  display: flex;
+  justify-content: space-between;
+}
+.post-status{
+  font-size: 13px;
+}
+.post-label{
+  color: #7e7e7e;
+  font-weight: 600;
+}
+.opened{
+  color: #34d305;
+}
+.closed{
+  color: #fd1e1e;
 }

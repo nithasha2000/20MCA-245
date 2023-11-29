@@ -57,7 +57,23 @@ class JobPost(models.Model):  # Model class names are typically capitalized.
     location = models.CharField(max_length=255) 
     salary_range = models.CharField(max_length=255) 
     application_deadline = models.DateField(default=None)
+    post_status = models.CharField(max_length=255) 
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    class Meta:
+        app_label = 'base'
+        
+class JobApplications(models.Model):  # Model class names are typically capitalized.
+    job_applications_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    application_status = models.CharField(max_length=255) 
+    class Meta:
+        app_label = 'base'
+        
+class SaveJobPosts(models.Model):  # Model class names are typically capitalized.
+    save_job_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     class Meta:
         app_label = 'base'
 

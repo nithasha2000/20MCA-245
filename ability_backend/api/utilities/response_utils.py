@@ -22,6 +22,16 @@ def job_seeker_sidebar():
             "key": "job-post-widget", 
             "value": "View Job Posts", 
             "icon": "fa fa-eye"
+        },
+        {
+            "key": "apply-job-list", 
+            "value": "Applied Jobs", 
+            "icon": "fa fa-tasks"
+        },
+        {
+            "key": "save-job-list", 
+            "value": "Saved Jobs", 
+            "icon": "fas fa-save"
         }
     ]
     return response

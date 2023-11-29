@@ -1,9 +1,0 @@
-pip install dj-database-url
-python -m pip list
-pip install djangorestframework
-pip install django-cors-headers
-pip install mysqlclient
-python -m pip install google-auth
-pip install requests
-pip manage makemigrations base
-pip manage migrate

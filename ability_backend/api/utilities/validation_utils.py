@@ -31,6 +31,13 @@ class ValidateUtil:
                 if not re.match(validation_dict.get("phone", r'^\d{10}$'), request["license_no"]):
                     errors.append("10 digit license no is required")
                     valid = False
+                    
+            if 'business_license' in request:
+                uploaded_file = request['business_license']
+                if not uploaded_file or not uploaded_file.name.endswith('.pdf') or uploaded_file.content_type != 'application/pdf':
+                    errors.append("Business License should be of PDF format")
+                    valid = False
+                    
             if 'company_password' in request:
                 if not re.match(validation_dict.get("password", ''), request["company_password"]):
                     errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
@@ -68,6 +75,13 @@ class ValidateUtil:
                 if not re.match(validation_dict.get("email", r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'), request["email"]):
                     errors.append("Valid email id is required")
                     valid = False
+                    
+            if 'resume' in request:
+                uploaded_file = request['resume']
+                if not uploaded_file or not uploaded_file.name.endswith('.pdf') or uploaded_file.content_type != 'application/pdf':
+                    errors.append("Resume should be of PDF format")
+                    valid = False
+                    
             if 'jobPassword' in request:
                 if not re.match(validation_dict.get("password", ''), request["jobPassword"]):
                     errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")

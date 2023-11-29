@@ -112,7 +112,8 @@
         </div>
         <div class="form-group">
           <label for="businessLicense">Business License:</label>
-           <input type="file" id="businessLicense" name="businessLicense" (change)="onFileSelected($event)" required>
+           <input type="file" id="businessLicense" name="businessLicense" (change)="onFileSelected($event)" accept=".pdf"
+            required>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>

@@ -9,6 +9,7 @@ export class UserService {
   private storageKeyJobPost = 'jobPost'; 
   private storageKeyLastEmitted = 'lastEmitted'
   private isLoggingIn = false;
+  private emitted = ""
 
   constructor() {
     // Check the user's authentication status when the service is initialized

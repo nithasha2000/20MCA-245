@@ -14,5 +14,14 @@ urlpatterns = [
     path('verify-otp/', dashboard_views.verify_otp),
     path('dashboard-sidebar/', dashboard_views.dashboard_sidebar),
     path('job-post/', dashboard_views.job_post),
-    path('view-job-list/', dashboard_views.view_job_list)
+    path('view-job-list/', dashboard_views.view_job_list),
+    path('apply-job/', dashboard_views.apply_job),
+    path('save-job/', dashboard_views.save_job_post),
+    path('save-job-list/', dashboard_views.view_save_job_post),
+    path('unsave-job/', dashboard_views.unsave_job),
+    path('applied-job-list/', dashboard_views.applied_job_list),
+    path('unapply-job/', dashboard_views.unapply_job),
+    path('view-applicants/', dashboard_views.view_applicants),
+    path('download_applicant_resume/', dashboard_views.download_applicant_resume),
+    path('shortlist-candidate/', dashboard_views.shortlist_candidate),
 ]

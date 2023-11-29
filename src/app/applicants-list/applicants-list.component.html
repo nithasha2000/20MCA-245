@@ -1,0 +1,68 @@
+<div class="container">
+    <h2>Applicants List</h2>
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>DOB</th>
+                    <th>Gender</th>
+                    <th>Email ID</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Highest Qualification</th>
+                    <th>Institution</th>
+                    <th>CGPA</th>
+                    <th>Experience Type</th>
+                    <th>Job Title</th>
+                    <th>Company Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Resume</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="users.length > 0; else noContents">
+                    <tr *ngFor="let user of users">
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.dob | date: 'dd-MM-yyyy' }}</td>
+                        <td>{{ user.gender }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user?.street_address_line1 }}, {{ user?.street_address_line2 }}, {{
+                            user?.city }}, {{ user?.state }}</td>
+                        <td>{{ user.highest_qualification }}</td>
+                        <td>{{ user.institution }}</td>
+                        <td>{{ user.cgpa }}</td>
+                        <td>{{ user.experience_type }}</td>
+                        <td>{{ user.job_title }}</td>
+                        <td>{{ user.company_name }}</td>
+                        <td>{{ user.start_date | date: 'dd-MM-yyyy' }}</td>
+                        <td>{{ user.end_date | date: 'dd-MM-yyyy' }}</td>
+                        <td>
+                            <button class="btn-view" (click)="downloadResume(user)">Download</button>
+                        </td>
+                        <td>
+                            <button class="btn-activate" [ngClass]="{'disabled': isButtonDisabled(user),
+                        'shortlist': user.status === 'applied',
+    'reject': user.status === 'shortlisted',
+    'rejected': user.status === 'rejected'}" (click)="shortlistCandidate(user)">
+                                {{ getStatusText(user) }}
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-template #noContents>
+                    <tr>
+                        <td colspan="5">No contents to show</td>
+                    </tr>
+                </ng-template>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>

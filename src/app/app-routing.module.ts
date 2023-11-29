@@ -13,6 +13,9 @@ import { JobPostComponent } from './job-post/job-post.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanySidebarComponent } from './company-sidebar/company-sidebar.component';
 import { JobPostWidgetComponent } from './job-post-widget/job-post-widget.component';
+import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component';
+import { SaveJobListComponent } from './save-job-list/save-job-list.component';
+import { ApplicantsListComponent } from './applicants-list/applicants-list.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -26,7 +29,10 @@ const routes: Routes = [
 { path: 'view-users', component: UserListComponent},
 { path: 'job-post', component: JobPostComponent},
 { path: 'company-dashboard',component: CompanyDashboardComponent},
-{ path: 'job-post-widget',component:JobPostWidgetComponent}
+{ path: 'job-post-widget',component:JobPostWidgetComponent},
+{ path: 'apply-job-list',component:ApplyJobListComponent},
+{ path: 'save-job-list',component:SaveJobListComponent},
+{ path: 'applicants-list',component:ApplicantsListComponent},
 ];
 
 const dashboardRoutes: Routes = [

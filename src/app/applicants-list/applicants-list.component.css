@@ -1,0 +1,111 @@
+/* user-list.component.css */
+.container {
+    max-width: 1271px;
+    margin-left: 242px;
+    padding: 20px;
+    text-align: center; /* Center the content horizontally */
+}
+
+.table-container{
+    overflow: auto;
+}
+
+.user-table {
+    width: 100%;
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+.user-table th, .user-table td {
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 8px; /* Add padding as needed */
+}
+
+.user-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 13px;
+}
+
+.user-table td {
+    font-size: 13px;
+}
+
+.btn-view {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-deactivate {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-deactivate:hover{
+    background-color: #fa4343;
+}
+
+.btn-activate {
+    background-color: #04ff00;
+    color: #fff;
+    padding: 8px 23px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-activate:hover{
+    background-color: #48f045;
+}
+
+
+.btn-view:hover {
+    background-color: #0056b3;
+}
+
+.container table {
+    margin: 0 auto; /* Center the table horizontally within the container */
+}
+  
+  /* Style for the 'disabled' class */
+  .btn-activate.disabled {
+    background-color: #bdc3c7; /* Gray background for disabled state */
+    color: #7f8c8d; /* Gray text color for disabled state */
+    cursor: not-allowed; /* Change cursor for disabled state */
+  }
+
+  .btn-activate.disabled {
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+    cursor: not-allowed;
+  }
+  
+  .btn-activate.shortlist {
+    background-color: #2ecc71; /* Green color for shortlist */
+  }
+  
+  .btn-activate.reject {
+    background-color: #e74c3c; /* Red color for reject */
+  }
+  
+  .btn-activate.rejected {
+    color: #fff;
+    background-color: #c0392b; /* Dark red color for rejected */
+  }

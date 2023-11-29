@@ -49,11 +49,13 @@ a:hover{
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding-left: 5px;
 }
 
 .nav-item i {
     margin-right: 10px; 
     font-size: 20px;
+    padding-left: 3px;
 }
 
 .nav-item a {
@@ -64,4 +66,15 @@ a:hover{
 
 .nav-item:hover {
     background-color: #555; 
+}
+
+.nav-item.selected, .nav-item.selected a {
+    background-color: #fff; 
+    color: #000; 
+    padding: 3px 3px 3px 3px;
+    border-radius: 20px;
+}
+.nav-item.selected:hover {
+    background-color: #fff; 
+    color: #303030; 
 }

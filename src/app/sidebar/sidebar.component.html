@@ -3,7 +3,7 @@
         <img src="../../assets/images/logo.png" alt="Company Logo">
     </div>
     <div class="nav-container">
-        <div class="nav-item" *ngFor="let item of navItems">
+        <div class="nav-item" *ngFor="let item of navItems" [class.selected]="selectedNavItem === item.key">
             <i [class]="item.icon"></i>
             <a (click)="onSelect(item.key)">{{ item.value }}</a>
         </div>

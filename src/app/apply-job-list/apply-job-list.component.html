@@ -1,0 +1,53 @@
+<div class="widget-container">
+    <button class="top-right-button" *ngIf="userData.role === 'company'" (click)="onSelect('job-post')"><span
+            class="fa-plus"></span> Add New Post</button>
+    <div class="job-widget-container">
+        <ng-container *ngIf="job_list && job_list.length; else noContents"></ng-container>
+        <div class="job-widget" *ngFor="let job of job_list" (dblclick)="toggleButtons(job)">
+            <div class="header">
+                <div class="job-title">{{ job.job_title }}</div>
+                <div class="company">{{ job.company_name }}</div>
+                <div class="details">
+                    <div class="experience">
+                        <i class="icon fas fa-briefcase"></i> {{ job.experience ? job.experience : "0 - 1" }} years
+                    </div>
+                    <div class="salary">
+                        <i class="icon fas fa-money-bill"></i> {{ job.salary_range }} Lacs PA
+                    </div>
+                    <div class="location">
+                        <i class="icon fas fa-map-marker-alt"></i> {{ job.location }}
+                    </div>
+                </div>
+            </div>
+            <div class="description">{{ job.job_description }}</div>
+            <div class="deadline-container">
+                <div class="deadline">
+                    <i class="icon fas fa-calendar"></i> Application Deadline: {{ job.application_deadline | date:
+                    'dd-MM-yyyy' }}
+                </div>
+                <span class="post-status" *ngIf="job.applied_post">
+                    <span class="post-label">Application Status: </span>
+                     <span [ngClass]="{
+                            'applied': job.applied_post.application_status === 'applied',
+                            'shortlisted': job.applied_post.application_status === 'shortlisted',
+                            'rejected': job.applied_post.application_status === 'rejected'
+                          }">
+                            {{ job.applied_post.application_status | titlecase }}
+                    </span>
+                </span>
+            </div>
+            <div class="toggle-buttons" (click)="toggleButtons(job)">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="popup-buttons" [ngClass]="{'show': areButtonsVisible[job.job_post_id]}">
+                    <button class="apply-button" *ngIf="userData.role === 'job_seeker'"
+                        (click)="onUnApply(job)">UnApply</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #noContents>
+            <tr>
+                <td colspan="5">No jobs to show</td>
+            </tr>
+        </ng-template>
+    </div>
+</div>

@@ -19,8 +19,10 @@ def write_file(file):
         os.makedirs(upload_folder, exist_ok=True)
         random_suffix = str(uuid.uuid4())
 
-        # Append the UUID to the original file name
-        unique_file_name = f"{file.name}_{random_suffix}"
+        # Split the file name and extension
+        file_name, file_extension = os.path.splitext(file.name)
+        # Append the UUID before the extension
+        unique_file_name = f"{file_name}_{random_suffix}{file_extension}"
         file_path = os.path.join(upload_folder, unique_file_name)
 
         # Save the file to the server

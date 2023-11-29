@@ -83,6 +83,7 @@ private isButtonOrChild(element: any): boolean {
 
   ngOnInit() {
     this.userData = this.userService.getUserData();
+
     if (this.userData) {
       const payload = {
         "username": this.userData.username,
@@ -114,12 +115,81 @@ private isButtonOrChild(element: any): boolean {
 
   onApply(job: any)
   {
+    const payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "job_post_id": job.job_post_id
+    };
 
+    this.http.post('http://127.0.0.1:8000/apply-job/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Job Applied', 'Applied for Job Successfully', {
+              positionClass: 'toast-top-center',
+            });
+          this.userService.setLastEmittedData("apply-job-list");
+          location.reload();
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Apply Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Apply Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Apply Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
   }
+  
   onSave(job: any)
   {
+    const payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "job_post_id": job.job_post_id
+    };
 
+    this.http.post('http://127.0.0.1:8000/save-job/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Job Saved', 'Job Saved Successfully', {
+              positionClass: 'toast-top-center',
+            });
+            this.userService.setLastEmittedData("save-job-list");
+            location.reload();
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Save Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Save Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Save Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
   }
+
+
   ondelete(job: any){
     const payload = {
       "type": "delete",
@@ -151,11 +221,48 @@ private isButtonOrChild(element: any): boolean {
           }
         }
       } catch (error) {
-        this.toastr.error('Job Posting Failed', 'Try Again',{
+        this.toastr.error('Job Delete Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
         }
   });
   }
+  onstatus(job: any){
+    const payload = {
+      "type": "status",
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "job_post_id": job.job_post_id
+    };
+    this.http.post('http://127.0.0.1:8000/job-post/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Job Status Changed', 'Job Status Changed Successfully', {
+              positionClass: 'toast-top-center',
+            });
+            this.userService.setLastEmittedData("job-post-widget");
+            location.reload();
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Status Change Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Status Change Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Status Change Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
+  }
+
 
 }
