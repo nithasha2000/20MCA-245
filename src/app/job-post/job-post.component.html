@@ -3,20 +3,66 @@
     <form method="post">
 
         <label for="job_title">Job Title:</label>
-        <input type="text" id="job_title" [(ngModel)]="job_title" [ngModelOptions]="{standalone: true}" required>
+        <select id="job_title" [(ngModel)]="job_title" [ngModelOptions]="{standalone: true}" required>
+            <option value="" disabled selected>Select a job title</option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Graphic Designer">Graphic Designer</option>
+            <option value="Project Manager">Project Manager</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Marketing Specialist">Marketing Specialist</option>
+            <option value="Human Resources Manager">Human Resources Manager</option>
+            <option value="Sales Representative">Sales Representative</option>
+            <option value="Customer Support Specialist">Customer Support Specialist</option>
+            <option value="Financial Analyst">Financial Analyst</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+        </select>
 
         <label for="job_description">Job Description:</label>
         <textarea id="job_description" [(ngModel)]="job_description" [ngModelOptions]="{standalone: true}" rows="4"
             cols="50" required></textarea>
 
+        <div class="soft-skills-section">
+        <div class="soft-skills-heading">Soft Skills:</div>
+          <div class="soft-skills-checkboxes">
+            <label for="communication">Communication</label>
+            <input type="checkbox" id="communication" name="softSkills" value="Communication">
+
+            <label for="teamwork">Teamwork</label>
+            <input type="checkbox" id="teamwork" name="softSkills" value="Teamwork">
+
+            <label for="adaptability">Adaptability</label>
+            <input type="checkbox" id="adaptability" name="softSkills" value="Adaptability">
+
+            <label for="problem-solving">Problem Solving</label>
+            <input type="checkbox" id="problem-solving" name="softSkills" value="Problem Solving">
+
+            <label for="leadership">Leadership</label>
+            <input type="checkbox" id="leadership" name="softSkills" value="Leadership">
+
+            <label for="time-management">Time Management</label>
+            <input type="checkbox" id="time-management" name="softSkills" value="Time Management">
+
+            <label for="creativity">Creativity</label>
+            <input type="checkbox" id="creativity" name="softSkills" value="Creativity">
+
+            <label for="emotional-intelligence">Emotional Intelligence</label>
+            <input type="checkbox" id="emotional-intelligence" name="softSkills" value="Emotional Intelligence">
+
+            <label for="critical-thinking">Critical Thinking</label>
+            <input type="checkbox" id="critical-thinking" name="softSkills" value="Critical Thinking">
+
+            <label for="resilience">Resilience</label>
+            <input type="checkbox" id="resilience" name="softSkills" value="Resilience">
+        </div>
+      </div>
+
         <label for="experience">Experience:</label>
         <input type="text" id="experience" [(ngModel)]="experience" [ngModelOptions]="{standalone: true}" required>
-
+        <div class="location-salary">
         <label for="location">Location:</label>
         <select id="location" [(ngModel)]="location" [ngModelOptions]="{standalone: true}" required>
             <option value="" disabled selected>Select a state</option>
             <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <!-- Add the rest of the states here -->
             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
             <option value="Assam">Assam</option>
             <option value="Bihar">Bihar</option>
@@ -63,6 +109,7 @@
             <option value="1500k - 1800k">₹1500k - ₹1800k</option>
             <option value="More than 1800k">More than ₹1800k</option>
         </select>
+        </div>
 
         <label for="application_deadline">Application Deadline:</label>
         <input type="date" id="application_deadline" [(ngModel)]="application_deadline"

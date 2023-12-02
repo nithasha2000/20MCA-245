@@ -1,55 +1,80 @@
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
 
-        h1 {
-            text-align: center;
-        }
+h1 {
+    text-align: center;
+}
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-        }
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
 
-        input[type="text"],
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+.soft-skills-section {
+    margin-top: 15px;
+}
+
+.soft-skills-heading {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.soft-skills-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.soft-skills-checkboxes label {
+    margin-right: 15px;
+}
+
+.soft-skills-checkboxes input {
+    margin-right: 5px;
+}
+
+.location-salary {
+    display: flex;
+    justify-content: space-between;
+}
+
+.location-container,
+.salary-container {
+    width: 48%;
+}
