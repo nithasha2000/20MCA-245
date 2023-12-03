@@ -41,7 +41,7 @@ import { ApplyJobListComponent } from './apply-job-list/apply-job-list.component
 import { SaveJobListComponent } from './save-job-list/save-job-list.component';
 import { ApplicantsListComponent } from './applicants-list/applicants-list.component';
 import { ReloadService } from './reload.service';
-import { ExamTypeComponent } from './exam-type/exam-type.component';
+import { ExamFormComponent } from './exam-form/exam-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +70,7 @@ import { ExamTypeComponent } from './exam-type/exam-type.component';
     ApplyJobListComponent,
     SaveJobListComponent,
     ApplicantsListComponent,
-    ExamTypeComponent
+    ExamFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,52 @@
+<div class="exam-container">
+  <h1>Create new Exam</h1>
+  <h2>Enter Exam Information</h2>
+
+  <div class="form-group">
+    <label for="examName">Name:</label>
+    <input type="text" id="examName" [(ngModel)]="examName" required>
+  </div>
+
+  <div class="form-group">
+    <label for="duration">Duration (HH:MM):</label>
+    <select id="duration" [(ngModel)]="duration" required>
+      <option value="" disabled selected>Select an option</option>
+      <option value="30">00:30</option>
+      <option value="60">1:00</option>
+      <option value="90">1:30</option>
+      <option value="120">2:00</option>
+      <option value="150">2:30</option>
+      <option value="180">3:00</option>
+    </select>
+
+    <label for="negativeMarking">Negative Marking:</label>
+    <select id="negativeMarking" [(ngModel)]="negativeMarking" required>
+      <option value="" disabled selected>Select an option</option>
+      <option value="25% of that question">25% of that question</option>
+      <option value="50% of that question">50% of that question</option>
+      <option value="75% of that question">75% of that question</option>
+      <option value="100% of that question">100% of that question</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="submitBeforeTimer">Submit Exam Before Timer Ends:</label>
+    <input type="radio" id="submitYes" name="submitBeforeTimer" value="yes" [(ngModel)]="submitBeforeTimer" required>
+    <label for="submitYes">Yes</label>
+    <input type="radio" id="submitNo" name="submitBeforeTimer" value="no" [(ngModel)]="submitBeforeTimer">
+    <label for="submitNo">No</label>
+  </div>
+
+  <div class="form-group">
+    <label for="displayCountdown">Display Countdown:</label>
+    <input type="radio" id="countdownYes" name="displayCountdown" value="yes" [(ngModel)]="displayCountdown" required>
+    <label for="countdownYes">Yes</label>
+    <input type="radio" id="countdownNo" name="displayCountdown" value="no" [(ngModel)]="displayCountdown">
+    <label for="countdownNo">No</label>
+  </div>
+
+  <button type="submit" class="submit-btn">Submit</button>
+
+  <button type="button" class="cancel-btn">Cancel</button>
+</div>
