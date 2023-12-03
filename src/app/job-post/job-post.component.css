@@ -78,3 +78,25 @@ input[type="submit"]:hover {
 .salary-container {
     width: 48%;
 }
+
+.programming-skills-section {
+    margin-top: 15px;
+}
+
+.programming-skills-heading {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.programming-skills-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.programming-skills-checkboxes label {
+    margin-right: 15px;
+}
+
+.programming-skills-checkboxes input {
+    margin-right: 5px;
+}

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExamComponent } from './exam.component';
+import { ExamTypeComponent } from './exam-type.component';
 
-describe('ExamComponent', () => {
-  let component: ExamComponent;
-  let fixture: ComponentFixture<ExamComponent>;
+describe('ExamTypeComponent', () => {
+  let component: ExamTypeComponent;
+  let fixture: ComponentFixture<ExamTypeComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ExamComponent]
+      declarations: [ExamTypeComponent]
     });
-    fixture = TestBed.createComponent(ExamComponent);
+    fixture = TestBed.createComponent(ExamTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
