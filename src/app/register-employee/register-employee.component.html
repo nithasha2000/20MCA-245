@@ -1,0 +1,89 @@
+<head>
+  <style>
+    .registration-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Add this style to change the submit button color to green */
+    .btn-primary[type="submit"] {
+      background-color: green;
+      color: white;
+      float: right;
+    }
+  </style>
+</head>
+<div class="container">
+  <div class="my-5 registration-container">
+    <h2>Employee Registration</h2>
+    <form>
+      <div class="form-section">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required
+            [formControl]="firstNameControl">
+
+          <div *ngIf="firstNameControl.invalid && (firstNameControl.dirty || firstNameControl.touched)">
+            <div *ngIf="firstNameControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* First Name is required.</div>
+              <span *ngIf="errors['pattern']">Invalid characters in the first name. Only letters and spaces are
+                allowed.</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required
+            [formControl]="lastNameControl">
+
+          <div *ngIf="lastNameControl.invalid && (lastNameControl.dirty || lastNameControl.touched)">
+            <div *ngIf="lastNameControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Last Name is required.</div>
+              <span *ngIf="errors['pattern']">Invalid characters in the last name. Only letters and spaces are
+                allowed.</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required [formControl]="emailControl">
+          <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+            <div *ngIf="emailControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Email Address is required.</div>
+              <div *ngIf="errors['email']">* Invalid email format.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="employeePassword" name="employeePassword" [(ngModel)]="employeePassword" required
+            [formControl]="employeePasswordControl">
+          <div
+            *ngIf="employeePasswordControl.invalid && (employeePasswordControl.dirty || employeePasswordControl.touched)">
+            <div *ngIf="employeePasswordControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Password is required.</div>
+              <div *ngIf="errors['invalidPassword']">
+                * Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter,
+                one digit, and one special character.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm Password:</label>
+          <input type="password" id="confirm_employeePassword" name="confirm_employeePassword"
+            [(ngModel)]="confirm_employeePassword" required #confirmPasswordInput="ngModel">
+          <div *ngIf="confirmPasswordInput?.invalid && (confirmPasswordInput?.dirty || confirmPasswordInput?.touched)">
+            <div *ngIf="confirmPasswordInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Confirm Password is required.</div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary button" (click)="onSubmit()">Register</button>
+      </div>
+    </form>
+    <div class="btn-container">
+    </div>
+  </div>
+
+</div>

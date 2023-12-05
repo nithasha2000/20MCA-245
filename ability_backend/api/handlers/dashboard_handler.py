@@ -6,8 +6,9 @@ import zlib
 from django.db.models import Q
 from api.utilities import email_utils, response_utils
 from api.utilities.validation_utils import ValidateUtil
-from base.models import Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications
+from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications
 from base.serializers import (
+    EmployeeRegisterSerializer,
     loginSerializer, 
     CompanyRegisterSerializer, 
     JobSeekerRegisterSerializer, 
@@ -50,6 +51,19 @@ class DashBoardHandler:
                         except ObjectDoesNotExist:
                             continue
                     users.extend(job_seeker_serializer.data)
+                    employee_register_data = EmployeeRegister.objects.all()
+                    employee_serializer = EmployeeRegisterSerializer(employee_register_data, many=True)
+                    for employee in employee_serializer.data:
+                        try:
+                            login_db_data = Login.objects.get(user_id=employee['user'])
+                            
+                            if login_db_data:
+                                employee["email"] = login_db_data.username
+                                employee['role'] = login_db_data.role
+                                employee["is_deleted"] = login_db_data.is_deleted
+                        except ObjectDoesNotExist:
+                            continue
+                    users.extend(employee_serializer.data)
                     response_json["message"] = "success"
                     response_json["data"] = users
                 else:
@@ -150,7 +164,7 @@ class DashBoardHandler:
                 login_db_data = Login.objects.get(username=request.get('username', ''))
                 if login_db_data:
                     if login_db_data.role == "admin" and request.get("role", "") == "admin":
-                        notification_types = ["registeration", "job_post_approval"]
+                        notification_types = ["registration", "job_post_approval"]
                         for notification_type in notification_types:
                             notifications_data = UserNotifications.objects.filter(type=notification_type, viewed=0).values()
                             notification_list.extend(notifications_data)
@@ -167,6 +181,14 @@ class DashBoardHandler:
                         response_json["count"] = len(notification_list)
                     if login_db_data.role == "job_seeker" and request.get("role", "") == "job_seeker":
                         notification_types = ["job_post_applied"]
+                        for notification_type in notification_types:
+                            notifications_data = UserNotifications.objects.filter(user=login_db_data.user_id, type=notification_type, viewed=0).values()
+                            notification_list.extend(notifications_data)
+                        response_json["message"] = "success"
+                        response_json["data"] = notification_list
+                        response_json["count"] = len(notification_list)
+                    if login_db_data.role == "employee" and request.get("role", "") == "employee":
+                        notification_types = []
                         for notification_type in notification_types:
                             notifications_data = UserNotifications.objects.filter(user=login_db_data.user_id, type=notification_type, viewed=0).values()
                             notification_list.extend(notifications_data)

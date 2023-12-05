@@ -50,6 +50,14 @@ class JobSeekerRegister(models.Model):  # Model class names are typically capita
     class Meta:
         app_label = 'base'
 
+class EmployeeRegister(models.Model):  # Model class names are typically capitalized.
+    employee_id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=255) 
+    last_name = models.CharField(max_length=255) 
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    class Meta:
+        app_label = 'base'
+
 class JobPost(models.Model):  # Model class names are typically capitalized.
     job_post_id = models.AutoField(primary_key=True)
     job_title = models.CharField(max_length=255)

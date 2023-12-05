@@ -9,6 +9,11 @@ def admin_sidebar():
             "key": "job-post-widget", 
             "value": "Jobs", 
             "icon": "fa fa-eye"
+        },
+        {
+            "key": "register-employee", 
+            "value": "Register Employee", 
+            "icon": "fa-solid fa-id-card"
         }
     ]
     return response
@@ -37,6 +42,16 @@ def job_seeker_sidebar():
             "key": "save-job-list", 
             "value": "Saved Jobs", 
             "icon": "fas fa-save"
+        }
+    ]
+    return response
+
+def employee_sidebar():
+    response = [
+        {
+            "key": "question", 
+            "value": "Questions", 
+            "icon": "fa-solid fa-newspaper"
         }
     ]
     return response

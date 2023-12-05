@@ -19,6 +19,7 @@ import { ApplicantsListComponent } from './applicants-list/applicants-list.compo
 import { AuthGuard } from './auth.guard';
 import { ExamFormComponent } from './exam-form/exam-form.component';
 import { ExamQuestionComponent } from './exam-question/exam-question.component';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
 { path: 'save-job-list',component:SaveJobListComponent},
 { path: 'applicants-list',component:ApplicantsListComponent},
 { path: 'exam-form',component:ExamFormComponent},
-{ path: 'exam-question',component:ExamQuestionComponent}
+{ path: 'exam-question',component:ExamQuestionComponent},
+{ path: 'register-employee',component:RegisterEmployeeComponent},
 ];
 
 const dashboardRoutes: Routes = [

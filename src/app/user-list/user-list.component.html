@@ -13,7 +13,7 @@
         <tbody>
             <ng-container *ngIf="users.length > 0; else noContents">
                 <tr *ngFor="let user of users">
-                    <td>{{ user.first_name ? user.first_name : user.company_name }}</td>
+                    <td>{{ user.first_name ? user.first_name + ' ' + user.last_name : user.company_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <!--<td>

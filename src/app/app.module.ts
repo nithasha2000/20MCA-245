@@ -44,6 +44,8 @@ import { ReloadService } from './reload.service';
 import { ExamFormComponent } from './exam-form/exam-form.component';
 import { EncDecService } from './encdec.service';
 import { ExamQuestionComponent } from './exam-question/exam-question.component';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +75,8 @@ import { ExamQuestionComponent } from './exam-question/exam-question.component';
     SaveJobListComponent,
     ApplicantsListComponent,
     ExamFormComponent,
-    ExamQuestionComponent
+    ExamQuestionComponent,
+    RegisterEmployeeComponent,
   ],
   imports: [
     BrowserModule,

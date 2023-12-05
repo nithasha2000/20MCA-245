@@ -17,6 +17,8 @@
         *ngIf="selectedFeature === 'save-job-list'"></app-save-job-list>
     <app-applicants-list (featureSelected)="onNavigate($event)"
         *ngIf="selectedFeature === 'applicants-list'"></app-applicants-list>
+    <app-register-employee (featureSelected)="onNavigate($event)"
+        *ngIf="selectedFeature === 'register-employee'"></app-register-employee>
     <app-change-password *ngIf="selectedFeature === 'change_password'"></app-change-password>
 </body>
 </html>

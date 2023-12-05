@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from base.models import (
+    EmployeeRegister,
     JobApplications,
     Login, 
     CompanyRegister, 
@@ -22,6 +23,11 @@ class CompanyRegisterSerializer(serializers.ModelSerializer):
 class JobSeekerRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobSeekerRegister
+        fields = '__all__'
+        
+class EmployeeRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeeRegister
         fields = '__all__'
         
 class JobPostSerializer(serializers.ModelSerializer):

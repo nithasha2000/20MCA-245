@@ -107,6 +107,41 @@ class ValidateUtil:
             valid =False
         return valid, errors
     
+    def employee_register_validate(request):
+        errors = []
+        valid = True
+        try:
+            employee_password =  SecurityUtils.decrypt_password(request["employee_password"], key)
+            employee_confirm_password = SecurityUtils.decrypt_password(request["confirm_employeePassword"], key)
+            if 'first_name' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["first_name"]):
+                    errors.append("For First Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'last_name' in request:
+                if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["last_name"]):
+                    errors.append("For Last Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
+                    valid = False
+            if 'email' in request:
+                if not re.match(validation_dict.get("email", r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'), request["email"]):
+                    errors.append("Valid email id is required")
+                    valid = False
+            if 'employee_password' in request:
+                if not re.match(validation_dict.get("password", ''), employee_password):
+                    errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
+                    valid = False
+            if 'confirm_employeePassword' in request:
+                if not re.match(validation_dict.get("password", ''), employee_confirm_password):
+                    errors.append("Confirm Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
+                    valid = False
+            if 'employee_password' in request and 'confirm_employeePassword' in request:
+                if employee_password != employee_confirm_password:
+                    errors.append("Password mismatch ! Both password and confirm password should be same")
+                    valid = False
+        except Exception as e:
+            print(f"Exception occured in employee register validation: {e}")
+            valid =False
+        return valid, errors
+    
     def change_password_valid(request):
         errors = []
         valid = True

@@ -1,7 +1,7 @@
 import datetime
 import uuid
 from base.models import Login
-from base.serializers import loginSerializer, CompanyRegisterSerializer, JobSeekerRegisterSerializer, UserNotificationSerializer
+from base.serializers import EmployeeRegisterSerializer, loginSerializer, CompanyRegisterSerializer, JobSeekerRegisterSerializer, UserNotificationSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from api.utilities.validation_utils import ValidateUtil
 from api.utilities.security_utils import SecurityUtils
@@ -38,7 +38,7 @@ class RegisterHandler:
                 }
                 notification = {
                     "notification": f"{login_data['username']} is registered as a new company",
-                    "type": "registeration",
+                    "type": "registration",
                     "viewed": 0
                 }
                 Login.objects.get(username=login_data["username"])
@@ -119,7 +119,7 @@ class RegisterHandler:
                 }
                 notification = {
                     "notification": f"{login_data['username']} is registered as a new job seeker",
-                    "type": "registeration",
+                    "type": "registration",
                     "viewed": 0
                 }
                 Login.objects.get(username=login_data["username"])
@@ -156,6 +156,62 @@ class RegisterHandler:
                     response_json["data"] = "Not able to add new user"
         except Exception as e:
             print(f'Exception occured in job_seeker_register: {e}')
+        return response_json
+    
+    def employee_register(request, response_json):
+        try:
+            try:
+                valid, validate_resp = ValidateUtil.employee_register_validate(request)
+                if not valid:
+                    response_json["data"] = validate_resp
+                    return response_json
+                
+                user_id = "user_id_" + str(uuid.uuid4().hex[:8])
+                register_data = {
+                    'first_name': request.get("firstName", ''), 
+                    'last_name': request.get("lastName", ''),
+                }
+                login_data = {
+                    "user_id" : user_id,
+                    "username": request.get("email", ''),
+                    "password": pwd_context.hash(SecurityUtils.decrypt_password(request.get("employee_password", ''), key)),
+                    "role": "employee",
+                    "is_deleted": 0
+                }
+                notification = {
+                    "notification": f"{login_data['username']} is registered as a new employee",
+                    "type": "registration",
+                    "viewed": 0
+                }
+                Login.objects.get(username=login_data["username"])
+                response_json["data"] = "Email already exist"
+            except ObjectDoesNotExist:
+                login_serializer=loginSerializer(data=login_data)
+                if login_serializer.is_valid():
+                    login_serializer.save()
+                    register_data["user"] = login_serializer.data["user_id"]
+                    notification["user"] = login_serializer.data["user_id"]
+                    employee_reg__serializer=EmployeeRegisterSerializer(data=register_data)
+                    if employee_reg__serializer.is_valid():
+                        notification_serializer = UserNotificationSerializer(data=notification)
+                        sub=f"User registration mail"
+                        email_body = f"Hai {register_data['first_name']} {register_data['last_name']} your account has been registered as an employee! Please login using your account credentials"
+                        email_html_path = r"D:\20MCA-245\ability-project\20MCA-245\ability_backend\api\utilities\link_email.html"
+                        confirmation_message = f"New user has registered to Ability Portal!! <br>User Name : {register_data['first_name']}. <br>Login to view details."
+                        subject = f"User registration confirmation mail"
+                        email_utils.send_welcome_email_in_background(login_data["username"],sub, email_body, email_html_path)
+                        email_utils.send_welcome_email_in_background("abilityportal@gmail.com",subject,confirmation_message,email_html_path)
+                        employee_reg__serializer.save()
+                        if notification_serializer.is_valid():
+                            notification_serializer.save()
+                        response_json["message"] = "success"
+                        response_json["data"] = employee_reg__serializer.data
+                    else:
+                        response_json["data"] = "Not able to add new user"
+                else:
+                    response_json["data"] = "Not able to add new user"
+        except Exception as e:
+            print(f'Exception occured in employee_register: {e}')
         return response_json
     
     def change_password(request, response_json):

@@ -74,9 +74,15 @@ def register_api(request):
                 'resume']):
                 response_json["data"] = "Unprocessible entity"
                 return Response(response_json, status=422)
+        if request_data['type'] == "employee_register":
+            if not all(key in request_data for key in [
+                'type', 'firstName', 'lastName', 'email', 'confirm_employeePassword', 'employee_password']):
+                response_json["data"] = "Unprocessible entity"
+                return Response(response_json, status=422)
         handlers = {
             "company_register": RegisterHandler.company_register,
-            "job_seeker_reg": RegisterHandler.job_seeker_register
+            "job_seeker_reg": RegisterHandler.job_seeker_register,
+            "employee_register": RegisterHandler.employee_register,
         }
         response_json = handlers.get(request_data["type"])(request_data, response_json)
         if response_json:
