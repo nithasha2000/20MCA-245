@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { UserService } from '../user.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
@@ -12,9 +12,10 @@ import { ReloadService } from '../reload.service';
   templateUrl: './header-dashboard.component.html',
   styleUrls: ['./header-dashboard.component.css']
 })
-export class HeaderDashboardComponent {
+export class HeaderDashboardComponent implements OnInit, OnDestroy  {
 
-  notifications: string[] = [];
+  private updateInterval: any;
+  notifications: any[] = [];
   showNotificationBox: boolean = false;
   toggleNotificationBox() {
     this.showNotificationBox = !this.showNotificationBox;
@@ -27,11 +28,88 @@ export class HeaderDashboardComponent {
   }
 
   // In your component class
-  notificationCount: number = 5; // Replace with the actual number of notifications
+  notificationCount: number = 0; // Replace with the actual number of notifications
   // In your component class
   // Call this method when there are new notifications
-  updateNotificationCount(newCount: number) {
-    this.notificationCount = newCount;
+  updateNotification() {
+    var payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+    }
+    this.http.post('http://127.0.0.1:8000/notifications/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.notifications = response.data
+          this.notificationCount = response.count
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Failed to fetch notifications', {
+                positionClass: 'toast-top-center',
+              });
+            });
+          } else {
+            this.toastr.error(response.data, 'Failed to fetch notifications', {
+              positionClass: 'toast-top-center',
+            });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Failed to fetch notifications', 'Try Again',{
+          positionClass: 'toast-top-center',
+        });
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.updateNotification(); // Call it once on component initialization
+
+    // Set up an interval to call updateNotification every second
+    this.updateInterval = setInterval(() => {
+      this.updateNotification();
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    // Clear the interval when the component is destroyed
+    clearInterval(this.updateInterval);
+  }
+
+  markAsRead(notification: any) {
+    console.log(notification)
+    var payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "notification_id": notification.notification_id
+    }
+    this.http.post('http://127.0.0.1:8000/mark-notifications/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Success', 'Marked as read',{
+            positionClass: 'toast-top-center',
+          });
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Failed to mark notifications', {
+                positionClass: 'toast-top-center',
+              });
+            });
+          } else {
+            this.toastr.error(response.data, 'Failed to mark notifications', {
+              positionClass: 'toast-top-center',
+            });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Failed to mark notifications', 'Try Again',{
+          positionClass: 'toast-top-center',
+        });
+      }
+    });
   }
 
   userData: any;
@@ -44,6 +122,7 @@ export class HeaderDashboardComponent {
     private router: Router, 
     private cookieService: CookieService,
     private reloadService: ReloadService) {
+      
     this.userData = this.userService.getUserData();
     if (!this.userData){
       this.toastr.error('You are not authorized to view this page', 'Please Sign in', {
@@ -81,13 +160,16 @@ export class HeaderDashboardComponent {
             this.toastr.error(response.data, 'Logout Failed', {
               positionClass: 'toast-top-center',
             });
+            this.cookieService.delete('ability');
             this.userService.removeUserData();
             this.router.navigate(['/login']);
+
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
+          this.cookieService.delete('ability');
           this.userService.removeUserData();
           this.router.navigate(['/login']);
         }
@@ -96,8 +178,6 @@ export class HeaderDashboardComponent {
         this.toastr.info('User is not logged in', '', {
           positionClass: 'toast-top-center',
         });
-            this.cookieService.delete('ability');
-            this.userService.removeUserData();
       }
     }
     else{  
@@ -116,13 +196,12 @@ export class HeaderDashboardComponent {
             });
             this.cookieService.delete('ability');
             this.userService.removeUserData();
+            this.router.navigate(['/login']);
           }
         } catch (error) {
           this.toastr.error('Logout Failed', 'Try Again',{
             positionClass: 'toast-top-center',
           });
-          this.cookieService.delete('ability');
-          this.userService.removeUserData();
         }
       });
     }

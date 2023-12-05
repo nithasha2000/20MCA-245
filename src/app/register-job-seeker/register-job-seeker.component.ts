@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EncDecService } from '../encdec.service';
 
 @Component({
   selector: 'app-register-job-seeker',
@@ -12,9 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class RegisterJobSeekerComponent {
 
-  constructor(private http:HttpClient, private toastr: ToastrService, private router: Router)
+  constructor(private http:HttpClient, private fb: FormBuilder, private toastr: ToastrService, private router: Router, private EncrDecr: EncDecService,)
   {
-    obj:String;
+
   }
   // Define properties for form fields
   firstName!: string;
@@ -31,13 +32,84 @@ export class RegisterJobSeekerComponent {
   institution!: string;
   cgpa!: number;
   resume: File | null = null;
-  experienceType!: string;
   jobTitle!: string;
   companyName!: string;
   startDate!: string; 
   endDate!: string;
   jobPassword!: string;
   confirm_jobPassword!: string;
+  experienceType!: string;
+
+  passwordValidator() {
+    return (control: any) => {
+      const value = control.value;
+      const hasUppercase = /[A-Z]/.test(value);
+      const hasLowercase = /[a-z]/.test(value);
+      const hasDigit = /\d/.test(value);
+      const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value);
+
+      const isValid = hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
+
+      return isValid ? null : { invalidPassword: true };
+    };
+  }
+
+  firstNameControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[a-zA-Z ]*')
+  ]);
+
+  lastNameControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[a-zA-Z ]*')
+  ]);
+
+  dobControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[a-zA-Z]*')
+  ]);
+
+  phoneControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^\d{10}$/) // Adjust the pattern based on your requirements
+  ]);
+  emailControl = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ]);
+
+  streetAddressLine1Control = new FormControl('', [
+    Validators.required
+  ]);
+
+  cityControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  stateControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  highestQualificationControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  institutionControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  cgpaControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  experienceTypeControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  jobPasswordControl = new FormControl('', [
+    Validators.required,
+    this.passwordValidator(),
+  ]);
   
   onFileSelected(event: any) {
     this.resume = event.target.files[0];
@@ -48,6 +120,36 @@ export class RegisterJobSeekerComponent {
 
   // Define methods to navigate between form pages
   nextPage() {
+    if (this.page === 1) {
+      if (!this.firstName || !this.lastName || !this.dob || !this.gender) {
+        this.toastr.error('Please fill in all required fields before proceeding to the next page.', 'Registration Failed', {
+          positionClass: 'toast-top-center',
+        });
+        return;
+      }
+    } else if (this.page === 2) {
+      if (!this.phone || !this.email || !this.streetAddressLine1 || !this.city || !this.state) {
+        this.toastr.error('Please fill in all required fields before proceeding to the next page.', 'Registration Failed', {
+          positionClass: 'toast-top-center',
+        });
+        return;
+      }
+    } else if (this.page === 3) {
+      if (!this.highestQualification || !this.institution || !this.cgpa) {
+        this.toastr.error('Please fill in all required fields before proceeding to the next page.', 'Registration Failed', {
+          positionClass: 'toast-top-center',
+        });
+        return;
+      }
+    } else if (this.page === 4) {
+      if (!this.resume || !this.experienceType) {
+        this.toastr.error('Please fill in all required fields before proceeding to the next page.', 'Registration Failed', {
+          positionClass: 'toast-top-center',
+        });
+        return;
+      }
+    }
+  
     this.page++;
   }
 
@@ -56,6 +158,20 @@ export class RegisterJobSeekerComponent {
   }
 
   onSubmit() {
+
+    if (!this.jobPassword || !this.confirm_jobPassword) {
+      this.toastr.error('Please fill in all required fields before submitting the form.', 'Registration Failed', {
+        positionClass: 'toast-top-center',
+      });
+      return;
+    }
+    if (this.jobPassword !== this.confirm_jobPassword) {
+      this.toastr.error('Passwords do not match', 'Validation Error', {
+        positionClass: 'toast-top-center',
+      });
+      return;
+    }
+    var token = '123456$#@$^@1ERF'
     const formData = new FormData();
     // Add form data fields
     formData.append('type', 'job_seeker_reg');
@@ -77,8 +193,8 @@ export class RegisterJobSeekerComponent {
     formData.append('companyName', this.companyName);
     formData.append('startDate', this.startDate);
     formData.append('endDate', this.endDate);
-    formData.append('jobPassword', this.jobPassword);
-    formData.append('confirm_jobPassword', this.confirm_jobPassword);
+    formData.append('jobPassword', this.EncrDecr.set(token, this.jobPassword));
+    formData.append('confirm_jobPassword', this.EncrDecr.set(token, this.confirm_jobPassword));
     if (this.resume) {
       formData.append('resume', this.resume, this.resume.name);
     }

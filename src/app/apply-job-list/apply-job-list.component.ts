@@ -12,6 +12,88 @@ import { UserService } from '../user.service';
 export class ApplyJobListComponent implements OnInit{
   job_list: any[] = [];
   userData: any;
+  searchTerm: string = '';
+  filterData = {
+    job_title: '',
+    soft_skills: '',
+    location: '',
+    salary_range: ''
+  };
+
+  onRefresh() {
+    this.userService.setNavItemData("apply-job-list")
+    this.userService.setLastEmittedData("apply-job-list");
+    location.reload();
+  }
+
+  applyFilters() {
+    const payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "search_value": this.searchTerm,
+      "filterData": this.filterData
+    };
+
+    this.http.post('http://127.0.0.1:8000/apply-job-post-filter/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.job_list = response.data
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post listing Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post listing Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post listing Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+    });
+  }
+
+
+  onSearchChange(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    var filter_data = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "search_value": searchTerm,
+      "filterData": this.filterData
+    }
+    this.http.post('http://127.0.0.1:8000/apply-job-post-filter/', filter_data).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.job_list = response.data
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post listing Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post listing Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post listing Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
+  }
 
   constructor(
     private http: HttpClient,
@@ -19,6 +101,10 @@ export class ApplyJobListComponent implements OnInit{
     private userService: UserService,
     private router: Router
   ) {}
+
+  getSoftSkillsList(softSkills: any): string[] {
+    return Object.keys(softSkills).filter(skill => softSkills[skill]);
+  }
 
   @Output() featureSelected = new EventEmitter<any>();
   onSelect(feature: string, job?: any) {
@@ -127,6 +213,7 @@ private isButtonOrChild(element: any): boolean {
           this.toastr.success('Job Application Removed', 'Application Removed Successfully', {
               positionClass: 'toast-top-center',
             });
+            this.userService.setNavItemData("apply-job-list")
             this.userService.setLastEmittedData("apply-job-list");
             location.reload();
         } 

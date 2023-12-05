@@ -42,6 +42,8 @@ import { SaveJobListComponent } from './save-job-list/save-job-list.component';
 import { ApplicantsListComponent } from './applicants-list/applicants-list.component';
 import { ReloadService } from './reload.service';
 import { ExamFormComponent } from './exam-form/exam-form.component';
+import { EncDecService } from './encdec.service';
+import { ExamQuestionComponent } from './exam-question/exam-question.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +72,8 @@ import { ExamFormComponent } from './exam-form/exam-form.component';
     ApplyJobListComponent,
     SaveJobListComponent,
     ApplicantsListComponent,
-    ExamFormComponent
+    ExamFormComponent,
+    ExamQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -106,6 +109,7 @@ import { ExamFormComponent } from './exam-form/exam-form.component';
     AuthGuard,
     CookieService,
     ReloadService,
+    EncDecService,
   ],
   bootstrap: [AppComponent]
 })

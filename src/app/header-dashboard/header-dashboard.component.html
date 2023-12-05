@@ -1,13 +1,16 @@
 <header class="top-header">
-    <div class="notification-icon">
+    <div class="notification-icon" (click)="toggleNotificationBox()">
         <i class="fas fa-bell"></i>
-            <div class="notification-bubble" *ngIf="notificationCount > 0">{{ notificationCount }}</div>
-                <div class="notification-box" *ngIf="showNotificationBox">
-                    <div class="notification-item" *ngFor="let notification of notifications">
-                        {{ notification }}
-                    </div>
-                </div>
+        <div class="notification-bubble" *ngIf="notificationCount > 0">{{ notificationCount }}</div>
+        <div class="notification-box" [ngClass]="{'active': showNotificationBox}">
+            <div class="notification-item" *ngFor="let notification of notifications">
+                <div>{{ notification.notification }}</div>
+                <button class="mark-as-read-button" (click)="markAsRead(notification)">
+                    <i class="fas fa-eye"></i> Mark as Read
+                </button>
             </div>
+        </div>
+    </div>
     <div class="user-profile" *ngIf="userData">
         <span class="user-name">{{ userData?.username | capitalize }}</span>
         <div class="dropdown">

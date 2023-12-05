@@ -4,9 +4,13 @@ from base.models import Login
 from base.serializers import loginSerializer, CompanyRegisterSerializer, JobSeekerRegisterSerializer, UserNotificationSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from api.utilities.validation_utils import ValidateUtil
+from api.utilities.security_utils import SecurityUtils
 from api.utilities.common_utils import write_file
 from api.utilities import email_utils
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+key = '123456$#@$^@1ERF'
 
 class RegisterHandler:
     def company_register(request, response_json):
@@ -28,12 +32,13 @@ class RegisterHandler:
                 login_data = {
                     "user_id" : user_id,
                     "username": request.get("email", ''),
-                    "password": request.get("company_password", ''),
+                    "password": pwd_context.hash(SecurityUtils.decrypt_password(request.get("company_password", ''), key)),
                     "role": "company",
                     "is_deleted": 0
                 }
                 notification = {
                     "notification": f"{login_data['username']} is registered as a new company",
+                    "type": "registeration",
                     "viewed": 0
                 }
                 Login.objects.get(username=login_data["username"])
@@ -108,12 +113,13 @@ class RegisterHandler:
                 login_data = {
                     "user_id" : user_id,
                     "username": request.get("email", ''),
-                    "password": request.get("jobPassword", ''),
+                    "password": pwd_context.hash(SecurityUtils.decrypt_password(request.get("jobPassword", ''), key)),
                     "role": "job_seeker",
                     "is_deleted": 0
                 }
                 notification = {
                     "notification": f"{login_data['username']} is registered as a new job seeker",
+                    "type": "registeration",
                     "viewed": 0
                 }
                 Login.objects.get(username=login_data["username"])
@@ -161,13 +167,13 @@ class RegisterHandler:
                     user_data = login_serializer.data
                     password = user_data['password']
                     if request.get("type") == "forgot-password":
-                        if password == request.get("oldPassword", ''):
+                        if pwd_context.verify(SecurityUtils.decrypt_password(request.get("oldPassword", ''), key), password):
                             valid, validate_resp = ValidateUtil.change_password_valid(request)
                             if not valid:
                                 response_json["data"] = validate_resp
                                 return response_json
-                            if request.get("oldPassword", '') != request.get("newPassword"):
-                                login_db_data.password = request.get("newPassword")
+                            if SecurityUtils.decrypt_password(request.get("oldPassword", ''), key) != SecurityUtils.decrypt_password(request.get("newPassword", ''), key):
+                                login_db_data.password = pwd_context.hash(SecurityUtils.decrypt_password(request.get("newPassword", ''), key))
                                 login_db_data.save()
                                 login_serializer = loginSerializer(login_db_data)
                                 response_json["message"] = "success"
@@ -177,12 +183,12 @@ class RegisterHandler:
                         else:
                             response_json["data"] = "Enter your current account password"
                     else:
-                        if password != request.get("newPassword", ''):
+                        if not pwd_context.verify(SecurityUtils.decrypt_password(request.get("newPassword", ''), key), password):
                             valid, validate_resp = ValidateUtil.change_password_valid(request)
                             if not valid:
                                 response_json["data"] = validate_resp
                                 return response_json
-                            login_db_data.password = request.get("newPassword")
+                            login_db_data.password = pwd_context.hash(SecurityUtils.decrypt_password(request.get("newPassword", ''), key))
                             login_db_data.save()
                             login_serializer = loginSerializer(login_db_data)
                             response_json["message"] = "success"

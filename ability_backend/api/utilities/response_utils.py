@@ -5,6 +5,11 @@ def admin_sidebar():
             "value": "Manage Users", 
             "icon": "fa fa-users"
         },
+        {
+            "key": "job-post-widget", 
+            "value": "Jobs", 
+            "icon": "fa fa-eye"
+        }
     ]
     return response
 def company_sidebar():

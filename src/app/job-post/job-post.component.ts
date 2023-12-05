@@ -19,6 +19,7 @@ export class JobPostComponent {
   application_deadline!: string;
   userData!: any;
   job_data!: any;
+  softSkills: any = {};
 
   @Output() featureSelected = new EventEmitter<any>();
 
@@ -31,11 +32,13 @@ export class JobPostComponent {
     this.userData = this.userService.getUserData();
     this.job_data = this.userService.getJobPost();
     if (this.job_data && Object.keys(this.job_data).length !== 0) {
+
       // If job_data is present, fill the form fields
       this.job_title = this.job_data.job_title || '';
       this.job_description = this.job_data.job_description || '';
       this.experience = this.job_data.experience || '';
       this.location = this.job_data.location || '';
+      this.softSkills = this.job_data.soft_skills || {};
       this.salary_range = this.job_data.salary_range || '';
       this.application_deadline = this.job_data.application_deadline || '';
     }
@@ -61,6 +64,7 @@ export class JobPostComponent {
     formData.append('job_description', this.job_description);
     formData.append('experience', this.experience);
     formData.append('location', this.location);
+    formData.append('soft_skills', JSON.stringify(this.softSkills));
     formData.append('salary_range', this.salary_range);
     formData.append('application_deadline', this.application_deadline);
     this.http.post('http://127.0.0.1:8000/job-post/', formData).subscribe((response: any) => {

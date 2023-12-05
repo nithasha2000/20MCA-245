@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { EncDecService } from '../encdec.service';
 
 @Component({
   selector: 'app-change-password',
@@ -19,7 +20,7 @@ export class ChangePasswordComponent {
 
   constructor(private http: HttpClient, private toastr: ToastrService, 
     private userService: UserService, 
-    private router: Router, private cookieService: CookieService) {
+    private router: Router, private cookieService: CookieService, private EncrDecr: EncDecService,) {
       this.userData = this.userService.getUserData();
       this.forgotData = this.userService.getForgotPassword();
       if(this.userData){
@@ -29,6 +30,7 @@ export class ChangePasswordComponent {
     }
   }
   change_password(){
+    var token = '123456$#@$^@1ERF'
     let payload = {
 
     }
@@ -37,8 +39,8 @@ export class ChangePasswordComponent {
         "username": this.forgotData.username,
         "role": this.forgotData.role,
         "type": "change-password",
-        "newPassword": this.newPassword,
-        "confirmPassword": this.confirmPassword
+        "newPassword": this.EncrDecr.set(token, this.newPassword),
+        "confirmPassword": this.EncrDecr.set(token, this.confirmPassword)
       }
     }
     else{
@@ -46,9 +48,9 @@ export class ChangePasswordComponent {
         "username": this.userData.username,
         "role": this.userData.role,
         "type": "forgot-password",
-        "oldPassword": this.oldPassword,
-        "newPassword": this.newPassword,
-        "confirmPassword": this.confirmPassword
+        "oldPassword": this.EncrDecr.set(token, this.oldPassword),
+        "newPassword": this.EncrDecr.set(token, this.newPassword),
+        "confirmPassword": this.EncrDecr.set(token, this.confirmPassword)
       }
     }
     this.http.post('http://127.0.0.1:8000/change_password/', payload).subscribe((response: any) => {

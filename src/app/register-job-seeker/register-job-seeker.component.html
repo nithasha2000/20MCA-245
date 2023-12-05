@@ -7,26 +7,52 @@
         <h3>Basic Information</h3>
         <div class="form-group">
           <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required
+            [formControl]="firstNameControl">
+
+          <div *ngIf="firstNameControl.invalid && (firstNameControl.dirty || firstNameControl.touched)">
+            <div *ngIf="firstNameControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* First Name is required.</div>
+              <span *ngIf="errors['pattern']">Invalid characters in the first name. Only letters and spaces are
+                allowed.</span>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required
+            [formControl]="lastNameControl">
+
+          <div *ngIf="lastNameControl.invalid && (lastNameControl.dirty || lastNameControl.touched)">
+            <div *ngIf="lastNameControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Last Name is required.</div>
+              <span *ngIf="errors['pattern']">Invalid characters in the last name. Only letters and spaces are
+                allowed.</span>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="dob">Date of Birth:</label>
-          <input type="date" id="dob" name="dob" [(ngModel)]="dob" min="1970-01-01" max="2004-12-31" required>
+          <input type="date" id="dob" name="dob" [(ngModel)]="dob" min="1970-01-01" max="2004-12-31" required
+            [formControl]="dobControl">
+
+          <div *ngIf="dobControl.invalid && (dobControl.dirty || dobControl.touched)">
+            <div *ngIf="dobControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* DOB is required.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
-        <label>Gender:</label>
-        <div class="radio-group">
-        <label for="male">Male</label>
-        <input type="radio" id="male" name="gender" value="male" [(ngModel)]="gender" required>
-        &nbsp; &nbsp;
-        <label for="female">Female</label>
-        <input type="radio" id="female" name="gender" value="female" [(ngModel)]="gender" required>
+          <label>Gender:</label>
+          <div class="radio-group">
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male" [(ngModel)]="gender">
+            &nbsp; &nbsp;
+            <label for="female">Female</label>
+            <input type="radio" id="female" name="gender" value="female" [(ngModel)]="gender">
+          </div>
         </div>
-        </div>
+
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
 
@@ -35,32 +61,61 @@
         <h3>Contact Information</h3>
         <div class="form-group">
           <label for="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required [formControl]="phoneControl">
+          <div *ngIf="phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)">
+            <div *ngIf="phoneControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Phone Number is required.</div>
+              <div *ngIf="errors['pattern']">* Invalid phone number format. Please enter a 10-digit number.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email Address:</label>
-          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required [formControl]="emailControl">
+          <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+            <div *ngIf="emailControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Email Address is required.</div>
+              <div *ngIf="errors['email']">* Invalid email format.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <div class="form-group-half">
-          <label for="streetAddressLine1">Street Address Line 1:</label>
-          <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1" required>
+            <label for="streetAddressLine1">Street Address Line 1:</label>
+            <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1"
+              [formControl]="streetAddressLine1Control">
+            <div
+              *ngIf="streetAddressLine1Control.invalid && (streetAddressLine1Control.dirty || streetAddressLine1Control.touched)">
+              <div *ngIf="streetAddressLine1Control.errors as errors" class="error-message">
+                <div *ngIf="errors['required']">* streetAddressLine1 is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-half">
+            <label for="streetAddressLine2">Street Address Line 2:</label>
+            <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
+          </div>
         </div>
-        <div class="form-group-half">
-          <label for="streetAddressLine2">Street Address Line 2:</label>
-          <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
-        </div>
-      </div>
         <div class="form-group">
           <div class="form-group-half">
             <label for="city">City:</label>
-            <input type="text" id="city" name="city" [(ngModel)]="city" required>
+            <input type="text" id="city" name="city" [(ngModel)]="city" [formControl]="cityControl">
+            <div *ngIf="cityControl.invalid && (cityControl.dirty || cityControl.touched)">
+              <div *ngIf="cityControl.errors as errors" class="error-message">
+                <div *ngIf="errors['required']">* City is required.</div>
+              </div>
+            </div>
           </div>
           <div class="form-group-half">
             <label for="state">State:</label>
-            <input type="text" id="state" name="state" [(ngModel)]="state" required>
+            <input type="text" id="state" name="state" [(ngModel)]="state" [formControl]="stateControl">
+            <div *ngIf="stateControl.invalid && (stateControl.dirty || stateControl.touched)">
+              <div *ngIf="stateControl.errors as errors" class="error-message">
+                <div *ngIf="errors['required']">* State is required.</div>
+              </div>
+            </div>
           </div>
-    </div>
+        </div>
 
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
@@ -68,72 +123,120 @@
 
       <!-- ... (previous form sections) ... -->
 
-<!-- Page 4: Educational Background -->
-<div class="form-section" *ngIf="page === 3">
-  <h3>Educational Background</h3>
-  <div class="form-group">
-    <label for="highestQualification">Highest Qualification:</label>
-    <input type="text" id="highestQualification" name="highestQualification" [(ngModel)]="highestQualification" required>
-  </div>
-  <div class="form-group">
-    <label for="institution">Institution:</label>
-    <input type="text" id="institution" name="institution" [(ngModel)]="institution" required>
-  </div>
-  <div class="form-group">
-    <label for="cgpa">CGPA:</label>
-    <input type="number" step="0.01" id="cgpa" name="cgpa" [(ngModel)]="cgpa" required>
-  </div>
-  <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-  <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-</div>
+      <!-- Page 4: Educational Background -->
+      <div class="form-section" *ngIf="page === 3">
+        <h3>Educational Background</h3>
+        <div class="form-group">
+          <label for="highestQualification">Highest Qualification:</label>
+          <input type="text" id="highestQualification" name="highestQualification" [(ngModel)]="highestQualification"
+            [formControl]="highestQualificationControl">
+          <div
+            *ngIf="highestQualificationControl.invalid && (highestQualificationControl.dirty || highestQualificationControl.touched)">
+            <div *ngIf="highestQualificationControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Highest Qualification is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="institution">Institution:</label>
+          <input type="text" id="institution" name="institution" [(ngModel)]="institution"
+            [formControl]="institutionControl">
+          <div *ngIf="institutionControl.invalid && (institutionControl.dirty || institutionControl.touched)">
+            <div *ngIf="institutionControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Institution is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cgpa">CGPA:</label>
+          <input type="number" step="0.01" id="cgpa" name="cgpa" [(ngModel)]="cgpa" [formControl]="cgpaControl">
+          <div *ngIf="cgpaControl.invalid && (cgpaControl.dirty || cgpaControl.touched)">
+            <div *ngIf="cgpaControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Cgpa is required.</div>
+            </div>
+          </div>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>
 
-<div class="form-section" *ngIf="page === 4">
-  <h3>Work Experience</h3>
-  <div class="form-group">
-    <label for="resume">Resume:</label>
-    <input type="file" id="resume" name="resume" (change)="onFileSelected($event)" accept=".pdf" required>
-  </div>
-  <div class="form-group">
-    <label for="experienceType">Experience Type:</label>
-    <select id="experienceType" name="experienceType" [(ngModel)]="experienceType" required class="small-dropdown">
-      <option value="Fresher">Student/Fresher</option>
-      <option value="Experienced">Experienced</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="jobTitle">Job Title:</label>
-    <input type="text" id="jobTitle" name="jobTitle" [(ngModel)]="jobTitle" required [disabled]="experienceType === 'Fresher'">
-  </div>
-  <div class="form-group">
-    <label for="companyName">Company Name:</label>
-    <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required [disabled]="experienceType === 'Fresher'">
-  </div>
-  <div class="form-group">
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required [disabled]="experienceType === 'Fresher'">
-  </div>
-  <div class="form-group">
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required [disabled]="experienceType === 'Fresher'">
-  </div>
-  <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-  <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-</div>
+      <!-- ... (previous form sections) ... -->
 
-
-
-    <div class="form-section" *ngIf="page === 5">
+      <div class="form-section" *ngIf="page === 4">
+        <h3>Work Experience</h3>
+        <div class="form-group">
+          <label for="resume">Resume:</label>
+          <input type="file" id="resume" name="resume" (change)="onFileSelected($event)" accept=".pdf" required>
+        </div>
+        <div class="form-group">
+          <label for="experienceType">Experience Type:</label>
+          <select id="experienceType" name="experienceType" [(ngModel)]="experienceType"
+            [formControl]="experienceTypeControl" class="small-dropdown">
+            <option value="Fresher">Student/Fresher</option>
+            <option value="Experienced">Experienced</option>
+          </select>
+          <div *ngIf="experienceTypeControl.invalid && (experienceTypeControl.dirty || experienceTypeControl.touched)">
+            <div *ngIf="experienceTypeControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Experience Type is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="jobTitle">Job Title:</label>
+          <input type="text" id="jobTitle" name="jobTitle" [(ngModel)]="jobTitle" required
+            [disabled]="experienceType === 'Fresher'">
+        </div>
+        <div class="form-group">
+          <label for="companyName">Company Name:</label>
+          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required
+            [disabled]="experienceType === 'Fresher'">
+        </div>
+        <div class="form-group">
+          <div class="form-group-half">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required
+              [disabled]="experienceType === 'Fresher'">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-group-half">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required
+              [disabled]="experienceType === 'Fresher'">
+          </div>
+        </div>
+        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
+        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
+      </div>
+      <div class="form-section" *ngIf="page === 5">
         <h3> Additional Information </h3>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="jobPassword" name="jobPassword" [(ngModel)]="jobPassword" required>
+          <input type="password" id="jobPassword" name="jobPassword" [(ngModel)]="jobPassword"
+            [formControl]="jobPasswordControl">
+          <div *ngIf="jobPasswordControl.invalid && (jobPasswordControl.dirty || jobPasswordControl.touched)">
+            <div *ngIf="jobPasswordControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Password is required.</div>
+              <div *ngIf="errors['invalidPassword']">
+                * Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter,
+                one digit, and one special character.
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Confirm Password:</label>
-          <input type="password" id="confirm_jobPassword" name="confirm_jobPassword" [(ngModel)]="confirm_jobPassword" required>
+          <input type="password" id="confirm_jobPassword" name="confirm_jobPassword" [(ngModel)]="confirm_jobPassword"
+            #confirm_jobPasswordInput="ngModel">
+          <div
+            *ngIf="confirm_jobPasswordInput?.invalid && (confirm_jobPasswordInput?.dirty || confirm_jobPasswordInput?.touched)">
+            <div *ngIf="confirm_jobPasswordInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Confirm Password is required.</div>
+            </div>
+          </div>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="onSubmit()" class="btn btn-primary button">Register</button>
-    <div class="btn-container">
-    </div>
-  </div>
+        <div class="btn-container">
+        </div>
+      </div>

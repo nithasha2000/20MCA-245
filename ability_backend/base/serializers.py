@@ -25,6 +25,7 @@ class JobSeekerRegisterSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class JobPostSerializer(serializers.ModelSerializer):
+    soft_skills = serializers.JSONField(default=dict, required=False)
     class Meta:
         model = JobPost
         fields = '__all__'

@@ -125,3 +125,15 @@ button:hover {
     transform: rotate(360deg);
   }
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+/* Add this style to change the submit button color to green */
+.btn-primary[type="submit"] {
+  background-color: green;
+  color: white;
+  float: right;
+}

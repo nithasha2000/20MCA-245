@@ -46,7 +46,6 @@
     <label for="countdownNo">No</label>
   </div>
 
-  <button type="submit" class="submit-btn">Submit</button>
-
-  <button type="button" class="cancel-btn">Cancel</button>
+  <button type="button" class="prev-btn" (click)="previous()">Previous</button>
+  <button type="button" class="next-btn" (click)="next()" [disabled]="!isFormValid()">Next</button>
 </div>

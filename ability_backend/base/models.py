@@ -1,3 +1,4 @@
+import json
 from django.db import models
 
 class Login(models.Model):  # Model class names are typically capitalized.
@@ -55,33 +56,45 @@ class JobPost(models.Model):  # Model class names are typically capitalized.
     job_description = models.CharField(max_length=255) 
     experience = models.CharField(max_length=255) 
     location = models.CharField(max_length=255) 
+    soft_skills = models.TextField() 
     salary_range = models.CharField(max_length=255) 
     application_deadline = models.DateField(default=None)
     post_status = models.CharField(max_length=255) 
+    approval = models.IntegerField(default=0)
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    
+    def set_soft_skills(self, soft_skills_dict):
+        self.soft_skills = json.dumps(soft_skills_dict)
+
+    def get_soft_skills(self):
+        return json.loads(self.soft_skills)
+
     class Meta:
         app_label = 'base'
-        
+
 class JobApplications(models.Model):  # Model class names are typically capitalized.
     job_applications_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
     job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     application_status = models.CharField(max_length=255) 
+
     class Meta:
         app_label = 'base'
-        
+
 class SaveJobPosts(models.Model):  # Model class names are typically capitalized.
     save_job_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
     job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+
     class Meta:
         app_label = 'base'
 
 class UserNotifications(models.Model):
     notification_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(Login, on_delete=models.CASCADE)
     notification = models.CharField(max_length=255)
+    type = models.CharField(max_length=255)
     viewed = models.IntegerField(default=0)
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
     
     class Meta:
         app_label = 'base'

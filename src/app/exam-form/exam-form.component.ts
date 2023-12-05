@@ -6,9 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./exam-form.component.css']
 })
 export class ExamFormComponent {
-  examName: string = '';
-  duration: string = '';
-  negativeMarking: string = '';
-  submitBeforeTimer: string = 'yes';
-  displayCountdown: string = 'yes';
+
+  examName!: string;
+  duration!: string;
+  negativeMarking!: string;
+  submitBeforeTimer!: string;
+  displayCountdown!: string;
+
+  previous() {
+  }
+
+  next() {
+  }
+
+  isFormValid(): boolean {
+    return true; 
+  }
 }

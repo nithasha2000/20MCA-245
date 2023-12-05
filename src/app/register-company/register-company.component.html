@@ -5,6 +5,7 @@
       margin: 0 auto;
     }
 
+    /* Add this style to change the submit button color to green */
     .btn-primary[type="submit"] {
       background-color: green;
       color: white;
@@ -16,15 +17,30 @@
   <div class="my-5 registration-container">
     <h2>Recruiting Company Registration</h2>
     <form>
+      <!-- Page 1: Basic Information -->
       <div class="form-section" *ngIf="page === 1">
+        <!-- Basic Information form fields -->
         <h3> Basic Information </h3>
         <div class="form-group">
           <label for="companyName">Company Name:</label>
-          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required ><!--pattern="^[a-zA-Z0-9\s\-]+$"-->
+          <input type="text" id="companyName" name="companyName" [(ngModel)]="companyName" required
+            [formControl]="companyNameControl">
+
+          <div *ngIf="companyNameControl.invalid && (companyNameControl.dirty || companyNameControl.touched)">
+            <div *ngIf="companyNameControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Company Name is required.</div>
+              <span *ngIf="errors['minlength']">Company name must be at least 3 characters.</span>
+              <span *ngIf="errors['maxlength']">Company name must not exceed 50 characters.</span>
+              <span *ngIf="errors['pattern']">Invalid characters in the company name. Only letters and spaces are
+                allowed.</span>
+            </div>
+          </div>
+
         </div>
+
         <div class="form-group">
           <label for="companyType">Company Type:</label>
-          <select id="companyType" name="companyType" [(ngModel)]="companyType" required>
+          <select id="companyType" name="companyType" [(ngModel)]="companyType" required #companyTypeInput="ngModel">
             <option value="" disabled selected>Select an option</option>
             <option value="Public Limited Company ">Public Limited Company</option>
             <option value="Private Limited Company">Private Limited Company</option>
@@ -51,45 +67,37 @@
             <option value="Consulting Firm">Consulting Firm</option>
             <option value="Educational Institution">Educational Institution</option>
           </select>
+          <div *ngIf="companyTypeInput?.invalid && (companyTypeInput?.dirty || companyTypeInput?.touched)">
+            <div *ngIf="companyTypeInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Company Type is required.</div>
+            </div>
+          </div>
         </div>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
-
-      <!-- Page 2: Contact Information -->
-      <!--<div class="form-section" *ngIf="page === 2">
-         Contact Information form fields 
-        <h3> Contact Information </h3>
-        <div class="form-group">
-          <label for="streetAddressLine1">Street Address Line 1:</label>
-          <input type="text" id="streetAddressLine1" name="streetAddressLine1" [(ngModel)]="streetAddressLine1"
-            required>
-        </div>
-        <div class="form-group">
-          <label for="streetAddressLine2">Street Address Line 2:</label>
-          <input type="text" id="streetAddressLine2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2">
-        </div>
-        <div class="form-group">
-          <label for="city">City:</label>
-          <input type="text" id="city" name="city" [(ngModel)]="city" required>
-        </div>
-        <div class="form-group">
-          <label for="state">State:</label>
-          <input type="text" id="state" name="state" [(ngModel)]="state" required>
-        </div>
-        <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
-        <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
-      </div>-->
 
       <!-- Page 3: Additional Information -->
       <div class="form-section" *ngIf="page === 2">
         <h3> Contact Information </h3>
         <div class="form-group">
           <label for="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required>
+          <input type="tel" id="phone" name="phone" [(ngModel)]="phone" required [formControl]="phoneControl">
+          <div *ngIf="phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)">
+            <div *ngIf="phoneControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Phone Number is required.</div>
+              <div *ngIf="errors['pattern']">* Invalid phone number format. Please enter a 10-digit number.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email Address:</label>
-          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required [formControl]="emailControl">
+          <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+            <div *ngIf="emailControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Email Address is required.</div>
+              <div *ngIf="errors['email']">* Invalid email format.</div>
+            </div>
+          </div>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
@@ -100,37 +108,77 @@
         <h3> Additional Information </h3>
         <div class="form-group">
           <label for="profile">Profile:</label>
-          <textarea id="profile" name="profile" [(ngModel)]="profile" required></textarea>
+          <textarea id="profile" name="profile" [(ngModel)]="profile" required #profileInput="ngModel"></textarea>
+          <div *ngIf="profileInput?.invalid && (profileInput?.dirty || profileInput?.touched)">
+            <div *ngIf="profileInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Profile is required.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="website">Website URL:</label>
-          <input type="text" id="website" name="website" [(ngModel)]="website" required>
+          <input type="text" id="website" name="website" [(ngModel)]="website" required #websiteInput="ngModel">
+          <div *ngIf="websiteInput?.invalid && (websiteInput?.dirty || websiteInput?.touched)">
+            <div *ngIf="websiteInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Website url is required.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="website">License No:</label>
-          <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required>
+          <input type="text" id="licenseNo" name="licenseNo" [(ngModel)]="licenseNo" required
+            [formControl]="licenseNoControl">
+          <div *ngIf="licenseNoControl.invalid && (licenseNoControl.dirty || licenseNoControl.touched)">
+            <div *ngIf="licenseNoControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* License No is required.</div>
+              <div *ngIf="errors['pattern']">* Please enter a valid 10-character alphanumeric license number.</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="businessLicense">Business License:</label>
-           <input type="file" id="businessLicense" name="businessLicense" (change)="onFileSelected($event)" accept=".pdf"
-            required>
+          <input type="file" id="businessLicense" name="businessLicense" #businessLicenseInput
+            (change)="onFileSelected($event)" accept=".pdf" required>
+          <div *ngIf="businessLicenseInput?.value === null">
+            <div class="error-message">* Business License is required.</div>
+          </div>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button (click)="nextPage()" class="btn btn-primary next-button">Next</button>
       </div>
-
       <div class="form-section" *ngIf="page === 4">
         <h3> Additional Information </h3>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required>
+          <input type="password" id="companyPassword" name="companyPassword" [(ngModel)]="companyPassword" required
+            [formControl]="companyPasswordControl">
+          <div
+            *ngIf="companyPasswordControl.invalid && (companyPasswordControl.dirty || companyPasswordControl.touched)">
+            <div *ngIf="companyPasswordControl.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Password is required.</div>
+              <div *ngIf="errors['invalidPassword']">
+                * Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter,
+                one digit, and one special character.
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Confirm Password:</label>
-          <input type="password" id="confirm_companyPassword" name="confirm_companyPassword" [(ngModel)]="confirm_companyPassword" required>
+          <input type="password" id="confirm_companyPassword" name="confirm_companyPassword"
+            [(ngModel)]="confirm_companyPassword" required #confirmPasswordInput="ngModel">
+          <div *ngIf="confirmPasswordInput?.invalid && (confirmPasswordInput?.dirty || confirmPasswordInput?.touched)">
+            <div *ngIf="confirmPasswordInput?.errors as errors" class="error-message">
+              <div *ngIf="errors['required']">* Confirm Password is required.</div>
+            </div>
+          </div>
         </div>
         <button (click)="previousPage()" class="btn btn-primary previous-button">Previous</button>
         <button type="submit" class="btn btn-primary button" (click)="onSubmit()">Register</button>
       </div>
+    </form>
     <div class="btn-container">
     </div>
+  </div>
+
+</div>

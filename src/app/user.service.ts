@@ -9,6 +9,7 @@ export class UserService {
   private storageKeyJobPost = 'jobPost'; 
   private storageKeyLastEmitted = 'lastEmitted'
   private isLoggingIn = false;
+  private navItemEmitted = ""
   private emitted = ""
 
   constructor() {
@@ -79,5 +80,16 @@ export class UserService {
 
   removeLastEmittedData() {
     localStorage.removeItem(this.storageKeyLastEmitted);
+  }
+
+  setNavItemData(data: any) {
+    localStorage.setItem(this.navItemEmitted, data);
+  }
+  getNavItemData() {
+    const storedNavData = localStorage.getItem(this.navItemEmitted);
+    return storedNavData !== null ? storedNavData : null;
+  }
+  removeNavItemData() {
+    localStorage.removeItem(this.navItemEmitted);
   }
 }

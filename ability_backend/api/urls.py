@@ -24,4 +24,9 @@ urlpatterns = [
     path('view-applicants/', dashboard_views.view_applicants),
     path('download_applicant_resume/', dashboard_views.download_applicant_resume),
     path('shortlist-candidate/', dashboard_views.shortlist_candidate),
+    path('mark-notifications/', dashboard_views.mark_notifications),
+    path('job-post-approve/', dashboard_views.job_post_approve),
+    path('job-post-filter/', dashboard_views.job_post_filter),
+    path('apply-job-post-filter/', dashboard_views.apply_job_post_filter),
+    path('save-job-list-filter/', dashboard_views.save_job_list_filter),
 ]

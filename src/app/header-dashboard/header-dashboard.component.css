@@ -2,11 +2,9 @@
     font-size: 28px;
     margin-bottom: 20px;
 }
-
 a:hover{
     cursor: pointer;
 }
-
 .top-header {
     background-color: #fff;
     color: #333;
@@ -19,6 +17,7 @@ a:hover{
     margin-right: 20px; 
     font-size: 24px;
     position: relative;
+    cursor: pointer;
 }
 .user-profile {
     display: flex;
@@ -67,6 +66,7 @@ a:hover{
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .notification-bubble {
     background-color: red; 
     color: white; 
@@ -76,24 +76,46 @@ a:hover{
     top: 50%;
     left: 100%;
     transform: translate(-50%,-50%);
-    font-size: 14px; 
+    font-size: 14px;  
 }
+
 .notification-box {
-    position: absolute;
-    top: 100%;
-    right: 0;
+    position: fixed;
+    top: 66px;
+    right: 5px;
+    width: 300px;
+    height: calc(100vh - 60px); /* Adjust based on header height */
     background-color: #fff;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
     display: none;
-}
-notification-box.show {
+  }
+  
+  .notification-box.active {
     display: block;
-}
-.notification-item {
+    padding: 4px 8px 0px 8px;
+  }
+  
+  .notification-item {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-.notification-item:last-child {
-    border-bottom: none;
-}
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    color: #787878;
+    text-align: center;
+  }
+
+  .mark-as-read-button {
+    margin-top: 10px;
+    padding: 2px;
+    background-color: #ffffff1a;
+    color: #4410f4;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+  }
+  
+  .mark-as-read-button i {
+    margin-right: 3px;
+  }

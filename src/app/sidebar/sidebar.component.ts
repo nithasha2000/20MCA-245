@@ -31,6 +31,10 @@ export class SidebarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(){
+    if(this.userService.getNavItemData()){
+      this.selectedNavItem = this.userService.getNavItemData();
+      this.userService.removeNavItemData();
+    }
     let payload = {
       "email": this.userData.username,
       "role": this.userData.role

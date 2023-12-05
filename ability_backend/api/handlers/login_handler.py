@@ -3,6 +3,12 @@ from base.serializers import loginSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from passlib.context import CryptContext
+from api.utilities.security_utils import SecurityUtils
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+key = '123456$#@$^@1ERF'
 
 class LoginHandler:
     def normal_login(request, request_data, response_json):
@@ -17,7 +23,7 @@ class LoginHandler:
             if login_serializer.data:
                 user_data = login_serializer.data
                 password = user_data['password']
-                if password == request_password:
+                if pwd_context.verify(SecurityUtils.decrypt_password(request_password, key), password):
                     login_serializer.data.pop('password', None)
                     response_json["message"] = "success"
                     response_json["data"] = login_serializer.data

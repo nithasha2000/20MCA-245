@@ -76,7 +76,7 @@ def verify_otp(request):
 
 @api_view(['POST'])
 def view_notifications(request):
-    response_json = {"message": "failed to fetch notifications", "data": ""}
+    response_json = {"message": "failed to fetch notifications", "data": "", "count": 0}
     try:
         request_data = request.data
         if not all(key in request_data for key in [
@@ -92,6 +92,23 @@ def view_notifications(request):
     return Response(response_json, status=401)
 
 @api_view(['POST'])
+def mark_notifications(request):
+    response_json = {"message": "failed to mark notifications", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+                'username', 'role', "notification_id"
+                ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.mark_notifications_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception occured in mark_notifications api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
 def job_post(request):
     response_json = {"message": "failed", "data": ""}
     try:
@@ -101,13 +118,13 @@ def job_post(request):
             return Response(response_json, status=422)
         if "type" in request_data and request_data.get("type") == "create":
             if not all(key in request_data for key in [
-                    'user_data', 'job_title', 'job_description', 'experience', 'location', 'salary_range', 'application_deadline'
+                    'user_data', 'job_title', 'job_description', 'experience', 'location', 'soft_skills', 'salary_range', 'application_deadline'
                     ]):
                 response_json["data"] = "Unprocessible entity"
                 return Response(response_json, status=422)
         if "type" in request_data and request_data.get("type") == "edit":
             if not all(key in request_data for key in [
-                    'job_post_id', 'user_data', 'job_title', 'job_description', 'experience', 'location', 'salary_range', 'application_deadline'
+                    'job_post_id', 'user_data', 'job_title', 'job_description', 'experience', 'location', 'soft_skills', 'salary_range', 'application_deadline'
                     ]):
                 response_json["data"] = "Unprocessible entity"
                 return Response(response_json, status=422)
@@ -138,7 +155,7 @@ def job_post(request):
 
 @api_view(['POST'])
 def view_job_list(request):
-    response_json = {"message": "failed", "data": ""}
+    response_json = {"message": "failed", "data": []}
     try:
         request_data = request.data
         if not all(key in request_data for key in [
@@ -151,6 +168,40 @@ def view_job_list(request):
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception occured in view_job_list api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def job_post_filter(request):
+    response_json = {"message": "failed", "data": []}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role', 'search_value', 'filterData'
+            ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.job_post_filter_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception occured in job_post_filter api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def job_post_approve(request):
+    response_json = {"message": "failed", "data": []}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'type', 'status', 'username', 'role', 'job_post_id'
+            ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.job_post_approve_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception occured in job_post_approve api: {e}")
     return Response(response_json, status=401)
 
 @api_view(['POST'])
@@ -223,7 +274,7 @@ def applied_job_list(request):
 
 @api_view(['POST'])
 def view_save_job_post(request):
-    response_json = {"message": "failed", "data": ""}
+    response_json = {"message": "failed", "data": []}
     try:
         request_data = request.data
         if not all(key in request_data for key in [
@@ -306,4 +357,38 @@ def shortlist_candidate(request):
             return Response(response_json, status=200)
     except Exception as e:
         print(f"Exception occured in shortlist_candidate api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def apply_job_post_filter(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role', 'search_value', 'filterData'
+            ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.apply_job_post_filter_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception occured in apply_job_post_filter api: {e}")
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def save_job_list_filter(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role', 'search_value', 'filterData'
+            ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.save_job_list_filter_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+    except Exception as e:
+        print(f"Exception occured in save_job_list_filter api: {e}")
     return Response(response_json, status=401)

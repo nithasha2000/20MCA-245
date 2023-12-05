@@ -12,6 +12,88 @@ import { Router } from '@angular/router';
 export class JobPostWidgetComponent implements OnInit{
   job_list: any[] = [];
   userData: any;
+  searchTerm: string = '';
+  filterData = {
+    job_title: '',
+    soft_skills: '',
+    location: '',
+    salary_range: ''
+  };
+
+  onRefresh() {
+    this.userService.setNavItemData("job-post-widget")
+    this.userService.setLastEmittedData("job-post-widget");
+    location.reload();
+  }
+
+  applyFilters() {
+    const payload = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "search_value": this.searchTerm,
+      "filterData": this.filterData
+    };
+
+    this.http.post('http://127.0.0.1:8000/job-post-filter/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.job_list = response.data
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post listing Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post listing Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post listing Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+    });
+  }
+
+
+  onSearchChange(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    var filter_data = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "search_value": searchTerm,
+      "filterData": this.filterData
+    }
+    this.http.post('http://127.0.0.1:8000/job-post-filter/', filter_data).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.job_list = response.data
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post listing Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post listing Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post listing Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
+  }
 
   constructor(
     private http: HttpClient,
@@ -28,7 +110,6 @@ export class JobPostWidgetComponent implements OnInit{
     else{
       this.userService.removeJobPost()
     }
-
     this.featureSelected.emit(feature);
   }
 
@@ -70,17 +151,19 @@ export class JobPostWidgetComponent implements OnInit{
   }
 
   // Helper function to check if the clicked element is the button or its child
-private isButtonOrChild(element: any): boolean {
-  let currentElement = element;
-  while (currentElement) {
-    if (currentElement.classList && currentElement.classList.contains('toggle-buttons')) {
-      return true;
+  private isButtonOrChild(element: any): boolean {
+    let currentElement = element;
+    while (currentElement) {
+      if (currentElement.classList && currentElement.classList.contains('toggle-buttons')) {
+        return true;
+      }
+      currentElement = currentElement.parentNode;
     }
-    currentElement = currentElement.parentNode;
+    return false;
   }
-  return false;
-}
-
+  getSoftSkillsList(softSkills: any): string[] {
+    return Object.keys(softSkills).filter(skill => softSkills[skill]);
+  }
   ngOnInit() {
     this.userData = this.userService.getUserData();
 
@@ -127,8 +210,9 @@ private isButtonOrChild(element: any): boolean {
           this.toastr.success('Job Applied', 'Applied for Job Successfully', {
               positionClass: 'toast-top-center',
             });
-          this.userService.setLastEmittedData("apply-job-list");
-          location.reload();
+            this.userService.setNavItemData("apply-job-list")
+            this.userService.setLastEmittedData("apply-job-list");
+            location.reload();
         } 
         else {
           if (Array.isArray(response.data)) {
@@ -165,6 +249,7 @@ private isButtonOrChild(element: any): boolean {
           this.toastr.success('Job Saved', 'Job Saved Successfully', {
               positionClass: 'toast-top-center',
             });
+            this.userService.setNavItemData("save-job-list")
             this.userService.setLastEmittedData("save-job-list");
             location.reload();
         } 
@@ -204,6 +289,7 @@ private isButtonOrChild(element: any): boolean {
           this.toastr.success('Job Deleted', 'Job Deleted Successfully', {
               positionClass: 'toast-top-center',
             });
+            this.userService.setNavItemData("job-post-widget")
             this.userService.setLastEmittedData("job-post-widget");
             location.reload();
         } 
@@ -227,6 +313,7 @@ private isButtonOrChild(element: any): boolean {
         }
   });
   }
+
   onstatus(job: any){
     const payload = {
       "type": "status",
@@ -234,12 +321,14 @@ private isButtonOrChild(element: any): boolean {
       "role": this.userData.role,
       "job_post_id": job.job_post_id
     };
+
     this.http.post('http://127.0.0.1:8000/job-post/', payload).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
           this.toastr.success('Job Status Changed', 'Job Status Changed Successfully', {
               positionClass: 'toast-top-center',
             });
+            this.userService.setNavItemData("job-post-widget")
             this.userService.setLastEmittedData("job-post-widget");
             location.reload();
         } 
@@ -264,5 +353,84 @@ private isButtonOrChild(element: any): boolean {
   });
   }
 
+  onApprove(job: any){
+    const payload = {
+      "type": "approval",
+      "status": "approve",
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "job_post_id": job.job_post_id
+    };
+
+    this.http.post('http://127.0.0.1:8000/job-post-approve/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Job Status Changed', 'Job Post Approved', {
+              positionClass: 'toast-top-center',
+            });
+            this.userService.setNavItemData("job-post-widget")
+            this.userService.setLastEmittedData("job-post-widget");
+            location.reload();
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post Approval Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post Approval Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post Approval Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
+  }
+
+  onReject(job: any){
+    const payload = {
+      "type": "approval",
+      "status": "reject",
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "job_post_id": job.job_post_id
+    };
+
+    this.http.post('http://127.0.0.1:8000/job-post-approve/', payload).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Job Post Status Changed', 'Job Post Rejected', {
+              positionClass: 'toast-top-center',
+            });
+            this.userService.setNavItemData("job-post-widget")
+            this.userService.setLastEmittedData("job-post-widget");
+            location.reload();
+        } 
+        else {
+          if (Array.isArray(response.data)) {
+            response.data.forEach((item: any) => {
+              this.toastr.error(item, 'Job Post Reject Failed', {
+                  positionClass: 'toast-top-center',
+                });
+            });
+          } else {
+              this.toastr.error(response.data, 'Job Post Reject Failed', {
+                positionClass: 'toast-top-center',
+              });
+          }
+        }
+      } catch (error) {
+        this.toastr.error('Job Post Approval Failed', 'Try Again',{
+            positionClass: 'toast-top-center',
+          });
+        }
+  });
+  }
 
 }

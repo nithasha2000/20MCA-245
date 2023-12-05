@@ -1,4 +1,88 @@
 <div class="widget-container">
+    <button class="refresh-button" (click)="onRefresh()">
+        <span class="fa fa-refresh"></span>
+    </button>
+    <button class="top-right-button" *ngIf="userData.role === 'company'" (click)="onSelect('job-post')"><span
+            class="fa-plus"></span> Add New Post</button>
+    <div class="search-bar">
+        <input type="text" placeholder="Search jobs" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+    </div>
+    <div class="filter-select-box">
+        <select id="job_title" [(ngModel)]="filterData.job_title" [ngModelOptions]="{standalone: true}" required>
+            <option value="" disabled selected>Job Title</option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Graphic Designer">Graphic Designer</option>
+            <option value="Project Manager">Project Manager</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Marketing Specialist">Marketing Specialist</option>
+            <option value="Human Resources Manager">Human Resources Manager</option>
+            <option value="Sales Representative">Sales Representative</option>
+            <option value="Customer Support Specialist">Customer Support Specialist</option>
+            <option value="Financial Analyst">Financial Analyst</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+        </select>
+        <select id="soft-skills" [(ngModel)]="filterData.soft_skills" [ngModelOptions]="{standalone: true}" required>
+            <option value="" disabled selected>Soft Skills</option>
+            <option value="Communication">Communication</option>
+            <option value="Teamwork">Teamwork</option>
+            <option value="Adaptability">Adaptability</option>
+            <option value="problem_solving">Problem Solving</option>
+            <option value="Leadership">Leadership</option>
+            <option value="time_management">Time Management</option>
+            <option value="Creativity">Creativity</option>
+            <option value="emotional_intelligence">Emotional Intelligence</option>
+            <option value="critical_thinking">Critical Thinking</option>
+            <option value="Resilience">Resilience</option>
+        </select>
+        <select id="location" [(ngModel)]="filterData.location" [ngModelOptions]="{standalone: true}" required>
+            <option value="" disabled selected>Select a state</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+        </select>
+        <select id="salary_range" [(ngModel)]="filterData.salary_range" [ngModelOptions]="{standalone: true}" required>
+            <option value="" disabled selected>Select a salary range</option>
+            <option value="Less than 30k">Less than ₹30k</option>
+            <option value="30k - 60k">₹30k - ₹60k</option>
+            <option value="60k - 90k">₹60k - ₹90k</option>
+            <option value="90k - 120k">₹90k - ₹120k</option>
+            <option value="120k - 150k">₹120k - ₹150k</option>
+            <option value="150k - 180k">₹150k - ₹180k</option>
+            <option value="180k - 300k">₹180k - ₹300k</option>
+            <option value="300k - 600k">₹300k - ₹600k</option>
+            <option value="600k - 900k">₹600k - ₹900k</option>
+            <option value="900k - 1200k">₹900k - ₹1200k</option>
+            <option value="1200k - 1500k">₹1200k - ₹1500k</option>
+            <option value="1500k - 1800k">₹1500k - ₹1800k</option>
+            <option value="More than 1800k">More than ₹1800k</option>
+        </select>
+        <button class="apply-filters-button" (click)="applyFilters()">Apply Filters</button>
+    </div>
     <button class="top-right-button" *ngIf="userData.role === 'company'" (click)="onSelect('job-post')"><span
             class="fa-plus"></span> Add New Post</button>
     <div class="job-widget-container">
@@ -20,6 +104,14 @@
                 </div>
             </div>
             <div class="description">{{ job.job_description }}</div>
+            <div class="soft-skills" *ngIf="job.soft_skills">
+                <div class="soft-skills-list">
+                    <div class="soft-skills-label">Soft Skills:</div>
+                    <ul>
+                        <li *ngFor="let skill of getSoftSkillsList(job.soft_skills)">{{ skill }}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="deadline-container">
                 <div class="deadline">
                     <i class="icon fas fa-calendar"></i> Application Deadline: {{ job.application_deadline | date:
@@ -27,12 +119,12 @@
                 </div>
                 <span class="post-status" *ngIf="job.applied_post">
                     <span class="post-label">Application Status: </span>
-                     <span [ngClass]="{
+                    <span [ngClass]="{
                             'applied': job.applied_post.application_status === 'applied',
                             'shortlisted': job.applied_post.application_status === 'shortlisted',
                             'rejected': job.applied_post.application_status === 'rejected'
                           }">
-                            {{ job.applied_post.application_status | titlecase }}
+                        {{ job.applied_post.application_status | titlecase }}
                     </span>
                 </span>
             </div>

@@ -16,6 +16,12 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.container{
+  bottom: 3vh;
+  height: 83vh;
+  position: relative;
+}
+
 /* Add this CSS to style the City and State fields on the same line */
 .form-group-half {
   width: calc(50% - 10px); /* Adjust width based on your design */
@@ -104,4 +110,17 @@ button {
 button[type="submit"]:hover,
 button:hover {
   background-color: #0056b3;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+/* Add this style to change the submit button color to green */
+.btn-primary[type="submit"] {
+  background-color: green;
+  color: white;
+  float: right;
 }

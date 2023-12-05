@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { EncDecService } from '../encdec.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private authService: SocialAuthService, 
     private userService: UserService, 
     private router: Router, 
-    private cookieService: CookieService,) {}
+    private cookieService: CookieService,
+    private EncrDecr: EncDecService,) {}
 
   ngOnInit(){
     if(this.userService.isLoggedIn()){
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    var token = '123456$#@$^@1ERF'
     if (this.isLoggingIn) {
       return;
     }
@@ -80,7 +83,7 @@ export class LoginComponent implements OnInit {
     let payload = {
       type: 'normal',
       username: this.username,
-      password: this.password,
+      password: this.EncrDecr.set(token, this.password),
     };
 
     this.http.post('http://127.0.0.1:8000/login/', payload).subscribe((response: any) => {
@@ -88,6 +91,7 @@ export class LoginComponent implements OnInit {
         if (response.message === 'success') {
           this.cookieService.set('ability', response.data);
           this.userService.setUserData(response.data);
+          this.userService.removeForgotPassword();
           this.router.navigate(['/dashboard']);
         } else {
           this.toastr.error(response.data, 'Login Failed', {

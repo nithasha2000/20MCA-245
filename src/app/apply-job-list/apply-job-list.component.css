@@ -1,14 +1,14 @@
 .widget-container {
-    margin: 30px 70px 10px 330px;
-    overflow: hidden; /* Prevent .widget-container from being scrollable */
-    background-color: #95959e;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative; /* Ensure relative positioning for children */
+  margin: 30px 70px 0px 330px;
+  overflow: hidden; /* Prevent .widget-container from being scrollable */
+  background-color: #95959e;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative; /* Ensure relative positioning for children */
   }
   
   .job-widget-container {
-    margin-top: 60px; /* Adjust based on the height of the button */
+    margin-top: 13px; /* Adjust based on the height of the button */
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -188,4 +188,93 @@
   /* Show popup buttons when areButtonsVisible is true */
   .popup-buttons.show {
     display: block;
+  }
+
+  .soft-skills {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .soft-skills-label {
+    font-weight: bold;
+    color: #3498db; /* Adjust the color as needed */
+  }
+  
+  .soft-skills-list {
+    display: flex;
+    align-items: center;
+  }
+  
+  .soft-skills ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .soft-skills li {
+    background-color: #3498db; /* Adjust the background color as needed */
+    color: #fff; /* Adjust the text color as needed */
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px; /* Adjust the left margin as needed */
+  }
+
+  .search-bar {
+    margin-top: 12px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .filter-select-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  
+  .filter-select-box select {
+    padding: 8px;
+    font-size: 14px;
+    width: 187px;
+    border: 1px solid #fff;
+    border-radius: 23px;
+  }
+  
+  .apply-filters-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .apply-filters-button:hover {
+    background-color: #45a049;
+  }
+  
+  .refresh-button {
+    background-color: #40cf2f; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Add padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Display as inline-block to not take full width */
+    font-size: 16px; /* Set font size */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    border-radius: 4px; /* Add border radius */
+  }
+  
+  .refresh-button:hover {
+    background-color: #45a049; /* Darker green on hover */
   }

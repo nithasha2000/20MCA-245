@@ -1,12 +1,16 @@
 import re
 from api.utilities.common_utils import validation_dict
+from api.utilities.security_utils import SecurityUtils
 
+key = '123456$#@$^@1ERF'
 
 class ValidateUtil:
     def register_company_validate(request):
         errors = []
         valid = True
         try:
+            company_password = SecurityUtils.decrypt_password(request.get("company_password", ''), key)
+            company_confirm_password = SecurityUtils.decrypt_password(request.get("confirm_companyPassword", ''), key)
             if 'company_name' in request:
                 if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["company_name"]):
                     errors.append("For Company Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
@@ -39,15 +43,17 @@ class ValidateUtil:
                     valid = False
                     
             if 'company_password' in request:
-                if not re.match(validation_dict.get("password", ''), request["company_password"]):
+                if not re.match(validation_dict.get("password", ''), company_password):
                     errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
                     valid = False
             if 'confirm_companyPassword' in request:
-                if not re.match(validation_dict.get("password", ''), request["confirm_companyPassword"]):
+                if not re.match(validation_dict.get("password", ''), company_confirm_password):
                     errors.append("Confirm Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
                     valid = False
             if 'confirm_companyPassword' in request and 'company_password' in request:
-                if request.get("company_password") != request.get("confirm_companyPassword"):
+                if (
+                    company_password != company_confirm_password
+                    ):
                     errors.append("Password mismatch ! Both password and confirm password should be same")
                     valid = False
         except Exception as e:
@@ -59,6 +65,8 @@ class ValidateUtil:
         errors = []
         valid = True
         try:
+            job_password =  SecurityUtils.decrypt_password(request["jobPassword"], key)
+            job_confirm_password = SecurityUtils.decrypt_password(request["confirm_jobPassword"], key)
             if 'first_name' in request:
                 if not re.match(validation_dict.get("name", r'^[a-zA-Z0-9\s\-_]+$'), request["first_name"]):
                     errors.append("For First Name only letters, numbers, spaces, and certain special characters like hyphens and underscores")
@@ -83,15 +91,15 @@ class ValidateUtil:
                     valid = False
                     
             if 'jobPassword' in request:
-                if not re.match(validation_dict.get("password", ''), request["jobPassword"]):
+                if not re.match(validation_dict.get("password", ''), job_password):
                     errors.append("Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
                     valid = False
             if 'confirm_jobPassword' in request:
-                if not re.match(validation_dict.get("password", ''), request["confirm_jobPassword"]):
+                if not re.match(validation_dict.get("password", ''), job_confirm_password):
                     errors.append("Confirm Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
                     valid = False
             if 'jobPassword' in request and 'confirm_jobPassword' in request:
-                if request.get("jobPassword") != request.get("confirm_jobPassword"):
+                if job_password != job_confirm_password:
                     errors.append("Password mismatch ! Both password and confirm password should be same")
                     valid = False
         except Exception as e:
@@ -103,12 +111,14 @@ class ValidateUtil:
         errors = []
         valid = True
         try:
+            new_password = SecurityUtils.decrypt_password(request["newPassword"], key)
+            confirm_password = SecurityUtils.decrypt_password(request.get("confirmPassword"), key)
             if 'newPassword' in request:
-                if not re.match(validation_dict.get("password", ''), request["newPassword"]):
+                if not re.match(validation_dict.get("password", ''), new_password):
                     errors.append("New Password should be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.")
                     valid = False
             if 'newPassword' in request and 'confirmPassword' in request:
-                if request.get("newPassword") != request.get("confirmPassword"):
+                if new_password != confirm_password:
                     errors.append("Password mismatch ! Both password and confirm password should be same")
                     valid = False
         except Exception as e:

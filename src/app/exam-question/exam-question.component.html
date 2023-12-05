@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>Add New Question</h2>
+
+  <div class="form-group">
+    <label for="questionType">Question Type</label>
+    <select id="questionType" class="form-control" [(ngModel)]="selectedQuestionType">
+      <option value="multipleChoice">Multiple Choice Questions</option>
+      <option value="yesNo">Yes or No</option>
+      <option value="trueFalse">True or False Questions</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="question">Question</label>
+    <textarea id="question" class="form-control" rows="4"></textarea>
+  </div>
+
+  <div class="form-group" *ngIf="selectedQuestionType === 'multipleChoice'">
+    <label for="answer">Answer</label>
+    <div class="option">
+      <div>
+        <input type="radio" id="optionA" name="answer" value="A">
+        <label for="optionA">Option A</label>
+      </div>
+      <div>
+        <input type="radio" id="optionB" name="answer" value="B">
+        <label for="optionB">Option B</label>
+      </div>
+    </div>
+    <div class="option">
+      <div>
+        <input type="radio" id="optionC" name="answer" value="C">
+        <label for="optionC">Option C</label>
+        <span class="remove-option">Remove</span>
+      </div>
+      <div>
+        <input type="radio" id="optionD" name="answer" value="D">
+        <label for="optionD">Option D</label>
+        <span class="remove-option">Remove</span>
+      </div>
+    </div>
+    <div>
+      <a href="#" class="add-new-choice">Add New Choice</a>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="selectedQuestionType === 'yesNo'">
+    <label for="answer">Answer</label>
+    <div class="option">
+      <div>
+        <input type="radio" id="yes" name="answer" value="Yes">
+        <label for="yes">Yes</label>
+      </div>
+      <div>
+        <input type="radio" id="no" name="answer" value="No">
+        <label for="no">No</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="selectedQuestionType === 'trueFalse'">
+    <label for="answer">Answer</label>
+    <div class="option">
+      <div>
+        <input type="radio" id="true" name="answer" value="True">
+        <label for="true">True</label>
+      </div>
+      <div>
+        <input type="radio" id="false" name="answer" value="False">
+        <label for="false">False</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary">Save</button>
+    <button class="btn btn-secondary">Cancel</button>
+  </div>
+</div>

@@ -1,8 +1,11 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+.job-post-container {
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+.tf-footer{
+    bottom: -129px !important;
 }
 
 h1 {
@@ -11,7 +14,8 @@ h1 {
 
 form {
     max-width: 600px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
@@ -63,6 +67,7 @@ input[type="submit"]:hover {
 
 .soft-skills-checkboxes label {
     margin-right: 15px;
+    flex: 1 0 calc(31.33% - 15px);
 }
 
 .soft-skills-checkboxes input {
@@ -77,26 +82,4 @@ input[type="submit"]:hover {
 .location-container,
 .salary-container {
     width: 48%;
-}
-
-.programming-skills-section {
-    margin-top: 15px;
-}
-
-.programming-skills-heading {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.programming-skills-checkboxes {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.programming-skills-checkboxes label {
-    margin-right: 15px;
-}
-
-.programming-skills-checkboxes input {
-    margin-right: 5px;
 }
