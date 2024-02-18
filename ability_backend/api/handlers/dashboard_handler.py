@@ -6,7 +6,7 @@ import zlib
 from django.db.models import Q
 from api.utilities import email_utils, response_utils
 from api.utilities.validation_utils import ValidateUtil
-from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications
+from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications, ExamForm
 from base.serializers import (
     EmployeeRegisterSerializer,
     loginSerializer, 
@@ -15,7 +15,8 @@ from base.serializers import (
     JobPostSerializer,
     JobApplicationsSerializer,
     SaveJobPostsSerializer,
-    UserNotificationSerializer)
+    UserNotificationSerializer,
+    ExamFormSerializer)
 from django.core.exceptions import ObjectDoesNotExist
 
 users = {}
@@ -1034,5 +1035,83 @@ class DashBoardHandler:
         except Exception as e:
             print(f'Exception occurred in save_job_list_filter_handler: {e}')
         return response_json
-
     
+    def exam_form_create_handler(request_data, response_json):
+        try:
+        # Extract data from the request
+            exam_name = request_data.get("name", "")
+            duration_hours = request_data.get("duration_hours","")
+            duration_minutes = request_data.get("duration_minutes", "")
+            negative_marking_percentage = request_data.get("negative_marking_percentage", "")
+
+        # Create a new instance of the ExamForm model
+            exam_form_instance = ExamForm.objects.create(
+                exam_name=exam_name,
+                duration_minutes=duration_minutes,
+                negative_marking_percentage=negative_marking_percentage,
+        )
+        # Serialize the instance to JSON
+            exam_form_serializer = ExamFormSerializer(exam_form_instance)
+
+        # Check if serialization is valid
+            if exam_form_serializer.is_valid():
+            # If valid, save the instance and set success message
+                exam_form_serializer.save()
+                response_json["message"] = "success"
+            else:
+            # If serialization is not valid, set an error message
+                response_json["data"] = "Failed to create exam form"
+        except Exception as e:
+        # Handle other exceptions
+            print(f'Exception occurred in exam_form_create_handler: {e}')
+            response_json["data"] = "An error occurred while processing the request"
+    
+        return response_json
+
+    def view_exam_forms(request, response_json):
+        try:
+            role = request.get("role", "")
+        
+            if role != "employee":
+                response_json["message"] = "failed"
+                response_json["data"] = "You are not authorized to view this page"
+                return response_json, 403
+
+            exam_forms = ExamForm.objects.all()  
+
+            data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
+
+            if data:  
+                response_json["message"] = "success"  
+                response_json["data"] = data  
+            else:
+                response_json["message"] = "success"  
+        except ObjectDoesNotExist:
+            response_json["message"] = "success"  
+
+        except Exception as e:
+            print(f'Exception occurred while fetching exam forms: {e}')
+            response_json["message"] = "failed"  
+
+        return response_json, 200  
+
+
+    def exam_auth(request,response_json):
+        try:
+            try:
+                exam_forms = ExamForm.objects.all()  
+
+        # Serialize only exam name and duration
+                data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
+
+                if data:  # If there are serialized data
+                    response_json["message"] = "success"  # Set success message
+                    response_json["data"] = data  # Assign serialized data to response
+                else:
+                    response_json["message"] = "success"  # Set success message even if no data found
+
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while fetching exam details: {e}')
+            return response_json

@@ -49,9 +49,14 @@ def job_seeker_sidebar():
 def employee_sidebar():
     response = [
         {
-            "key": "question", 
-            "value": "Questions", 
-            "icon": "fa-solid fa-newspaper"
+            "key": "app-exam-form", 
+            "value": "Create Exam", 
+            "icon": "fa-plus"
+        },
+        {
+            "key": "app-exam-table", 
+            "value": "View Exam", 
+            "icon": "fa fa-eye"
         }
     ]
     return response

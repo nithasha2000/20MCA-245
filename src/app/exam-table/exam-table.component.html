@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Exam Name</th>
+    <th>Duration</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+   <div class="exam" *ngFor="let exam of exams">
+    <td>{{ exam.exam_name }}</td>
+    <td>{{ exam.duration_minutes }}</td>
+    <td>Done</td>
+    <td><button class="button" (click)="handleAdd('Python')">Add</button></td>
+   </div>
+  </tr>
+</table>

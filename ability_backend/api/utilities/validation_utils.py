@@ -141,6 +141,9 @@ class ValidateUtil:
             print(f"Exception occured in employee register validation: {e}")
             valid =False
         return valid, errors
+
+
+
     
     def change_password_valid(request):
         errors = []

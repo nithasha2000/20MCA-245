@@ -106,3 +106,12 @@ class UserNotifications(models.Model):
     
     class Meta:
         app_label = 'base'
+        
+class ExamForm(models.Model):
+    exam_create_id = models.AutoField(primary_key=True)
+    exam_name = models.CharField(max_length=255)
+    duration_minutes = models.IntegerField()
+    negative_marking_percentage = models.IntegerField()
+    
+    class Meta:
+        app_label = 'base'

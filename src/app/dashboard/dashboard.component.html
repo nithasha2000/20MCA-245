@@ -20,5 +20,9 @@
     <app-register-employee (featureSelected)="onNavigate($event)"
         *ngIf="selectedFeature === 'register-employee'"></app-register-employee>
     <app-change-password *ngIf="selectedFeature === 'change_password'"></app-change-password>
+    <app-exam-form (featureSelected)="onNavigate($event)"
+        *ngIf="selectedFeature === 'app-exam-form'"></app-exam-form>
+    <app-exam-table (featureSelected)="onNavigate($event)"
+        *ngIf="selectedFeature === 'app-exam-table'"></app-exam-table>
 </body>
 </html>

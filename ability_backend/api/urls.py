@@ -29,4 +29,6 @@ urlpatterns = [
     path('job-post-filter/', dashboard_views.job_post_filter),
     path('apply-job-post-filter/', dashboard_views.apply_job_post_filter),
     path('save-job-list-filter/', dashboard_views.save_job_list_filter),
+    path('exam-form/',account_views.exam_form),
+    path('view-exam-list',dashboard_views.view_exam_forms)
 ]

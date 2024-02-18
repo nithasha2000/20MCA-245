@@ -392,3 +392,21 @@ def save_job_list_filter(request):
     except Exception as e:
         print(f"Exception occured in save_job_list_filter api: {e}")
     return Response(response_json, status=401)
+
+@api_view(['POST'])
+def view_exam_forms(request):
+    response_json = {"message": "failed", "data": []}
+    try:
+        role = request.data.get("role", "")
+        
+        if role != "employee":
+            response_json["message"] = "failed"
+            response_json["data"] = "You are not authorized to view this page"
+            return Response(response_json, status=403)
+              # Set success message if no objects found
+
+    except Exception as e:
+        print(f'Exception occurred while fetching exam forms: {e}')
+        response_json["message"] = "failed"  # Set failure message if any other exception occurs
+
+    return Response(response_json, status=200)  # Return the response JSON object with status code 200

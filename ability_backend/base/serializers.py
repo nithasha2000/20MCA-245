@@ -7,7 +7,8 @@ from base.models import (
     JobSeekerRegister,
     SaveJobPosts, 
     UserNotifications,
-    JobPost
+    JobPost,
+    ExamForm
 )
 
 class loginSerializer(serializers.ModelSerializer):
@@ -51,3 +52,9 @@ class UserNotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserNotifications
         fields = '__all__'
+        
+class ExamFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamForm
+        fields = '__all__'
+        

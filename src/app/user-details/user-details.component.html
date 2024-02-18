@@ -1,1 +1,40 @@
-<p>user-details works!</p>
+<div class="container">
+    <h2>User List</h2>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <!--<th>View</th>-->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="users.length > 0; else noContents">
+                <tr *ngFor="let user of users">
+                    <td>{{ user.first_name ? user.first_name : user.company_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <!--<td>
+                        <button class="btn-view" (click)="viewUser(user)">View</button>
+                    </td>-->
+                    <td>
+                        <button
+                            [ngClass]="{'btn-activate': user.is_deleted === 1, 'btn-deactivate': user.is_deleted === 0}"
+                            (click)="toggleUserActivation(user)">
+                            {{ user.is_deleted === 0 ? 'Deactivate' : 'Activate' }}
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noContents>
+                <tr>
+                    <td colspan="5">No contents to show</td>
+                </tr>
+            </ng-template>
+        </tbody>
+
+
+    </table>
+</div>

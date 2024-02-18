@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ability-project:build:production"
+              "buildTarget": "ability-project:build:production"
             },
             "development": {
-              "browserTarget": "ability-project:build:development"
+              "buildTarget": "ability-project:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ability-project:build"
+            "buildTarget": "ability-project:build"
           }
         },
         "test": {
