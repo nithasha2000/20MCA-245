@@ -397,16 +397,15 @@ def save_job_list_filter(request):
 def view_exam_forms(request):
     response_json = {"message": "failed", "data": []}
     try:
-        role = request.data.get("role", "")
-        
-        if role != "employee":
-            response_json["message"] = "failed"
-            response_json["data"] = "You are not authorized to view this page"
-            return Response(response_json, status=403)
-              # Set success message if no objects found
-
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role'
+            ]):
+            response_json["data"] = "Unprocessible entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.view_exam_forms(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
     except Exception as e:
         print(f'Exception occurred while fetching exam forms: {e}')
-        response_json["message"] = "failed"  # Set failure message if any other exception occurs
-
-    return Response(response_json, status=200)  # Return the response JSON object with status code 200
+    return Response(response_json, status=401)  # Return the response JSON object with status code 200

@@ -1,3 +1,7 @@
+.container {
+  margin-right: 20px; /* Add 20px of margin to the right */
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -7,6 +11,7 @@ th, td {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  width: calc(100% / 4); /* Divide the width equally among 4 columns */
 }
 
 th {

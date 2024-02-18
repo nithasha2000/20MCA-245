@@ -33,6 +33,7 @@ ngOnInit() {
       try {
         if (response.message === 'success') {
           this.exams = response.data
+          console.log(this.exams)
         } 
         else if(response.data === 'Your are not authorized to view this page'){
           this.router.navigate(['/dashboard']);

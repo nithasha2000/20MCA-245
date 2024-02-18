@@ -1070,30 +1070,27 @@ class DashBoardHandler:
 
     def view_exam_forms(request, response_json):
         try:
-            role = request.get("role", "")
-        
-            if role != "employee":
-                response_json["message"] = "failed"
-                response_json["data"] = "You are not authorized to view this page"
-                return response_json, 403
-
-            exam_forms = ExamForm.objects.all()  
-
-            data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
-
-            if data:  
-                response_json["message"] = "success"  
-                response_json["data"] = data  
-            else:
-                response_json["message"] = "success"  
-        except ObjectDoesNotExist:
-            response_json["message"] = "success"  
-
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'employee':
+                        exam_forms = ExamForm.objects.all()  
+                        data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
+                        if data:  
+                            response_json["message"] = "success"  
+                            response_json["data"] = data  
+                        else:
+                            response_json["message"] = "success"  
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["data"] = "Something went wrong" 
         except Exception as e:
             print(f'Exception occurred while fetching exam forms: {e}')
-            response_json["message"] = "failed"  
-
-        return response_json, 200  
+        return response_json
 
 
     def exam_auth(request,response_json):
