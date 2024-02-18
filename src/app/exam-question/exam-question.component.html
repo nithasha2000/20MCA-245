@@ -2,6 +2,15 @@
   <h2>Add New Question</h2>
   <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
 
+ <div class="form-group d-flex align-items-center">
+    <select class="form-control" [(ngModel)]="rowCount" id="rowCountDropdown" style="width: 50px;">
+      <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
+    </select>
+    <button class="btn btn-success ml-2" (click)="addRows()">Click to add rows</button>
+  </div>
+  
+  <div style="margin-top: 20px;"></div>
+
   <!-- Question Description -->
   <h3>Question Description</h3>
   <textarea class="form-control" rows="4" style="margin-top: 20px;"></textarea>

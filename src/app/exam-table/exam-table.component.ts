@@ -22,7 +22,6 @@ constructor(
 
 ngOnInit() {
   this.userData = this.userService.getUserData();
-
     if (this.userData) {
       const payload = {
         "username": this.userData.username,
@@ -39,16 +38,22 @@ ngOnInit() {
           window.location.reload();
         }
         else {
-          this.toastr.error(response.data, 'Failed to fetch view job list', {
+          this.toastr.error(response.data, 'Failed to fetch view exam details', {
             positionClass: 'toast-top-center',
           });
         }
       } catch (error) {
-        this.toastr.error('Failed to fetch view job list', 'Try Again',{
+        this.toastr.error('Failed to fetch view exam details', 'Try Again',{
           positionClass: 'toast-top-center',
         });
       }
     });
+    }
+    else{
+      this.toastr.error("Please login", 'Authentication Failed', {
+            positionClass: 'toast-top-center',
+      });
+      this.router.navigate(['/login']);
     }
 }
  handleAdd() {
