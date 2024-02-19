@@ -2,6 +2,15 @@
   <h1>Create new Exam</h1>
   <h2>Enter Exam Information</h2>
 
+  <!--<div class="form-group">
+    <label for="examName">Name:</label>
+    <input type="text" id="examName" [(ngModel)]="examName" required [formControl]="examNameControl">
+  </div>
+  <div *ngIf="examNameControl.invalid && (examNameControl.dirty || examNameControl.touched)">
+    <div *ngIf="examNameControl.errors as errors" class="error-message">
+        <div *ngIf="errors['required']">* Exam Name is required.</div>
+            <span *ngIf="errors['pattern']">Invalid characters in the exam name. Only letters and spaces are
+                allowed.</span>-->
   <div class="form-group">
     <label for="examName">Name:</label>
     <input type="text" id="examName" [(ngModel)]="examName" required>

@@ -258,3 +258,5 @@ class RegisterHandler:
         except Exception as e:
             print(f'Exception occured in change password: {e}')
         return response_json
+    
+    

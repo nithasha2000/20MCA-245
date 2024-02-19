@@ -1,60 +1,59 @@
 <div class="container">
-  <h2>Add New Question</h2>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
-
- <div class="form-group d-flex align-items-center">
-    <select class="form-control" [(ngModel)]="rowCount" id="rowCountDropdown" style="width: 50px;">
-      <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
-    </select>
-    <button class="btn btn-success ml-2" (click)="addRows()">Click to add rows</button>
-  </div>
-  
+  <h1>Add Questions</h1>
   <div style="margin-top: 20px;"></div>
-
-  <!-- Question Description -->
-  <h3>Question Description</h3>
-  <textarea class="form-control" rows="4" style="margin-top: 20px;"></textarea>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
-
-  <!-- Answers -->
-  <h3>Answers</h3>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
-
-  <!-- Option A -->
+  <h3>No:of Questions : </h3>
+  <input type="number" class="form-control" min="10" max="100" style="display: inline-block; width: 200px; margin-right: 20px;">
+  <div style="margin-top: 20px;"></div>
+  <h2>Add New Question</h2>
   <div class="form-group">
-    <input type="text" class="form-control" value="Option A" style="display: inline-block; width: 200px; margin-right: 20px;">
-    <input type="radio" name="answer" style="margin-top: 10px;"> <!-- Added margin-top -->
+    <select class="form-control" id="questionCountDropdown" [(ngModel)]="questionCount">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
   </div>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
 
-  <!-- Option B -->
-  <div class="form-group">
-    <input type="text" class="form-control" value="Option B" style="display: inline-block; width: 200px; margin-right: 20px;">
-    <input type="radio" name="answer" style="margin-top: 10px;"> <!-- Added margin-top -->
-  </div>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
+  <ng-container *ngFor="let question of getQuestionArray(); let i = index">
+    <h3>Question {{ question }} Description</h3>
+    <textarea class="form-control" rows="4" style="margin-top: 20px;"></textarea>
+    <div style="margin-top: 20px;"></div>
 
-  <!-- Option C -->
-  <div class="form-group">
-    <input type="text" class="form-control" value="Option C" style="display: inline-block; width: 200px; margin-right: 20px;">
-    <input type="radio" name="answer" style="margin-top: 10px;"> <!-- Added margin-top -->
-    <a href="#" style="color: red; margin-left: 20px;">Remove</a> <!-- Added margin-left -->
-  </div>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
-
-  <!-- Option D -->
-  <div class="form-group">
-    <input type="text" class="form-control" value="Option D" style="display: inline-block; width: 200px; margin-right: 20px;">
-    <input type="radio" name="answer" style="margin-top: 10px;"> <!-- Added margin-top -->
-    <a href="#" style="color: red; margin-left: 20px;">Remove</a> <!-- Added margin-left -->
-  </div>
-  <div style="margin-top: 20px;"></div> <!-- 2 horizontal spaces -->
-
-  <!-- Save and Cancel Buttons -->
+    <h3>Answers for Question {{ question }}</h3>
+    <div class="form-group">
+      <input type="text" class="form-control" value="Option A" style="display: inline-block; width: 200px; margin-right: 20px;">
+      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" value="Option B" style="display: inline-block; width: 200px; margin-right: 20px;">
+      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" value="Option C" style="display: inline-block; width: 200px; margin-right: 20px;">
+      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
+      <a href="#" style="color: red; margin-left: 20px;" (click)="removeOption(i, 'C')">Remove</a>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" value="Option D" style="display: inline-block; width: 200px; margin-right: 20px;">
+      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
+      <a href="#" style="color: red; margin-left: 20px;" (click)="removeOption(i, 'D')">Remove</a>
+    </div>
+  </ng-container>
+  
   <div class="form-group">
     <div class="btn-group">
-      <button class="btn btn-primary mr-auto">Save</button> <!-- mr-auto for margin right auto -->
-      <button class="btn btn-secondary ml-auto">Cancel</button> <!-- ml-auto for margin left auto -->
+      <button class="btn btn-primary mr-auto">Save</button>
+      <button class="btn btn-secondary ml-auto">Cancel</button>
     </div>
+  </div>
+
+  <div class="form-group center">
+    <button class="btn btn-success">Submit</button>
   </div>
 </div>

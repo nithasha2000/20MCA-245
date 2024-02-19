@@ -6,17 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./exam-question.component.css']
 })
 export class ExamQuestionComponent {
-  rowCount: number = 1;
-  numbers: number[] = Array.from({length: 10}, (_, i) => i + 1);
-  options: string[] = [];
+  questionCount: number = 1;
 
-  addRows() {
-    for (let i = 0; i < this.rowCount; i++) {
-      this.options.push('New Option');
-    }
+  getQuestionArray(): number[] {
+    return Array.from({ length: this.questionCount }, (_, i) => i + 1);
   }
 
-  removeOption(index: number) {
-    this.options.splice(index, 1);
+  removeOption(questionIndex: number, option: string) {
+    const optionIndex = option === 'C' ? 2 : 3; // Calculate the index of the option to remove
+    const questionElement = document.getElementById(`question_${questionIndex}`);
+    if (questionElement) {
+      const optionElements = questionElement.getElementsByClassName('form-group');
+      if (optionElements && optionElements.length > optionIndex) {
+        questionElement.removeChild(optionElements[optionIndex]);
+      }
+    }
   }
 }
