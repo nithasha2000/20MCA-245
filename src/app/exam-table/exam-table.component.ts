@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { ReloadService } from '../reload.service';
 
 @Component({
   selector: 'app-exam-table',
@@ -18,6 +19,7 @@ constructor(
     private toastr: ToastrService,
     private userService: UserService,
     private router: Router,
+    private reloadService: ReloadService
   ) {}
 
 ngOnInit() {
@@ -56,9 +58,11 @@ ngOnInit() {
       this.router.navigate(['/login']);
     }
 }
- handleAdd() {
-  this.router.navigate(['/exam-question']); // Navigate to the 'target' route
-}
+ @Output() featureSelected = new EventEmitter<String>();
+  onSelect(feature: string){
+    this.reloadService.triggerReload();
+    this.featureSelected.emit(feature);
+  }
 
   }
 

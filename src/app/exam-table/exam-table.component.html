@@ -13,7 +13,7 @@
         <td>{{ exam.exam_name }}</td>
         <td>{{ exam.duration_minutes }} minutes</td>
         <td>Done</td>
-        <td><button class="button" (click)="handleAdd()">Add</button></td>
+        <td><a class="button" (click)="onSelect('exam_question')">Add</a></td>
       </tr>
     </tbody>
   </table>

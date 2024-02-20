@@ -115,3 +115,17 @@ class ExamForm(models.Model):
     
     class Meta:
         app_label = 'base'
+
+class ExamQuestions(models.Model):
+    exam_id = models.AutoField(primary_key=True)
+    exam_create_id = models.ForeignKey(ExamForm, on_delete=models.CASCADE)
+    no_of_questions = models.IntegerField()
+    question_desc = models.CharField(max_length=255)
+    option_a = models.CharField(max_length=255)
+    option_b = models.CharField(max_length=255)
+    option_c = models.CharField(max_length=255, null=True) 
+    option_d = models.CharField(max_length=255, null=True) 
+    correct_ans = models.CharField(max_length=255)
+    
+    class Meta:
+        app_label = 'base'

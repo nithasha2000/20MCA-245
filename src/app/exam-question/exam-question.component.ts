@@ -7,19 +7,32 @@ import { Component } from '@angular/core';
 })
 export class ExamQuestionComponent {
   questionCount: number = 1;
+  questionOptions: number[] = [];
+  questions: any[] = [];
 
-  getQuestionArray(): number[] {
-    return Array.from({ length: this.questionCount }, (_, i) => i + 1);
+  ngOnInit() {
+    this.updateQuestions(); // Initialize with at least one question
   }
 
-  removeOption(questionIndex: number, option: string) {
-    const optionIndex = option === 'C' ? 2 : 3; // Calculate the index of the option to remove
-    const questionElement = document.getElementById(`question_${questionIndex}`);
-    if (questionElement) {
-      const optionElements = questionElement.getElementsByClassName('form-group');
-      if (optionElements && optionElements.length > optionIndex) {
-        questionElement.removeChild(optionElements[optionIndex]);
-      }
+  updateQuestions() {
+    const minQuestions = 1;
+    const maxQuestions = 100;
+    this.questionOptions = Array.from({ length: maxQuestions - minQuestions + 1 }, (_, i) => minQuestions + i);
+    
+    // Update questions based on the selected count
+    const selectedCount = +this.questionCount;
+    this.questions = Array.from({ length: selectedCount }, (_, i) => {
+      return {
+        description: '',
+        options: ['Option A', 'Option B', 'Option C', 'Option D']
+      };
+    });
+  }
+
+  removeOption(questionIndex: number, optionIndex: number) {
+    const question = this.questions[questionIndex];
+    if (optionIndex >= 0 && optionIndex < question.options.length) {
+      question.options.splice(optionIndex, 1);
     }
   }
 }

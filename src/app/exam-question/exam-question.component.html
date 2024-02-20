@@ -6,45 +6,27 @@
   <div style="margin-top: 20px;"></div>
   <h2>Add New Question</h2>
   <div class="form-group">
-    <select class="form-control" id="questionCountDropdown" [(ngModel)]="questionCount">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
+    <select class="form-control" id="questionCountDropdown" [(ngModel)]="questionCount" (change)="updateQuestions()">
+      <option *ngFor="let option of questionOptions" [value]="option">{{ option }}</option>
     </select>
   </div>
 
-  <ng-container *ngFor="let question of getQuestionArray(); let i = index">
-    <h3>Question {{ question }} Description</h3>
+<ng-container *ngFor="let question of questions; let i = index">
+  <div id="question_{{ i }}" class="question-container">
+    <h3>Question {{ i + 1 }} Description</h3>
     <textarea class="form-control" rows="4" style="margin-top: 20px;"></textarea>
     <div style="margin-top: 20px;"></div>
 
-    <h3>Answers for Question {{ question }}</h3>
-    <div class="form-group">
-      <input type="text" class="form-control" value="Option A" style="display: inline-block; width: 200px; margin-right: 20px;">
-      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
+    <h3>Answers for Question {{ i + 1 }}</h3>
+    <div class="form-group" *ngFor="let option of question.options; let j = index">
+      <input type="text" class="form-control" [value]="option" style="display: inline-block; width: 200px; margin-right: 20px;">
+      <input type="radio" name="answer{{ i }}" style="margin-top: 10px;">
+      <a *ngIf="['Option C', 'Option D'].includes(option)" href="javascript:void(0);" style="color: red; margin-left: 20px;" (click)="removeOption(i, j)">Remove</a>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" value="Option B" style="display: inline-block; width: 200px; margin-right: 20px;">
-      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" value="Option C" style="display: inline-block; width: 200px; margin-right: 20px;">
-      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
-      <a href="#" style="color: red; margin-left: 20px;" (click)="removeOption(i, 'C')">Remove</a>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" value="Option D" style="display: inline-block; width: 200px; margin-right: 20px;">
-      <input type="radio" name="answer{{ question }}" style="margin-top: 10px;">
-      <a href="#" style="color: red; margin-left: 20px;" (click)="removeOption(i, 'D')">Remove</a>
-    </div>
-  </ng-container>
+  </div>
+</ng-container>
+
+
   
   <div class="form-group">
     <div class="btn-group">
