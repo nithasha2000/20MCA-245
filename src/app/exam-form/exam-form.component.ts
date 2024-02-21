@@ -19,10 +19,11 @@ export class ExamFormComponent {
   customMinuteDuration: number = 0;
   negativeMarking: string = '';
 
-  examNameControl = new FormControl('', [
+  /*examNameControl = new FormControl('', [
     Validators.required,
     Validators.pattern('[a-zA-Z ]*')
-  ]);
+  ]);*/
+
 
   constructor(private http: HttpClient, 
               private toastr: ToastrService, 
@@ -31,22 +32,11 @@ export class ExamFormComponent {
               private cookieService: CookieService) {
   }
 
-  durationTypeChanged() {
-    if (this.durationType === 'Hours') {
-      this.minuteDuration = ''; // Clear minute duration if it was previously selected
-      this.customMinuteDuration = 0; // Reset custom minute duration
-    } else if (this.durationType === 'Minutes') {
-      this.hourDuration = ''; // Clear hour duration if it was previously selected
-    }
-  }
-
   isFormValid(): boolean {
-    // Implement form validation logic if needed
     return true;
   }
 
   submitForm() {
-    // Extract percentage from negative marking option
     let percentage: number;
     switch (this.negativeMarking) {
       case '25% of that question':
@@ -71,7 +61,6 @@ export class ExamFormComponent {
     } else {
       durationInMinutes = parseInt(this.minuteDuration);
     }
-
     const formData = {
       name: this.examName,
       duration_hours: this.durationType === 'Hours' ? parseInt(this.hourDuration) : null,

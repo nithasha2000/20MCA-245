@@ -18,7 +18,7 @@
 
   <div class="form-group">
     <label for="duration">Duration:</label>
-    <select id="duration" [(ngModel)]="durationType" (change)="durationTypeChanged()" required>
+    <select id="duration" [(ngModel)]="durationType" required>
       <option value="" disabled selected>Select an option</option>
       <option value="Hours">Hours</option>
       <option value="Minutes">Minutes</option>
@@ -48,7 +48,6 @@
         <option value="20">20</option>
         <option value="30">30</option>
         <option value="45">45</option>
-        <!-- Add more options if needed -->
         <option value="custom">Custom</option>
       </select>
     </div>

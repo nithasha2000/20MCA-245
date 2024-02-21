@@ -118,7 +118,6 @@ class ExamForm(models.Model):
 
 class ExamQuestions(models.Model):
     exam_id = models.AutoField(primary_key=True)
-    exam_create_id = models.ForeignKey(ExamForm, on_delete=models.CASCADE)
     no_of_questions = models.IntegerField()
     question_desc = models.CharField(max_length=255)
     option_a = models.CharField(max_length=255)
