@@ -138,7 +138,7 @@ def exam_form(request):
     try:
         request_data = request.data
         if not all(key in request_data for key in [
-                'name','duration_hours','duration_minutes','negative_marking_percentage'
+                'name','duration_minutes','negative_marking_percentage'
                 ]):
             response_json["data"] = "Unprocessible entity"
             return Response(response_json, status=422)

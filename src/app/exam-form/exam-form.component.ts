@@ -58,20 +58,19 @@ export class ExamFormComponent {
     let durationInMinutes: number;
     if (this.durationType === 'Hours') {
       durationInMinutes = parseInt(this.hourDuration) * 60;
-    } else {
+    } else{
       durationInMinutes = parseInt(this.minuteDuration);
     }
     const formData = {
       name: this.examName,
-      duration_hours: this.durationType === 'Hours' ? parseInt(this.hourDuration) : null,
-      duration_minutes: this.durationType === 'Minutes' ? parseInt(this.minuteDuration) : null,
+      duration_minutes: durationInMinutes,
       negative_marking_percentage: percentage, 
     };
   
     this.http.post('http://127.0.0.1:8000/exam-form/', formData).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Successfully Added', "Email Verification", {
+          this.toastr.success('Successfully Added', "Exam Details", {
             positionClass: 'toast-top-center',
           });
         } else {

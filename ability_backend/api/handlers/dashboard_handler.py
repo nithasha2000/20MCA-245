@@ -6,7 +6,7 @@ import zlib
 from django.db.models import Q
 from api.utilities import email_utils, response_utils
 from api.utilities.validation_utils import ValidateUtil
-from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications, ExamForm
+from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications, ExamForm, ExamQuestions
 from base.serializers import (
     EmployeeRegisterSerializer,
     loginSerializer, 
@@ -16,7 +16,8 @@ from base.serializers import (
     JobApplicationsSerializer,
     SaveJobPostsSerializer,
     UserNotificationSerializer,
-    ExamFormSerializer)
+    ExamFormSerializer,
+    ExamQuestionSerializer)
 from django.core.exceptions import ObjectDoesNotExist
 
 users = {}
@@ -975,7 +976,8 @@ class DashBoardHandler:
     
     def save_job_list_filter_handler(request, response_json):
         try:
-            try:
+            try: 
+                
                 login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
                 role = request.get("role", "")
                 job_list = []
@@ -1038,35 +1040,34 @@ class DashBoardHandler:
     
     def exam_form_create_handler(request_data, response_json):
         try:
-        # Extract data from the request
             exam_name = request_data.get("name", "")
-            duration_hours = request_data.get("duration_hours","")
             duration_minutes = request_data.get("duration_minutes", "")
             negative_marking_percentage = request_data.get("negative_marking_percentage", "")
 
-        # Create a new instance of the ExamForm model
-            exam_form_instance = ExamForm.objects.create(
-                exam_name=exam_name,
-                duration_minutes=duration_minutes,
-                negative_marking_percentage=negative_marking_percentage,
-        )
-        # Serialize the instance to JSON
-            exam_form_serializer = ExamFormSerializer(exam_form_instance)
+            # Create a dictionary containing the data to be serialized
+            data = {
+                "exam_name": exam_name,
+                "duration_minutes": duration_minutes if duration_minutes else 0,
+                "negative_marking_percentage": negative_marking_percentage,
+            }
+            # Create a new instance of the ExamFormSerializer with the data
+            exam_form_serializer = ExamFormSerializer(data=data)
 
-        # Check if serialization is valid
+            # Check if the data is valid
             if exam_form_serializer.is_valid():
-            # If valid, save the instance and set success message
+                # If valid, save the instance and set success message
                 exam_form_serializer.save()
                 response_json["message"] = "success"
             else:
-            # If serialization is not valid, set an error message
+                # If data is not valid, set an error message
                 response_json["data"] = "Failed to create exam form"
         except Exception as e:
-        # Handle other exceptions
+            # Handle other exceptions
             print(f'Exception occurred in exam_form_create_handler: {e}')
             response_json["data"] = "An error occurred while processing the request"
-    
+        
         return response_json
+
 
     def view_exam_forms(request, response_json):
         try:
@@ -1112,3 +1113,39 @@ class DashBoardHandler:
         except Exception as e:
             print(f'Exception occurred while fetching exam details: {e}')
             return response_json
+            
+    def exam_question_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'employee':
+                        if request:
+                            for question_data in request.get("questions", []):
+                                question_data = {
+                                    "no_of_questions": 10,
+                                    "question_desc": question_data.get('description') if question_data.get('description') else "NULL",
+                                    "option_a":question_data['options'][0],
+                                    "option_b":question_data['options'][1],
+                                    "option_c":question_data['options'][2] if len(question_data['options']) > 2 else None,
+                                    "option_d":question_data['options'][3] if len(question_data['options']) > 3 else None,
+                                    "correct_ans":question_data['correctAnswer']
+                                    }
+                                exam_question_serializer = ExamQuestionSerializer(data=question_data)
+                                if exam_question_serializer.is_valid():
+                                    exam_question_serializer.save()
+                                    response_json["message"] = "success"
+                                else:
+                                    response_json["data"] = "Failed to add question" 
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while fetching exam details: {e}')
+        return response_json

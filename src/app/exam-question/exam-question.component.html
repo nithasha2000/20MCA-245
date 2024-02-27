@@ -21,7 +21,7 @@
       <div class="form-group" *ngFor="let option of question.options; let j = index">
         <input type="text" class="form-control" [(ngModel)]="option.text" style="display: inline-block; width: 200px; margin-right: 20px;">
         <input type="radio" name="answer{{ i }}" [value]="j" [(ngModel)]="question.correctAnswerIndex" style="margin-top: 10px;">
-        <span>{{ String.fromCharCode(65 + j) }}</span> <!-- Display A, B, C, D for options -->
+        <span>{{ getOptionLetter(j) }}</span> <!-- Display A, B, C, D for options -->
         <a *ngIf="['Option C', 'Option D'].includes(option.text)" href="javascript:void(0);" style="color: red; margin-left: 20px;" (click)="removeOption(i, j)">Remove</a>
       </div>
     </div>
@@ -29,12 +29,12 @@
 
   <div class="form-group">
     <div class="btn-group">
-      <button class="btn btn-primary mr-auto">Save</button>
+      <button class="btn btn-success" (click)="submitForm()">Submit</button>
       <button class="btn btn-secondary ml-auto">Cancel</button>
     </div>
   </div>
 
-  <div class="form-group center">
+  <!--<div class="form-group center">
     <button class="btn btn-success" (click)="submitForm()">Submit</button>
-  </div>
+  </div>-->
 </div>

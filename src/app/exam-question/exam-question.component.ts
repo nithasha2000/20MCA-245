@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-exam-question',
@@ -11,10 +12,12 @@ export class ExamQuestionComponent {
   questionCount: number = 1;
   questionOptions: number[] = [];
   questions: any[] = [];
+  userData: any;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private userService: UserService) {}
 
   ngOnInit() {
+    this.userData = this.userService.getUserData();
     this.updateQuestions(); // Initialize with at least one question
   }
 
@@ -41,20 +44,28 @@ export class ExamQuestionComponent {
     }
   }
 
+  getOptionLetter(index: number): string {
+    return String.fromCharCode(65 + index);
+  }
+
   submitForm() {
+
     const formData = {
-      questions: this.questions.map(question => {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "questions": this.questions.map(question => {
         return {
           description: question.description,
           options: question.options.map((option: any) => option.text),
-          correctAnswer: String.fromCharCode(65 + question.correctAnswerIndex) // Convert index to letter (A, B, C, D)
+          correctAnswer: this.getOptionLetter(question.correctAnswerIndex)
         };
       })
     };
- this.http.post('http://127.0.0.1:8000/exam-question/', formData).subscribe((response: any) => {
+    
+    this.http.post('http://127.0.0.1:8000/exam-question/', formData).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Successfully Added', "Email Verification", {
+          this.toastr.success('Successfully Added', "Question Adding", {
             positionClass: 'toast-top-center',
           });
         } else {

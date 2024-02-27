@@ -30,7 +30,7 @@ ngOnInit() {
         "role": this.userData.role
       };
     
-      this.http.post('http://127.0.0.1:8000/view-exam-list',payload).subscribe((response: any) => {
+      this.http.post('http://127.0.0.1:8000/view-exam-list/',payload).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
           this.exams = response.data

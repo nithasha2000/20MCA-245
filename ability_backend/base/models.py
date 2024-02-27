@@ -50,7 +50,7 @@ class JobSeekerRegister(models.Model):  # Model class names are typically capita
     class Meta:
         app_label = 'base'
 
-class EmployeeRegister(models.Model):  # Model class names are typically capitalized.
+class EmployeeRegister(models.Model):  
     employee_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255) 
     last_name = models.CharField(max_length=255) 
@@ -58,7 +58,7 @@ class EmployeeRegister(models.Model):  # Model class names are typically capital
     class Meta:
         app_label = 'base'
 
-class JobPost(models.Model):  # Model class names are typically capitalized.
+class JobPost(models.Model):  
     job_post_id = models.AutoField(primary_key=True)
     job_title = models.CharField(max_length=255)
     job_description = models.CharField(max_length=255) 
@@ -118,6 +118,7 @@ class ExamForm(models.Model):
 
 class ExamQuestions(models.Model):
     exam_id = models.AutoField(primary_key=True)
+    exam_create_id = models.ForeignKey(ExamForm, on_delete=models.CASCADE)
     no_of_questions = models.IntegerField()
     question_desc = models.CharField(max_length=255)
     option_a = models.CharField(max_length=255)
