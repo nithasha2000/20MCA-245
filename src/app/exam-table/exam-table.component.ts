@@ -59,8 +59,9 @@ ngOnInit() {
     }
 }
  @Output() featureSelected = new EventEmitter<String>();
-  onSelect(feature: string){
+  onSelect(feature: string, exam_create_id: number){
     this.reloadService.triggerReload();
+    this.userService.setExamCreateIdData(exam_create_id);
     this.featureSelected.emit(feature);
   }
 

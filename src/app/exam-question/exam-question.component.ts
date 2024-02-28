@@ -9,14 +9,16 @@ import { UserService } from '../user.service';
   styleUrls: ['./exam-question.component.css']
 })
 export class ExamQuestionComponent {
-  questionCount: number = 1;
+  questionCount: number = 10;
   questionOptions: number[] = [];
   questions: any[] = [];
   userData: any;
+  exam_create_id: any;
 
   constructor(private http: HttpClient, private toastr: ToastrService, private userService: UserService) {}
 
   ngOnInit() {
+    this.exam_create_id = this.userService.getExamCreateIdData();
     this.userData = this.userService.getUserData();
     this.updateQuestions(); // Initialize with at least one question
   }
@@ -53,6 +55,7 @@ export class ExamQuestionComponent {
     const formData = {
       "username": this.userData.username,
       "role": this.userData.role,
+      "exam_create_id": this.exam_create_id,
       "questions": this.questions.map(question => {
         return {
           description: question.description,

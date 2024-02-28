@@ -9,8 +9,8 @@ export class UserService {
   private storageKeyJobPost = 'jobPost'; 
   private storageKeyLastEmitted = 'lastEmitted'
   private isLoggingIn = false;
-  private navItemEmitted = ""
-  private emitted = ""
+  private navItemEmitted = "";
+  private exam_create_id ="";
 
   constructor() {
     // Check the user's authentication status when the service is initialized
@@ -91,5 +91,15 @@ export class UserService {
   }
   removeNavItemData() {
     localStorage.removeItem(this.navItemEmitted);
+  }
+  setExamCreateIdData(data: any) {
+    localStorage.setItem(this.exam_create_id, data);
+  }
+  getExamCreateIdData() {
+    const storedNavData = localStorage.getItem(this.exam_create_id);
+    return storedNavData !== null ? storedNavData : null;
+  }
+  removeExamCreateIdData() {
+    localStorage.removeItem(this.exam_create_id);
   }
 }

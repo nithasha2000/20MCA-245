@@ -408,7 +408,7 @@ def view_exam_forms(request):
             return Response(response_json, status=200)
     except Exception as e:
         print(f'Exception occurred while fetching exam forms: {e}')
-    return Response(response_json, status=401)  # Return the response JSON object with status code 200
+    return Response(response_json, status=401)
 
 @api_view(['POST'])
 def add_exam_questions(request):
@@ -416,7 +416,7 @@ def add_exam_questions(request):
     try:
         request_data = request.data
         if not all(key in request_data for key in [
-            'username', 'role', 'questions']):
+            'exam_create_id', 'username', 'role', 'questions']):
             response_json["data"] = "Unprocessable entity"
             return Response(response_json, status=422)
         response_json = DashBoardHandler.exam_question_handler(request_data, response_json)

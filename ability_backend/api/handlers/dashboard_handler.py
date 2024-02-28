@@ -1077,7 +1077,7 @@ class DashBoardHandler:
                 if login_db_data:
                     if login_db_data.role == role and role == 'employee':
                         exam_forms = ExamForm.objects.all()  
-                        data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
+                        data = [{"exam_create_id":exam.exam_create_id, "exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
                         if data:  
                             response_json["message"] = "success"  
                             response_json["data"] = data  
@@ -1119,25 +1119,33 @@ class DashBoardHandler:
             try:
                 login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
                 role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
                 if login_db_data:
                     if login_db_data.role == role and role == 'employee':
                         if request:
                             for question_data in request.get("questions", []):
-                                question_data = {
-                                    "no_of_questions": 10,
-                                    "question_desc": question_data.get('description') if question_data.get('description') else "NULL",
-                                    "option_a":question_data['options'][0],
-                                    "option_b":question_data['options'][1],
-                                    "option_c":question_data['options'][2] if len(question_data['options']) > 2 else None,
-                                    "option_d":question_data['options'][3] if len(question_data['options']) > 3 else None,
-                                    "correct_ans":question_data['correctAnswer']
-                                    }
-                                exam_question_serializer = ExamQuestionSerializer(data=question_data)
-                                if exam_question_serializer.is_valid():
-                                    exam_question_serializer.save()
-                                    response_json["message"] = "success"
+                                exam_db_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                                if exam_db_data:
+                                    question_data = {
+                                        "exam_create_id": exam_create_id,
+                                        "no_of_questions": 10,
+                                        "question_desc": question_data.get('description') if question_data.get('description') else "NULL",
+                                        "option_a":question_data['options'][0],
+                                        "option_b":question_data['options'][1],
+                                        "option_c":question_data['options'][2] if len(question_data['options']) > 2 else None,
+                                        "option_d":question_data['options'][3] if len(question_data['options']) > 3 else None,
+                                        "correct_ans":question_data['correctAnswer']
+                                        }
+                                    print(question_data)
+                                    exam_question_serializer = ExamQuestionSerializer(data=question_data)
+                                    if exam_question_serializer.is_valid():
+                                        exam_question_serializer.save()
+                                        response_json["message"] = "success"
+                                    else:
+                                        response_json["data"] = "Failed to add question" 
+                                    print(exam_question_serializer.errors)
                                 else:
-                                    response_json["data"] = "Failed to add question" 
+                                    response_json["data"] = "Failed to retrieve exam data" 
                         else:
                             response_json["data"] = "Something went wrong" 
                     else:

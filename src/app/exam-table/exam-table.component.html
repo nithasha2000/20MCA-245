@@ -14,8 +14,8 @@
         <td>{{ exam.exam_name }}</td>
         <td>{{ exam.duration_minutes }} minutes</td>
         <td>Done</td>
-        <td><a class="button" (click)="onSelect('exam_question')">Add</a></td>
-         <td><a class="button-edit" (click)="onSelect('exam_question')">Edit</a></td>
+        <td><a class="button" (click)="onSelect('exam_question',  exam.exam_create_id)">Add</a></td>
+         <td><a class="button-edit" (click)="onSelect('exam_question', exam.exam_create_id)">Edit</a></td>
       </tr>
     </tbody>
   </table>
