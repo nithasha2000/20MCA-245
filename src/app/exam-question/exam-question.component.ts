@@ -24,7 +24,7 @@ export class ExamQuestionComponent {
   }
 
   updateQuestions() {
-    const minQuestions = 1;
+    const minQuestions = 10;
     const maxQuestions = 100;
     this.questionOptions = Array.from({ length: maxQuestions - minQuestions + 1 }, (_, i) => minQuestions + i);
     
