@@ -46,6 +46,8 @@ import { EncDecService } from './encdec.service';
 import { ExamQuestionComponent } from './exam-question/exam-question.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ExamTableComponent } from './exam-table/exam-table.component';
+import { ExamWidgetComponent } from './exam-widget/exam-widget.component';
+import { ExamComponent } from './exam/exam.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,7 @@ import { ExamTableComponent } from './exam-table/exam-table.component';
     ExamFormComponent,
     ExamQuestionComponent,
     RegisterEmployeeComponent,
-    ExamTableComponent
+    ExamTableComponent,
   ],
   imports: [
     BrowserModule,

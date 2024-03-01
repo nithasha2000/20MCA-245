@@ -1043,12 +1043,14 @@ class DashBoardHandler:
             exam_name = request_data.get("name", "")
             duration_minutes = request_data.get("duration_minutes", "")
             negative_marking_percentage = request_data.get("negative_marking_percentage", "")
+            marksEach = request_data.get("marksEach", "")
 
             # Create a dictionary containing the data to be serialized
             data = {
                 "exam_name": exam_name,
                 "duration_minutes": duration_minutes if duration_minutes else 0,
                 "negative_marking_percentage": negative_marking_percentage,
+                "marksEach": marksEach,
             }
             # Create a new instance of the ExamFormSerializer with the data
             exam_form_serializer = ExamFormSerializer(data=data)
@@ -1100,7 +1102,7 @@ class DashBoardHandler:
                 exam_forms = ExamForm.objects.all()  
 
         # Serialize only exam name and duration
-                data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes} for exam in exam_forms]
+                data = [{"exam_name": exam.exam_name, "duration_minutes": exam.duration_minutes } for exam in exam_forms]
 
                 if data:  # If there are serialized data
                     response_json["message"] = "success"  # Set success message

@@ -80,7 +80,7 @@ class JobPost(models.Model):
     class Meta:
         app_label = 'base'
 
-class JobApplications(models.Model):  # Model class names are typically capitalized.
+class JobApplications(models.Model): 
     job_applications_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
     job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
@@ -89,7 +89,7 @@ class JobApplications(models.Model):  # Model class names are typically capitali
     class Meta:
         app_label = 'base'
 
-class SaveJobPosts(models.Model):  # Model class names are typically capitalized.
+class SaveJobPosts(models.Model):  
     save_job_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Login, on_delete=models.CASCADE)
     job_post = models.ForeignKey(JobPost, on_delete=models.CASCADE)
@@ -112,6 +112,7 @@ class ExamForm(models.Model):
     exam_name = models.CharField(max_length=255)
     duration_minutes = models.IntegerField()
     negative_marking_percentage = models.IntegerField()
+    marksEach = models.IntegerField()
     
     class Meta:
         app_label = 'base'

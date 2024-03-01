@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../user.service';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -18,6 +15,7 @@ export class ExamFormComponent {
   minuteDuration: string = '';
   customMinuteDuration: number = 0;
   negativeMarking: string = '';
+  marksEach: number=0;
 
   /*examNameControl = new FormControl('', [
     Validators.required,
@@ -26,10 +24,7 @@ export class ExamFormComponent {
 
 
   constructor(private http: HttpClient, 
-              private toastr: ToastrService, 
-              private router: Router, 
-              private userService: UserService,
-              private cookieService: CookieService) {
+              private toastr: ToastrService) {
   }
 
   isFormValid(): boolean {
@@ -65,6 +60,7 @@ export class ExamFormComponent {
       name: this.examName,
       duration_minutes: durationInMinutes,
       negative_marking_percentage: percentage, 
+      marksEach: this.marksEach
     };
   
     this.http.post('http://127.0.0.1:8000/exam-form/', formData).subscribe((response: any) => {

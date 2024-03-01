@@ -22,6 +22,7 @@ import { ExamQuestionComponent } from './exam-question/exam-question.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ExamWidgetComponent } from './exam-widget/exam-widget.component';
 import { ExamTableComponent } from './exam-table/exam-table.component';
+import { ExamComponent } from './exam/exam.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -42,7 +43,8 @@ const routes: Routes = [
 { path: 'exam-question',component:ExamQuestionComponent},
 { path: 'register-employee',component:RegisterEmployeeComponent},
 { path: 'exam-widget',component:ExamWidgetComponent},
-{ path: 'exam-table',component:ExamTableComponent}
+{ path: 'exam-table',component:ExamTableComponent},
+{ path: 'exam',component:ExamComponent}
 ];
 
 const dashboardRoutes: Routes = [
