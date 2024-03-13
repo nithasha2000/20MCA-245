@@ -1159,3 +1159,43 @@ class DashBoardHandler:
         except Exception as e:
             print(f'Exception occurred while fetching exam details: {e}')
         return response_json
+    
+    def fetch_exam_question_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'employee':
+                        if request:
+                            exam_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                            if exam_data:
+                                ExamQuestions.objects.get = ExamQuestionsSerializer(exam_data, many=True)
+
+                                if job_applicants_serializer.data:
+                                    for job_applicants_record in job_applicants_serializer.data:
+                                        job_seeker_data = JobSeekerRegister.objects.get(user=job_applicants_record["user"])
+                                        job_seeker_serializer = JobSeekerRegisterSerializer(job_seeker_data)
+                                        if job_seeker_serializer.data:
+                                            job_seekers = job_seeker_serializer.data
+                                            user_data = Login.objects.get(user_id=job_seekers["user"])
+                                            user_data_serializer = loginSerializer(user_data)
+                                            job_seekers["email"] = user_data_serializer.data["username"]
+                                            job_seekers["status"] = job_applicants_record["application_status"]
+                                            job_applicants.append(job_seekers)
+
+                                    response_json["message"] = "success"
+                                    response_json["data"] = job_applicants
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while fetching exam details: {e}')
+        return response_json
+    

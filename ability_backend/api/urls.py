@@ -31,5 +31,6 @@ urlpatterns = [
     path('save-job-list-filter/', dashboard_views.save_job_list_filter),
     path('exam-form/',account_views.exam_form),
     path('view-exam-list/',dashboard_views.view_exam_forms),
-    path('exam-question/',dashboard_views.add_exam_questions)
+    path('exam-question/',dashboard_views.add_exam_questions),
+    path('exam-fetch/',dashboard_views.fetch_exam_questions)
 ]

@@ -11,6 +11,9 @@ export class UserService {
   private isLoggingIn = false;
   private navItemEmitted = "";
   private exam_create_id ="";
+  private questions: any [] = [];
+  private options: any[] = [];
+  private exam_actions = "";
 
   constructor() {
     // Check the user's authentication status when the service is initialized
@@ -101,5 +104,16 @@ export class UserService {
   }
   removeExamCreateIdData() {
     localStorage.removeItem(this.exam_create_id);
+  }
+
+  setExamActions(data: any) {
+    localStorage.setItem(this.exam_actions, data);
+  }
+  getExamActions() {
+    const storedNavData = localStorage.getItem(this.exam_actions);
+    return storedNavData !== null ? storedNavData : null;
+  }
+  removeExamActions() {
+    localStorage.removeItem(this.exam_actions);
   }
 }

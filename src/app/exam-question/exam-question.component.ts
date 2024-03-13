@@ -14,12 +14,17 @@ export class ExamQuestionComponent {
   questions: any[] = [];
   userData: any;
   exam_create_id: any;
+  exam_actions: any;
+ 
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private userService: UserService) {}
+  constructor(private http: HttpClient, 
+              private toastr: ToastrService, 
+              private userService: UserService) {}
 
   ngOnInit() {
     this.exam_create_id = this.userService.getExamCreateIdData();
     this.userData = this.userService.getUserData();
+    this.exam_actions = this.userService.getExamActions();
     this.updateQuestions(); // Initialize with at least one question
   }
 
@@ -78,6 +83,32 @@ export class ExamQuestionComponent {
         }
       } catch (error) {
         this.toastr.error('Adding Failed', 'Try Again',{
+          positionClass: 'toast-top-center',
+        });
+      }
+    });
+  }
+  retrieveExamQuestion() {
+
+    const formData = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "exam_create_id": this.exam_create_id
+    };
+    
+    this.http.post('http://127.0.0.1:8000/exam-fetch/', formData).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Successfully Fetched', "Question Fetching", {
+            positionClass: 'toast-top-center',
+          });
+        } else {
+          this.toastr.error(response.data, 'Fetching Failed', {
+            positionClass: 'toast-top-center',
+          });
+        }
+      } catch (error) {
+        this.toastr.error('Fetching Failed', 'Try Again',{
           positionClass: 'toast-top-center',
         });
       }
