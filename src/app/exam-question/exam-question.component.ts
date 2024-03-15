@@ -13,6 +13,7 @@ export class ExamQuestionComponent {
   questionOptions: number[] = [];
   questions: any[] = [];
   userData: any;
+exam_data: any;
   exam_create_id: any;
   exam_actions: any;
  
@@ -22,11 +23,16 @@ export class ExamQuestionComponent {
               private userService: UserService) {}
 
   ngOnInit() {
-    this.exam_create_id = this.userService.getExamCreateIdData();
+    this.exam_data = this.userService.getExamData();
+    this.exam_create_id = this.exam_data["exam_create_id"];
     this.userData = this.userService.getUserData();
-    this.exam_actions = this.userService.getExamActions();
+    this.exam_actions = this.exam_data["actions"];
+    if (this.exam_actions == 'edit')
+    {
+      this.retrieveExamQuestion();
+    }
     this.updateQuestions(); // Initialize with at least one question
-  }
+}
 
   updateQuestions() {
     const minQuestions = 10;
@@ -35,13 +41,15 @@ export class ExamQuestionComponent {
     
     // Update questions based on the selected count
     const selectedCount = +this.questionCount;
-    this.questions = Array.from({ length: selectedCount }, (_, i) => {
-      return {
-        description: '',
-        options: [{ text: 'Option A' }, { text: 'Option B' }, { text: 'Option C' }, { text: 'Option D' }],
-        correctAnswerIndex: null // Initially set to null
-      };
-    });
+    if (this.exam_actions == "create"){
+      this.questions = Array.from({ length: selectedCount }, (_, i) => {
+          return {
+            description: '',
+            options: [{ text: 'Option A' }, { text: 'Option B' }, { text: 'Option C' }, { text: 'Option D' }],
+            correctAnswerIndex: null // Initially set to null
+          };
+        });
+    }
   }
 
   removeOption(questionIndex: number, optionIndex: number) {
@@ -56,7 +64,7 @@ export class ExamQuestionComponent {
   }
 
   submitForm() {
-
+    console.log(this.questions)
     const formData = {
       "username": this.userData.username,
       "role": this.userData.role,
@@ -99,9 +107,8 @@ export class ExamQuestionComponent {
     this.http.post('http://127.0.0.1:8000/exam-fetch/', formData).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Successfully Fetched', "Question Fetching", {
-            positionClass: 'toast-top-center',
-          });
+          this.questionCount = response.data.no_of_questions
+          this.questions = response.data.questions
         } else {
           this.toastr.error(response.data, 'Fetching Failed', {
             positionClass: 'toast-top-center',

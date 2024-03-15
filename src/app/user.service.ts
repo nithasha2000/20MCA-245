@@ -10,10 +10,9 @@ export class UserService {
   private storageKeyLastEmitted = 'lastEmitted'
   private isLoggingIn = false;
   private navItemEmitted = "";
-  private exam_create_id ="";
+  private exam_data ="";
   private questions: any [] = [];
   private options: any[] = [];
-  private exam_actions = "";
 
   constructor() {
     // Check the user's authentication status when the service is initialized
@@ -95,25 +94,16 @@ export class UserService {
   removeNavItemData() {
     localStorage.removeItem(this.navItemEmitted);
   }
-  setExamCreateIdData(data: any) {
-    localStorage.setItem(this.exam_create_id, data);
+  setExamData(data: any) {
+    console.log("Stored data: ",data)
+    localStorage.setItem(this.exam_data, JSON.stringify(data));
   }
-  getExamCreateIdData() {
-    const storedNavData = localStorage.getItem(this.exam_create_id);
-    return storedNavData !== null ? storedNavData : null;
+  getExamData() {
+    const storedNavData = localStorage.getItem(this.exam_data);
+    console.log("Stored data: ",storedNavData)
+    return storedNavData !== null ? JSON.parse(storedNavData) : null;
   }
-  removeExamCreateIdData() {
-    localStorage.removeItem(this.exam_create_id);
-  }
-
-  setExamActions(data: any) {
-    localStorage.setItem(this.exam_actions, data);
-  }
-  getExamActions() {
-    const storedNavData = localStorage.getItem(this.exam_actions);
-    return storedNavData !== null ? storedNavData : null;
-  }
-  removeExamActions() {
-    localStorage.removeItem(this.exam_actions);
+  removeExamdData() {
+    localStorage.removeItem(this.exam_data);
   }
 }

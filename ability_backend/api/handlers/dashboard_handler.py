@@ -1128,6 +1128,7 @@ class DashBoardHandler:
                             for question_data in request.get("questions", []):
                                 exam_db_data = ExamForm.objects.get(exam_create_id=exam_create_id)
                                 if exam_db_data:
+                                    print(question_data)
                                     question_data = {
                                         "exam_create_id": exam_create_id,
                                         "no_of_questions": 10,
@@ -1169,24 +1170,20 @@ class DashBoardHandler:
                 if login_db_data:
                     if login_db_data.role == role and role == 'employee':
                         if request:
-                            exam_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                            exam_data = ExamQuestions.objects.filter(exam_create_id=exam_create_id)
                             if exam_data:
-                                ExamQuestions.objects.get = ExamQuestionsSerializer(exam_data, many=True)
+                                exam_questions = ExamQuestionSerializer(exam_data, many=True)
 
-                                if job_applicants_serializer.data:
-                                    for job_applicants_record in job_applicants_serializer.data:
-                                        job_seeker_data = JobSeekerRegister.objects.get(user=job_applicants_record["user"])
-                                        job_seeker_serializer = JobSeekerRegisterSerializer(job_seeker_data)
-                                        if job_seeker_serializer.data:
-                                            job_seekers = job_seeker_serializer.data
-                                            user_data = Login.objects.get(user_id=job_seekers["user"])
-                                            user_data_serializer = loginSerializer(user_data)
-                                            job_seekers["email"] = user_data_serializer.data["username"]
-                                            job_seekers["status"] = job_applicants_record["application_status"]
-                                            job_applicants.append(job_seekers)
+                                if exam_questions.data:
+                                    response_questions = {"no_of_questions": len(exam_questions.data),"questions": []}
+                                    for exam_question in exam_questions.data:
+                                        correct_ans_index = {"A": 0, "B": 1, "C": 2, "D": 3}
+                                        response_questions["questions"].append({"description": exam_question["question_desc"],
+                                               "options": [{ 'text': exam_question["option_a"] }, { 'text': exam_question["option_b"] }, {'text':  exam_question["option_c"] }, { 'text': exam_question["option_d"] }],
+                                                "correctAnswerIndex": correct_ans_index.get(exam_question["correct_ans"])})
 
                                     response_json["message"] = "success"
-                                    response_json["data"] = job_applicants
+                                    response_json["data"] = response_questions
                         else:
                             response_json["data"] = "Something went wrong" 
                     else:

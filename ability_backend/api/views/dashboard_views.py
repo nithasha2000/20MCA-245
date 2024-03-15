@@ -438,7 +438,7 @@ def fetch_exam_questions(request):
             'exam_create_id', 'username', 'role']):
             response_json["data"] = "Unprocessable entity"
             return Response(response_json, status=422)
-        response_json = DashBoardHandler.exam_question_handler(request_data, response_json)
+        response_json = DashBoardHandler.fetch_exam_question_handler(request_data, response_json)
         if response_json:
             return Response(response_json, status=200)
         else:
