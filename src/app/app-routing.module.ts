@@ -23,6 +23,7 @@ import { RegisterEmployeeComponent } from './register-employee/register-employee
 import { ExamWidgetComponent } from './exam-widget/exam-widget.component';
 import { ExamTableComponent } from './exam-table/exam-table.component';
 import { ExamComponent } from './exam/exam.component';
+import { ExamViewComponent } from './exam-view/exam-view.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -44,7 +45,8 @@ const routes: Routes = [
 { path: 'register-employee',component:RegisterEmployeeComponent},
 { path: 'exam-widget',component:ExamWidgetComponent},
 { path: 'exam-table',component:ExamTableComponent},
-{ path: 'exam',component:ExamComponent}
+{ path: 'exam',component:ExamComponent},
+{ path: 'exam-view',component:ExamViewComponent}
 ];
 
 const dashboardRoutes: Routes = [

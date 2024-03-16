@@ -1178,9 +1178,18 @@ class DashBoardHandler:
                                     response_questions = {"no_of_questions": len(exam_questions.data),"questions": []}
                                     for exam_question in exam_questions.data:
                                         correct_ans_index = {"A": 0, "B": 1, "C": 2, "D": 3}
-                                        response_questions["questions"].append({"description": exam_question["question_desc"],
-                                               "options": [{ 'text': exam_question["option_a"] }, { 'text': exam_question["option_b"] }, {'text':  exam_question["option_c"] }, { 'text': exam_question["option_d"] }],
-                                                "correctAnswerIndex": correct_ans_index.get(exam_question["correct_ans"])})
+
+                                        options = [{ 'text': exam_question["option_a"] },
+                                                   { 'text': exam_question["option_b"]}]
+                                        if exam_question["option_c"]:
+                                            options.append({ 'text': exam_question["option_c"] })
+                                        if exam_question["option_d"]:
+                                            options.append({ 'text': exam_question["option_d"] })
+                                        response_questions["questions"].append({
+                                            "exam_id": exam_question["exam_id"],
+                                            "description": exam_question["question_desc"],
+                                            "options": options,
+                                            "correctAnswerIndex": correct_ans_index.get(exam_question["correct_ans"])})
 
                                     response_json["message"] = "success"
                                     response_json["data"] = response_questions
@@ -1196,3 +1205,38 @@ class DashBoardHandler:
             print(f'Exception occurred while fetching exam details: {e}')
         return response_json
     
+
+    def update_question_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'employee':
+                        if request:
+                            for question_data in request.get("questions", []):
+                                exam_db_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                                if exam_db_data:
+                                    question = ExamQuestions.objects.get(exam_id=question_data.get('exam_id', ''))
+                                    question.question_desc = question_data.get('description') if question_data.get('description') else "NULL"
+                                    question.option_a = question_data['options'][0]
+                                    question.option_b = question_data['options'][1]
+                                    question.option_c = question_data['options'][2] if len(question_data['options']) > 2 else None
+                                    question.option_d = question_data['options'][3] if len(question_data['options']) > 3 else None
+                                    question.correct_ans = question_data['correctAnswer']
+                                    question.save() 
+                                    response_json["message"] = "success"
+                                else:
+                                    response_json["data"] = "Failed to retrieve exam data" 
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while updating question details: {e}')
+        return response_json

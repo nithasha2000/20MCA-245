@@ -32,5 +32,6 @@ urlpatterns = [
     path('exam-form/',account_views.exam_form),
     path('view-exam-list/',dashboard_views.view_exam_forms),
     path('exam-question/',dashboard_views.add_exam_questions),
-    path('exam-fetch/',dashboard_views.fetch_exam_questions)
+    path('exam-fetch/',dashboard_views.fetch_exam_questions),
+    path('exam-question-update/',dashboard_views.update_exam_questions),
 ]

@@ -64,7 +64,6 @@ exam_data: any;
   }
 
   submitForm() {
-    console.log(this.questions)
     const formData = {
       "username": this.userData.username,
       "role": this.userData.role,
@@ -81,9 +80,12 @@ exam_data: any;
     this.http.post('http://127.0.0.1:8000/exam-question/', formData).subscribe((response: any) => {
       try {
         if (response.message === 'success') {
-          this.toastr.success('Successfully Added', "Question Adding", {
+          this.toastr.success('Successfully Created', "Questions Created", {
             positionClass: 'toast-top-center',
           });
+          this.userService.setNavItemData("app-exam-table")
+          this.userService.setLastEmittedData("app-exam-table");
+          location.reload();
         } else {
           this.toastr.error(response.data, 'Adding Failed', {
             positionClass: 'toast-top-center',
@@ -120,5 +122,47 @@ exam_data: any;
         });
       }
     });
+  }
+  updateForm() {
+    const formData = {
+      "username": this.userData.username,
+      "role": this.userData.role,
+      "exam_create_id": this.exam_create_id,
+      "questions": this.questions.map(question => {
+        return {
+          exam_id: question.exam_id,
+          description: question.description,
+          options: question.options.map((option: any) => option.text),
+          correctAnswer: this.getOptionLetter(question.correctAnswerIndex)
+        };
+      })
+    };
+    
+    this.http.post('http://127.0.0.1:8000/exam-question-update/', formData).subscribe((response: any) => {
+      try {
+        if (response.message === 'success') {
+          this.toastr.success('Successfully Updated', "Questions Updated", {
+            positionClass: 'toast-top-center',
+          });
+          this.userService.setNavItemData("app-exam-table")
+          this.userService.setLastEmittedData("app-exam-table");
+          location.reload();
+        } else {
+          this.toastr.error(response.data, 'Adding Failed', {
+            positionClass: 'toast-top-center',
+          });
+        }
+      } catch (error) {
+        this.toastr.error('Adding Failed', 'Try Again',{
+          positionClass: 'toast-top-center',
+        });
+      }
+    });
+  }
+
+  cancel(){
+    this.userService.setNavItemData("app-exam-table")
+    this.userService.setLastEmittedData("app-exam-table");
+    location.reload();
   }
 }
