@@ -24,6 +24,7 @@ import { ExamWidgetComponent } from './exam-widget/exam-widget.component';
 import { ExamTableComponent } from './exam-table/exam-table.component';
 import { ExamComponent } from './exam/exam.component';
 import { ExamViewComponent } from './exam-view/exam-view.component';
+import { ExamInstructionComponent } from './exam-instruction/exam-instruction.component';
 
 const routes: Routes = [
 { path: '', component: HeaderComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
 { path: 'exam-widget',component:ExamWidgetComponent},
 { path: 'exam-table',component:ExamTableComponent},
 { path: 'exam',component:ExamComponent},
-{ path: 'exam-view',component:ExamViewComponent}
+{ path: 'exam-view',component:ExamViewComponent},
+{ path: 'exam-instruction',component:ExamInstructionComponent}
 ];
 
 const dashboardRoutes: Routes = [
