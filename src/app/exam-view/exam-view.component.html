@@ -1,31 +1,33 @@
 <div class="container">
-  <h1>Edit Questions</h1>
-  <div style="margin-top: 20px;"></div>
 
+  <div class="button-container">
+    <h1>{{ exam_name }} Questions</h1>
+    <div style="margin-top: 20px;"></div>
+    <div class="form-group d-flex justify-content-end"> <!-- Align to the right -->
+      <div class="btn-group">
+        <button class="btn btn-secondary ml-auto go-back" (click)="cancel()">
+          <i class="fa-solid fa-arrow-left"></i> <!-- Arrow icon -->
+          Go Back
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- Display fetched number of questions -->
-  <h3>No:of Questions :  questionCount </h3>
+  <h3>No: of Questions: {{ questionCount }}</h3>
 
   <!-- Display fetched questions and options -->
   <ng-container *ngFor="let question of questions; let i = index">
     <div id="question_{{ i }}" class="question-container">
-      <h3>Question i + 1 Description</h3>
-      <textarea class="form-control" rows="4" readonly> question.description </textarea>
+      <h3>Question {{ i + 1 }} Description</h3>
+      <textarea class="form-control readonly" rows="4" readonly>{{ question.description }}</textarea>
       <div style="margin-top: 20px;"></div>
 
-      <h3>Answers for Question i + 1 </h3>
+      <h3>Answers for Question {{ i + 1 }}</h3>
       <div class="form-group" *ngFor="let option of question.options; let j = index">
-        <input type="text" class="form-control" value="{{ option.text }}" readonly>
         <input type="radio" name="answer{{ i }}" [checked]="j === question.correctAnswerIndex" disabled>
-        <span> getOptionLetter(j) </span> <!-- Display A, B, C, D for options -->
+        <span>{{ getOptionLetter(j) }}</span>
+        <input type="text" class="form-control readonly" value="{{ option.text }}" readonly>
       </div>
     </div>
   </ng-container>
-
-  <!-- Buttons for edit page -->
-  <div class="form-group">
-    <div class="btn-group">
-      <button class="btn btn-success">Save Changes</button>
-      <button class="btn btn-secondary ml-auto">Cancel</button>
-    </div>
-  </div>
 </div>

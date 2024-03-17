@@ -25,5 +25,6 @@
     <app-exam-table (featureSelected)="onNavigate($event)"
         *ngIf="selectedFeature === 'app-exam-table'"></app-exam-table>
     <app-exam-question *ngIf="selectedFeature === 'exam_question'"></app-exam-question>
+    <app-exam-view *ngIf="selectedFeature === 'exam-view'"></app-exam-view>
 </body>
 </html>

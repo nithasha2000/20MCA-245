@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="button-container">
+    <!-- Exam Name centered -->
+    <h1 style="text-align: center;"> exam_name </h1>
+    <!-- Number of Questions and Timer -->
+    <div style="display: flex; justify-content: space-between;">
+      <h5>No. of Questions: 80</h5>
+      <!-- Timer -->
+      <h5>Time: <span id="timer">80:00</span></h5>
+    </div>
+    <!-- Maximum Marks -->
+    <h5 style="text-align: right;">Maximum Marks: 80</h5>
+  </div>
+
+  <!-- Display fetched questions and options -->
+  <ng-container *ngFor="let question of questions; let i = index">
+    <div id="question_{{ i }}" class="question-container">
+      <h3>Question {{ i + 1 }} Description</h3>
+      <textarea class="form-control readonly" rows="4" readonly> question.description </textarea>
+      <div style="margin-top: 20px;"></div>
+
+      <h3>Answers for Question {{ i + 1 }}</h3>
+      <div class="form-group" *ngFor="let option of question.options; let j = index">
+        <input type="radio" name="answer{{ i }}" [checked]="j === question.correctAnswerIndex" disabled>
+        <span> getOptionLetter(j) </span>
+        <input type="text" class="form-control readonly" value="{{ option.text }}" readonly>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Submit Button -->
+  <div style="text-align: center; margin-top: 20px;">
+    <button class="btn btn-primary">Submit</button>
+  </div>
+</div>

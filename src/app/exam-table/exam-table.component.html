@@ -7,6 +7,7 @@
         <th>Status</th>
         <th>Add</th>
         <th>Edit</th>
+        <th>View</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
         <td>Done</td>
         <td><a class="button" (click)="onSelect('exam_question',  exam.exam_create_id, 'create')">Add</a></td>
         <td><a class="button-edit" (click)="onSelect('exam_question', exam.exam_create_id, 'edit')">Edit</a></td>
+        <td><a class="button-edit" (click)="onSelect('exam-view', exam.exam_create_id, 'view')">View</a></td>
       </tr>
     </tbody>
   </table>

@@ -1,0 +1,27 @@
+.container {
+    margin-right: 20px; /* Add 20px of margin to the right */
+  }
+
+  .readonly {
+    pointer-events: none !important; /* Disable pointer events */
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .go-back{
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .btn-secondary {
+    background-color: #007bff; /* Blue color */
+    color: white; /* Text color */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+  }
