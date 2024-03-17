@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.result-container {
+  width: 60%;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.result-heading {
+  background-color:rgb(45, 145, 45);
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin: 0;
+}
+
+.result-details {
+  color: rgb(7, 7, 7);
+  margin-bottom: 10px;
+}
+
+.result-button {
+  background-color: white;
+  color: lightgreen;
+  border: 1px solid rgb(45, 145, 45);
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.result-button:hover {
+  background-color: rgb(74, 193, 74);
+  color: white;
+}
+
+.agree-button {
+  text-align: center;
+  margin-top: 20px;
+}
