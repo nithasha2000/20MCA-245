@@ -49,6 +49,7 @@ import { ExamTableComponent } from './exam-table/exam-table.component';
 import { ExamWidgetComponent } from './exam-widget/exam-widget.component';
 import { ExamComponent } from './exam/exam.component';
 import { ExamViewComponent } from './exam-view/exam-view.component';
+import { ExamInstructionComponent } from './exam-instruction/exam-instruction.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,10 @@ import { ExamViewComponent } from './exam-view/exam-view.component';
     ExamQuestionComponent,
     RegisterEmployeeComponent,
     ExamTableComponent,
-    ExamViewComponent
+    ExamViewComponent,
+    ExamComponent,
+    ExamWidgetComponent,
+    ExamInstructionComponent
   ],
   imports: [
     BrowserModule,

@@ -130,3 +130,16 @@ class ExamQuestions(models.Model):
     
     class Meta:
         app_label = 'base'
+        
+class ExamScores(models.Model):
+    score_id = models.AutoField(primary_key=True)
+    exam_create_id = models.ForeignKey(ExamForm, on_delete=models.CASCADE) 
+    exam_id = models.ForeignKey(ExamQuestions, on_delete=models.CASCADE) 
+    answered = models.CharField(max_length=255, null=True) 
+    correct_ans = models.CharField(max_length=255, null=True) 
+    score = models.FloatField(null=False)
+    time_left = models.IntegerField(null=False)
+    user = models.ForeignKey(Login, on_delete=models.CASCADE)
+    
+    class Meta:
+        app_label = 'base'

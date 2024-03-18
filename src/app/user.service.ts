@@ -11,8 +11,8 @@ export class UserService {
   private isLoggingIn = false;
   private navItemEmitted = "";
   private exam_data ="";
-  private questions: any [] = [];
-  private options: any[] = [];
+  private exam_click =  "false";
+  private exam_attend = "";
 
   constructor() {
     // Check the user's authentication status when the service is initialized
@@ -95,15 +95,33 @@ export class UserService {
     localStorage.removeItem(this.navItemEmitted);
   }
   setExamData(data: any) {
-    console.log("Stored data: ",data)
     localStorage.setItem(this.exam_data, JSON.stringify(data));
   }
   getExamData() {
     const storedNavData = localStorage.getItem(this.exam_data);
-    console.log("Stored data: ",storedNavData)
     return storedNavData !== null ? JSON.parse(storedNavData) : null;
   }
   removeExamdData() {
     localStorage.removeItem(this.exam_data);
+  }
+  setExamClick() {
+    localStorage.setItem(this.exam_click, 'true');
+  }
+  getExamClick() {
+    const storedNavData = localStorage.getItem(this.exam_click);
+    return storedNavData !== null ? storedNavData : null;
+  }
+  removeExamClick() {
+    localStorage.setItem(this.exam_click, 'false');
+  }
+  setExamAttend(data: any) {
+    localStorage.setItem(this.exam_attend, JSON.stringify(data));
+  }
+  getExamAttend() {
+    const storedNavData = localStorage.getItem(this.exam_attend);
+    return storedNavData !== null ? JSON.parse(storedNavData) : null;
+  }
+  removeExamAttend() {
+    localStorage.removeItem(this.exam_attend);
   }
 }

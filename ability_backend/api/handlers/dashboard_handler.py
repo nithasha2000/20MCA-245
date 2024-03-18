@@ -6,7 +6,7 @@ import zlib
 from django.db.models import Q
 from api.utilities import email_utils, response_utils
 from api.utilities.validation_utils import ValidateUtil
-from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications, ExamForm, ExamQuestions
+from base.models import EmployeeRegister, Login, CompanyRegister, JobSeekerRegister, JobPost, JobApplications, SaveJobPosts, UserNotifications, ExamForm, ExamQuestions, ExamScores
 from base.serializers import (
     EmployeeRegisterSerializer,
     loginSerializer, 
@@ -17,7 +17,8 @@ from base.serializers import (
     SaveJobPostsSerializer,
     UserNotificationSerializer,
     ExamFormSerializer,
-    ExamQuestionSerializer)
+    ExamQuestionSerializer,
+    ExamScoresSerializer)
 from django.core.exceptions import ObjectDoesNotExist
 
 users = {}
@@ -1175,7 +1176,9 @@ class DashBoardHandler:
                                 exam_questions = ExamQuestionSerializer(exam_data, many=True)
 
                                 if exam_questions.data:
-                                    response_questions = {"no_of_questions": len(exam_questions.data),"questions": []}
+                                    exam_form_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                                    response_questions = {"exam_name": exam_form_data.exam_name,
+                                                          "no_of_questions": len(exam_questions.data),"questions": []}
                                     for exam_question in exam_questions.data:
                                         correct_ans_index = {"A": 0, "B": 1, "C": 2, "D": 3}
 
@@ -1239,4 +1242,221 @@ class DashBoardHandler:
                 response_json["message"] = "success"
         except Exception as e:
             print(f'Exception occurred while updating question details: {e}')
+        return response_json
+    
+    def fetch_exams_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'job_seeker':
+                        if request:
+                            data = []
+                            exam_data = ExamForm.objects.all()
+                            if exam_data:
+                                for exams in exam_data:
+                                    exam_questions = ExamQuestions.objects.filter(exam_create_id=exams.exam_create_id)
+                                    if len(exam_questions):
+                                        data.append({
+                                            "exam_create_id": exams.exam_create_id,
+                                            "title": exams.exam_name,
+                                            "numberOfQuestions": len(exam_questions),
+                                            "maximumMarks": len(exam_questions) * exams.marksEach,
+                                            "duration": exams.duration_minutes
+                                        })
+                                if data:
+                                    response_json["message"] = "success"
+                                    response_json["data"] = data
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while fetching exam details: {e}')
+        return response_json
+    
+
+    def attend_exam_fetch_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'job_seeker':
+                        if request:
+                            exam_data = ExamQuestions.objects.filter(exam_create_id=exam_create_id)
+                            if exam_data:
+                                exam_questions = ExamQuestionSerializer(exam_data, many=True)
+
+                                if exam_questions.data:
+                                    exam_form_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                                    response_questions = {"exam_name": exam_form_data.exam_name,
+                                                          "no_of_questions": len(exam_questions.data),"questions": []}
+                                    for exam_question in exam_questions.data:
+                                        correct_ans_index = {"A": 0, "B": 1, "C": 2, "D": 3}
+
+                                        options = [{ 'text': exam_question["option_a"] },
+                                                   { 'text': exam_question["option_b"]}]
+                                        if exam_question["option_c"]:
+                                            options.append({ 'text': exam_question["option_c"] })
+                                        if exam_question["option_d"]:
+                                            options.append({ 'text': exam_question["option_d"] })
+                                        response_questions["questions"].append({
+                                            "exam_id": exam_question["exam_id"],
+                                            "description": exam_question["question_desc"],
+                                            "options": options,
+                                            "correctAnswerIndex": correct_ans_index.get(exam_question["correct_ans"])})
+
+                                    response_json["message"] = "success"
+                                    response_json["data"] = response_questions
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while fetching exam details: {e}')
+        return response_json
+    
+
+    def submit_exam_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'job_seeker':
+                        if request:
+                            for question_data in request.get("questions", []):
+                                exam_db_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                                if exam_db_data:
+                                    mark = exam_db_data.marksEach
+                                    negative = exam_db_data.negative_marking_percentage
+                                    question = ExamQuestions.objects.get(exam_id=question_data.get('exam_id', ''))
+                                    if question:
+                                        if question_data['AnswerIndex'] == question.correct_ans:
+                                            score = mark
+                                        else:
+                                            if negative:
+                                                score = mark * (int(negative) / 100)
+                                            else:
+                                                score = 0
+                                        question_data = {
+                                        "exam_create_id": exam_create_id,
+                                        "exam_id": question_data.get('exam_id', ''),
+                                        "answered": question_data['AnswerIndex'],
+                                        "correct_ans": question.correct_ans,
+                                        "score": score,
+                                        "time_left": request.get("time_left", ""),
+                                        "user": login_db_data.user_id
+                                        }
+                                        exam_question_serializer = ExamScoresSerializer(data=question_data)
+                                        if exam_question_serializer.is_valid():
+                                            exam_question_serializer.save()
+                            response_json["message"] = "success"
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while submitting exams details: {e}')
+        return response_json
+    
+    def check_exam_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'job_seeker':
+                        if request:
+                            exam_data = ExamForm.objects.all()
+                            if exam_data:
+                                exam_questions = ExamScores.objects.filter(exam_create_id=exam_create_id)
+                                if exam_questions:
+                                    response_json["message"] = "success"
+                                    response_json["data"] = "attended"
+                                else:
+                                    response_json["message"] = "success"
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while checking exam details: {e}')
+        return response_json
+    
+    def exam_result_handler(request,response_json):
+        try:
+            try:
+                login_db_data = Login.objects.get(username=request.get('username', ''), is_deleted=0)
+                role = request.get("role", "")
+                exam_create_id = request.get("exam_create_id", "")
+                if login_db_data:
+                    if login_db_data.role == role and role == 'job_seeker':
+                        if request:
+                            exam_data = ExamForm.objects.get(exam_create_id=exam_create_id)
+                            if exam_data:
+                                exam_results = ExamScores.objects.filter(exam_create_id=exam_create_id)
+                                if exam_results:
+                                    score = 0
+                                    correct_answers = 0
+                                    wrong_answers = 0
+                                    unattended = 0
+                                    negative_mark = 0
+                                    time_left = 0
+                                    for results in exam_results:
+                                        time_left = results.time_left
+                                        if results.answered:
+                                            if results.answered == results.correct_ans:
+                                                score = score + results.score
+                                                correct_answers += 1
+                                            else:
+                                                wrong_answers += 1
+                                                negative_mark +=results.score
+                                        else:
+                                            unattended += 1
+                                    time_left = (exam_data.duration_minutes * 60) - time_left
+                                    score = score - negative_mark
+                                    response_data = {
+                                        "score": score,
+                                        "time_left":  time_left,
+                                        "correct_answers": correct_answers,
+                                        "wrong_answers": wrong_answers,
+                                        "unattended": unattended
+                                    }
+                                        
+                                    response_json["message"] = "success"
+                                    response_json["data"] = response_data
+                                else:
+                                    response_json["message"] = "success"
+                        else:
+                            response_json["data"] = "Something went wrong" 
+                    else:
+                        response_json["data"] = "You are not authorized to view this page"
+                else:
+                    response_json["data"] = "You are not authorized to view this page"
+            except ObjectDoesNotExist:
+                response_json["message"] = "success"
+        except Exception as e:
+            print(f'Exception occurred while checking exam details: {e}')
         return response_json

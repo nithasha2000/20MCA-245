@@ -1,5 +1,24 @@
+.exams-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Optional: Adjust the space between exams */
+}
+
+.exams-container h3 {
+  font-size: 24px; /* Adjust the font size */
+  font-weight: bold; /* Adjust the font weight */
+  color: #333; /* Adjust the text color */
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center; /* Optional: Adjust the space below the heading */
+}
+
 .container {
-  width: 200px;
+  width: calc(50% - 10px); /* Adjusting for padding and space between exams */
+  margin-bottom: 20px; /* Optional: Adjust the space between rows */
+  min-width: 600px;
+  max-width: 400px; /* Limiting the max width of the container */
+  margin: 10px auto;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

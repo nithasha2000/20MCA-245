@@ -1,13 +1,13 @@
 <div class="container">
   <div class="result-container">
     <h1 class="result-heading">Result</h1>
-    <h1 class="result-details">Your Score: 95</h1>
-    <p class="result-details">Time: 00:07:00</p>
-    <p class="result-details">Correct Answers: 8</p>
-    <p class="result-details">Wrong Answers: 1</p>
-    <p class="result-details">Unattended: 1</p>
+    <h1 class="result-details">Your Score: {{ score }}</h1>
+    <p class="result-details"><i class="fas fa-clock"></i> Time: {{ time }}</p>
+    <p class="result-details"><i class="fas fa-check-circle"></i> Correct Answers: {{ correct_answers }}</p>
+    <p class="result-details"><i class="fas fa-times-circle"></i> Wrong Answers: {{ wrong_answers }}</p>
+    <p class="result-details"><i class="fas fa-ban"></i> Unattended: {{ unattended }}</p>
     <div class="agree-button">
-      <button class="result-button">OK</button>
+      <button class="result-button" (click)="ok()">OK</button>
     </div>
   </div>
 </div>

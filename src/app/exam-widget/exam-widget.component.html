@@ -1,5 +1,14 @@
-<div class="container" (click)="navigateToExam()">
-  <div class="title">Top 10 Common Interview Linux Questions</div>
-  <div class="tags">No:of Questions : <span class="highlight">10</span></div>
-  <div class="tags">Maximum Marks : <span class="highlight">50</span></div>
+<div class="exams-container">
+  <h3>Available Exams</h3>
+  <div *ngIf="exams.length > 0; else noExamsMessage">
+    <div *ngFor="let exam of exams" class="container" (click)="navigateToExam(exam)">
+      <div class="title">{{ exam.title }}</div>
+      <div class="tags">No:of Questions : <span class="highlight">{{ exam.numberOfQuestions }}</span></div>
+      <div class="tags">Maximum Marks : <span class="highlight">{{ exam.maximumMarks }}</span></div>
+      <div class="tags">Duration : <span class="highlight">{{ exam.duration }}</span></div>
+    </div>
+  </div>
+  <ng-template #noExamsMessage>
+    <p>Exams are not available</p>
+  </ng-template>
 </div>

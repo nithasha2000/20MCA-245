@@ -34,4 +34,9 @@ urlpatterns = [
     path('exam-question/',dashboard_views.add_exam_questions),
     path('exam-fetch/',dashboard_views.fetch_exam_questions),
     path('exam-question-update/',dashboard_views.update_exam_questions),
+    path('exams/',dashboard_views.fetch_exams),
+    path('attend-exam-fetch/',dashboard_views.attend_exam_fetch),
+    path('submit-exam/',dashboard_views.submit_exam),
+    path('check-exam/',dashboard_views.check_exam),
+    path('exam-result/',dashboard_views.exam_result),
 ]

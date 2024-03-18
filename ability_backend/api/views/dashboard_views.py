@@ -464,3 +464,96 @@ def update_exam_questions(request):
     except Exception as e:
         print(f'Exception occurred while updating exam questions: {e}')
     return Response(response_json, status=401)
+
+@api_view(['POST'])
+def fetch_exams(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role']):
+            response_json["data"] = "Unprocessable entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.fetch_exams_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+        else:
+            return Response(response_json, status=400)
+    except Exception as e:
+        print(f'Exception occurred while fetching exams: {e}')
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def attend_exam_fetch(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'exam_create_id', 'username', 'role']):
+            response_json["data"] = "Unprocessable entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.attend_exam_fetch_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+        else:
+            return Response(response_json, status=400)
+    except Exception as e:
+        print(f'Exception occurred while fetching attend exam: {e}')
+    return Response(response_json, status=401)
+
+
+@api_view(['POST'])
+def submit_exam(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'exam_create_id', 'username', 'role']):
+            response_json["data"] = "Unprocessable entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.submit_exam_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+        else:
+            return Response(response_json, status=400)
+    except Exception as e:
+        print(f'Exception occurred while submitting exam: {e}')
+    return Response(response_json, status=401)
+
+
+@api_view(['POST'])
+def check_exam(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role']):
+            response_json["data"] = "Unprocessable entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.check_exam_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+        else:
+            return Response(response_json, status=400)
+    except Exception as e:
+        print(f'Exception occurred while check exams: {e}')
+    return Response(response_json, status=401)
+
+@api_view(['POST'])
+def exam_result(request):
+    response_json = {"message": "failed", "data": ""}
+    try:
+        request_data = request.data
+        if not all(key in request_data for key in [
+            'username', 'role']):
+            response_json["data"] = "Unprocessable entity"
+            return Response(response_json, status=422)
+        response_json = DashBoardHandler.exam_result_handler(request_data, response_json)
+        if response_json:
+            return Response(response_json, status=200)
+        else:
+            return Response(response_json, status=400)
+    except Exception as e:
+        print(f'Exception occurred while checking exam result: {e}')
+    return Response(response_json, status=401)
+    

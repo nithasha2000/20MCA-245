@@ -48,7 +48,13 @@ export class LoginComponent implements OnInit {
               if (response.message === 'success') {
                 this.cookieService.set('ability', response.data);
                 this.userService.setUserData(response.data);
-                this.router.navigate(['/dashboard']);
+               if(this.userService.getExamClick() == "true"){
+                  this.userService.removeExamClick()
+                  this.router.navigate(['/exam-widget']);
+                }
+                else{
+                  this.router.navigate(['/dashboard']);
+                }
               } else {
                 this.toastr.error(response.data, 'Login Failed', {
                   positionClass: 'toast-top-center',
@@ -92,7 +98,13 @@ export class LoginComponent implements OnInit {
           this.cookieService.set('ability', response.data);
           this.userService.setUserData(response.data);
           this.userService.removeForgotPassword();
-          this.router.navigate(['/dashboard']);
+          if(this.userService.getExamClick() == "true"){
+                  this.userService.removeExamClick()
+                  this.router.navigate(['/exam-widget']);
+                }
+                else{
+                  this.router.navigate(['/dashboard']);
+                }
         } else {
           this.toastr.error(response.data, 'Login Failed', {
             positionClass: 'toast-top-center',
