@@ -11,6 +11,11 @@
   position: relative; 
 }
 
+.error-message {
+color:red;
+}
+
+
 h1, h2 {
   text-align: center;
   color: #333;

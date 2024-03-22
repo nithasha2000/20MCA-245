@@ -15,8 +15,7 @@ export class ExamFormComponent {
   minuteDuration: string = '';
   customMinuteDuration: number = 0;
   negativeMarking: string = '';
-  marksEach: number=0;
-
+  marksEach = new FormControl('', [Validators.required, Validators.min(1)]);
   /*examNameControl = new FormControl('', [
     Validators.required,
     Validators.pattern('[a-zA-Z ]*')
@@ -49,7 +48,6 @@ export class ExamFormComponent {
       default:
         percentage = 0;
     }
-
     let durationInMinutes: number;
     if (this.durationType === 'Hours') {
       durationInMinutes = parseInt(this.hourDuration) * 60;
@@ -60,7 +58,7 @@ export class ExamFormComponent {
       name: this.examName,
       duration_minutes: durationInMinutes,
       negative_marking_percentage: percentage, 
-      marksEach: this.marksEach
+      marksEach: this.marksEach.value
     };
   
     this.http.post('http://127.0.0.1:8000/exam-form/', formData).subscribe((response: any) => {

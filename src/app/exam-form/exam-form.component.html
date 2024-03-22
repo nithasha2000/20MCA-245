@@ -70,10 +70,17 @@
       <option value="false">No</option>
     </select>
   </div>
-  <div class="form-group">
-        <label for="marksEach">Marks for each question :</label>
-        <input type="number" id="marksEach" [(ngModel)]="marksEach" min="1" required>
+ <div class="form-group">
+  <label for="marksEach">Marks for each question:</label>
+  <input type="number" id="marksEach" [formControl]="marksEach">
+  <div *ngIf="marksEach.invalid && (marksEach.dirty || marksEach.touched)">
+    <div *ngIf="marksEach.errors">
+      <div *ngIf="marksEach.errors['required']" class="error-message">* Marks for each question is required.</div>
+      <div *ngIf="marksEach.errors['min']" class="error-message">* Marks for each question must be at least 1.</div>
+    </div>
   </div>
+</div>
+
 
   <div class="form-group">
     <button type="button" class="submit-btn" (click)="submitForm()">Submit</button>
